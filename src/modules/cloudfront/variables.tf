@@ -28,8 +28,6 @@ variable "signing_protocol" {
 #placeholder
 variable "primary_bucket_domain_name" {}
 variable "failover_bucket_domain_name" {}
-# variable "primary_bucket_arn" {}
-# variable "failover_bucket_arn" {}
 
 variable "cf_origin_id" {
   default = ["primary_bucket", "failover_bucket"]
