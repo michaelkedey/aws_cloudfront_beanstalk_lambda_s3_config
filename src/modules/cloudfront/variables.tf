@@ -31,7 +31,7 @@ variable "failover_bucket_domain_name" {}
 
 variable "cf_origin_id" {
   default = ["primary_bucket", "failover_bucket"]
-  
+
 }
 
 variable "cf_enabled" {
@@ -42,7 +42,7 @@ variable "cf_enabled" {
 
 variable "methods" {
   default = ["GET", "HEAD"]
-  type    = list
+  type    = list(any)
 }
 
 variable "cf_target_origin_id" {
@@ -58,7 +58,7 @@ variable "query_string" {
 
 variable "cf_forward_headers" {
   default = ["Origin", "Access-Control-Request-Headers"]
-  type    = list
+  type    = list(any)
 
 }
 
@@ -104,7 +104,7 @@ variable "cf_restriction_type" {
 
 variable "cf_restriction_list" {
   default = ["US", "CA", "GH"]
-  type    = list
+  type    = list(any)
 
 }
 
@@ -120,6 +120,6 @@ variable "cf_logs_prefix" {
 
 variable "cf_failover_status_codes" {
   default = [0, 1, 2, 3, 4, 5, 6]
-  type    = list
+  type    = list(any)
 
 }

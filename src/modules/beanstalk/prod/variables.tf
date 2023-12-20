@@ -1,22 +1,22 @@
 variable "beanstalk_policy_name" {
   default = "beanstalk_policy"
-  type = string
+  type    = string
 }
 
 variable "beanstalk_role" {
- default = "beanstalk_s3 role" 
- type = string
+  default = "beanstalk_s3 role"
+  type    = string
 }
 
 variable "settings_name" {
   default = {
-    vpc = "VPCId",
-    sn = "Subnets",
+    vpc         = "VPCId",
+    sn          = "Subnets",
     iam_profile = "IamInstanceProfile",
-    instance = "InstanceType",
-    asg_min = "MinSize",
-    asg_max = "MaxSize",
-    i_type = "InstanceType"
+    instance    = "InstanceType",
+    asg_min     = "MinSize",
+    asg_max     = "MaxSize",
+    i_type      = "InstanceType"
   }
 }
 
@@ -37,34 +37,34 @@ variable "settings_name" {
 
 
 #placeholders for customization
-variable "vpc_id" { 
-     description = "The VPC where Beanstalk should be launched."
-     type = string 
-    }
+variable "vpc_id" {
+  description = "The VPC where Beanstalk should be launched."
+  type        = string
+}
 
 variable "subnet_ids" {
-    description = "list of subnets where Beanstalk should be launched."
-    
+  description = "list of subnets where Beanstalk should be launched."
+
 }
 
 variable "instance_type" {
   description = "type of EC2 instances to launch in Beanstalk."
-  type = string
+  type        = string
 }
 
 variable "min_instances" {
   description = "minimum number of instances in the asg"
-  type = number
+  type        = number
 }
 
 variable "max_instances" {
   description = "maximum number of instances in the asg"
-  type = number
+  type        = number
 }
 
 variable "stickiness_enabled" {
   description = "Enable or disable stickiness for the environment."
-  type = bool
+  type        = bool
 }
 
 variable "custom_domain" {

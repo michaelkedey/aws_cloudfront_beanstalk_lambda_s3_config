@@ -10,7 +10,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = aws_iam_role.beanstalk_s3_role.name
   }
 
-   setting {
+  setting {
     namespace = "aws:ec2:vpc"
     name      = var.settings_name["vpc"]
     value     = var.vpc_id
@@ -23,41 +23,41 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   }
 
   setting {
-  namespace = "aws:autoscaling:launchconfiguration"
-  name      = var.settings_name["i_type"]
-  value     = var.instance_type
-}
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = var.settings_name["i_type"]
+    value     = var.instance_type
+  }
 
-setting {
-  namespace = "aws:autoscaling:launchconfiguration"
-  name      = var.settings_name["asg_min"]
-  value     = var.min_instances
-}
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = var.settings_name["asg_min"]
+    value     = var.min_instances
+  }
 
-setting {
-  namespace = "aws:autoscaling:launchconfiguration"
-  name      = var.settings_name["asg_max"]
-  value     = var.max_instances
-}
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = var.settings_name["asg_max"]
+    value     = var.max_instances
+  }
 
-setting {
-  namespace = "aws:elasticbeanstalk:healthreporting:system"
-  name      = "SystemType"
-  value     = "enhanced"
-}
+  setting {
+    namespace = "aws:elasticbeanstalk:healthreporting:system"
+    name      = "SystemType"
+    value     = "enhanced"
+  }
 
 
 }
 
 #iam policy
 resource "aws_iam_policy" "beanstalk_policy" {
-  name = var.beanstalk_policy_name
+  name   = var.beanstalk_policy_name
   policy = file("${path.module}/beanstalkpolicy.json")
 }
 
 #iam role
 resource "aws_iam_role" "beanstalk_s3_role" {
-  name = var.beanstalk_role
+  name               = var.beanstalk_role
   assume_role_policy = aws_iam_policy.beanstalk_policy
 }
 

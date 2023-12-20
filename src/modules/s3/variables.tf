@@ -1,5 +1,5 @@
 variable "name" {
-  
+
 }
 
 variable "tags_all" {
@@ -18,15 +18,15 @@ variable "file_path" {
 
 variable "suffix" {
   default = "index.html"
-  type = string
+  type    = string
 }
 
 variable "version_status" {
   default = "Enabled"
-  type = string
+  type    = string
 }
 
 variable "acl" {
   default = "private"
-  type = string
+  type    = string
 }

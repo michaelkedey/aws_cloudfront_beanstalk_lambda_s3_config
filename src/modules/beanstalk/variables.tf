@@ -25,12 +25,12 @@ variable "tier" {
 }
 
 variable "app_desc" {
-  type = string
+  type    = string
   default = "bid app"
 }
 
 
 
 #place holders
-variable "bucket" {type = string}
-variable "key" {type = string}
+variable "bucket" { type = string }
+variable "key" { type = string }
