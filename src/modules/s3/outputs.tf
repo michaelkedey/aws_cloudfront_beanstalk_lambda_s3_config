@@ -14,3 +14,7 @@ output "bucket_id" {
   value = aws_s3_bucket.bid_bucket.id
 }
 
+output "static_site_dns" {
+  value = aws_s3_bucket.bid_bucket.website_endpoint
+}
+

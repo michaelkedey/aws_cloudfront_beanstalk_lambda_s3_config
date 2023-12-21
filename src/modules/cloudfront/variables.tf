@@ -27,7 +27,9 @@ variable "signing_protocol" {
 
 #placeholder
 variable "primary_bucket_domain_name" {}
-variable "failover_bucket_domain_name" {}
+
+#uncomment when you have multiple origins
+#variable "failover_bucket_domain_name" {}
 
 variable "cf_origin_id" {
   default = ["primary_bucket", "failover_bucket"]

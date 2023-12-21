@@ -31,11 +31,11 @@ resource "aws_s3_object" "html_files" {
   key    = each.value
   source = "${var.file_path}/${each.value}"
   etag   = filebase64("${var.file_path}/${each.value}")
-  content_type = lookup({
-    ".html" = "text/html",
-    ".jpeg" = "image/jpeg",
-    ".jpg"  = "image/jpeg",
-  }, fileext(each.value), "application/octet-stream") #default for unknown types
+  # content_type = lookup({
+  #   ".html" = "text/html",
+  #   ".jpeg" = "image/jpeg",
+  #   ".jpg"  = "image/jpeg",
+  # }, fileset(each.value), "application/octet-stream") #default for unknown types
 
   depends_on = [
     aws_s3_bucket.bid_bucket
@@ -44,7 +44,7 @@ resource "aws_s3_object" "html_files" {
 
 #configure static server
 resource "aws_s3_bucket_website_configuration" "static-website" {
-  bucket = aws_s3_bucket.bid.id
+  bucket = aws_s3_bucket.bid_bucket.id
 
   index_document {
     suffix = var.suffix
@@ -57,7 +57,7 @@ resource "aws_s3_bucket_website_configuration" "static-website" {
 
 #enable bucket versioning
 resource "aws_s3_bucket_versioning" "my-static-website" {
-  bucket = aws_s3_bucket.bid.id
+  bucket = aws_s3_bucket.bid_bucket.id
   versioning_configuration {
     status = var.version_status
   }

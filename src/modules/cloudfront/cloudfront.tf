@@ -15,20 +15,21 @@ resource "aws_cloudfront_distribution" "bid_distribution" {
     origin_access_control_id = aws_cloudfront_origin_access_control.bid_cf_s3_oac.id
   }
 
-  origin {
-    domain_name = var.failover_bucket_domain_name
-    origin_id   = var.cf_origin_id[1]
+  #uncomment code below to set 2 origin buckets for cf
+  # origin {
+  #   domain_name = var.failover_bucket_domain_name
+  #   origin_id   = var.cf_origin_id[1]
 
-    origin_access_control_id = aws_cloudfront_origin_access_control.bid_cf_s3_oac.id
+  #   origin_access_control_id = aws_cloudfront_origin_access_control.bid_cf_s3_oac.id
 
-  }
+  # }
 
   enabled = var.cf_enabled
 
   default_cache_behavior {
     allowed_methods  = var.methods
     cached_methods   = var.methods
-    target_origin_id = var.cf_target_origin_id
+    target_origin_id = var.cf_origin_id[0] #change to dist id when you have multiple origins in origin group
 
     forwarded_values {
       query_string = var.query_string
@@ -69,21 +70,22 @@ resource "aws_cloudfront_distribution" "bid_distribution" {
   #web_acl_id = aws_wafregional_web_acl.example.id
   #implement waf later
 
-  origin_group {
-    origin_id = var.cf_target_origin_id
+  #uncomment when you have 2 or more origins and modify appropriately
+  # origin_group {
+  #   origin_id = var.cf_target_origin_id
 
-    member {
-      origin_id = var.cf_origin_id[0]
-    }
+  #   member {
+  #     origin_id = var.cf_origin_id[0]
+  #   }
 
-    member {
-      origin_id = var.cf_origin_id[1]
-    }
+  #   member {
+  #     origin_id = var.cf_origin_id[1]
+  #   }
 
-    failover_criteria {
-      status_codes = var.cf_failover_status_codes
-    }
-  }
+  #   failover_criteria {
+  #     status_codes = var.cf_failover_status_codes
+  #   }
+  # }
 
 
 }
