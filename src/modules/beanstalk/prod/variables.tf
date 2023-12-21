@@ -103,7 +103,8 @@ variable "env" {
 
 variable "stack" {
   default = {
-    linux   = "64bit Amazon Linux 2015.03 v2.0.3 running ASP.NET Core 6.0",
+    # linux   = "64bit Amazon Linux 2 v4.0.0 running ASP.NET Core 6.0",
+    linux = "64bit Amazon Linux 2023 v3.0.2 running .NET 6",
     windows = "64bit Windows Server 2022 v2.14.0 running ASP.NET Core 6.0"
   }
 
@@ -115,7 +116,7 @@ variable "tier" {
 }
 
 variable "env_name" {
-  default = "bid"
+  default = "bidproject"
 }
 
 #place holders

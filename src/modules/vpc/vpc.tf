@@ -212,18 +212,18 @@ resource "aws_lb_listener" "lb_listener_http" {
   tags = var.tags_all
 }
 
-#load balancer traffic listener https
-resource "aws_lb_listener" "lb_listener_https" {
-  load_balancer_arn = aws_lb.bid_lb.arn
-  port              = var.tg-port0
-  protocol          = var.protocols0
+# #load balancer traffic listener https
+# resource "aws_lb_listener" "lb_listener_https" {
+#   load_balancer_arn = aws_lb.bid_lb.arn
+#   port              = var.tg-port0
+#   protocol          = var.protocols0
 
-  default_action {
-    type             = var.lb_default_action
-    target_group_arn = aws_lb_target_group.bid-lb-tg2.arn
-  }
-  tags = var.tags_all
-}
+#   default_action {
+#     type             = var.lb_default_action
+#     target_group_arn = aws_lb_target_group.bid-lb-tg2.arn
+#   }
+#   tags = var.tags_all
+# }
 
 #target group for load balancer - http
 resource "aws_lb_target_group" "bid_lb-tg1" {
