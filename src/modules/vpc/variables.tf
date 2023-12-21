@@ -27,10 +27,10 @@ variable "vpc_names" {
     public_rt    = "bid_public_rt",
     private_rt   = "bid_private_rt",
     beanstalk_sg = "bid_beanstalk_sg",
-    lb           = "bid_lb",
-    lb_tg1       = "bid_lb_tg_http",
-    lb_tg2       = "bid_lb_tg_https",
-    lb_sg        = "bid_lb_sg"
+    lb           = "bid-lb",
+    lb-tg1       = "bid-lb-tg-http",
+    lb-tg2       = "bid-lb-tg-https",
+    lb_sg        = "bid-lb_sg"
 
   }
 

@@ -47,3 +47,8 @@ output "internet_gateway_id" {
 output "nat_gateway_ids" {
   value = aws_nat_gateway.bid_ngw.id
 }
+
+#lb
+output "load_balancer" {
+  value = aws_lb.bid_lb.name
+}

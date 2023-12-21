@@ -20,27 +20,39 @@ output "static_site_dns" {
 }
 
 
-#cf
-output "cloudfront_domain_name" {
-  value = module.cf.cloudfront_domain_name
+# #cf
+# output "cloudfront_domain_name" {
+#   value = module.cf.cloudfront_domain_name
+# }
+
+# output "cloudfront_distribution_id" {
+#   value = module.cf.cloudfront_distribution_id
+# }
+
+# output "cloudfront_status" {
+#   value = module.cf.cloudfront_status
+# }
+
+# output "cloudfront_arn" {
+#   value = module.cf.cloudfront_arn
+
+# }
+# output "cloudfront_caching_behavior" {
+#   value = module.cf.cloudfront_caching_behavior
+# }
+# output "cloudfront_viewer_certificate" {
+#   value = module.cf.cloudfront_viewer_certificate
+# }
+
+#beanstalk
+output "environment_id" {
+  value = module.beanstalk.environment_id
 }
 
-output "cloudfront_distribution_id" {
-  value = module.cf.cloudfront_distribution_id
+output "environment_name" {
+  value = module.beanstalk.environment_name
 }
 
-output "cloudfront_status" {
-  value = module.cf.cloudfront_status
+output "instance_ids" {
+  value = module.beanstalk.instance_ids
 }
-
-output "cloudfront_arn" {
-  value = module.cf.cloudfront_arn
-
-}
-output "cloudfront_caching_behavior" {
-  value = module.cf.cloudfront_caching_behavior
-}
-output "cloudfront_viewer_certificate" {
-  value = module.cf.cloudfront_viewer_certificate
-}
-

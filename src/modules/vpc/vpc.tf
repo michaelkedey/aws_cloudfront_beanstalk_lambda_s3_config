@@ -207,7 +207,7 @@ resource "aws_lb_listener" "lb_listener_http" {
 
   default_action {
     type             = var.lb_default_action
-    target_group_arn = aws_lb_target_group.bid_lb_tg1.arn
+    target_group_arn = aws_lb_target_group.bid_lb-tg1.arn
   }
   tags = var.tags_all
 }
@@ -220,14 +220,14 @@ resource "aws_lb_listener" "lb_listener_https" {
 
   default_action {
     type             = var.lb_default_action
-    target_group_arn = aws_lb_target_group.bid_lb_tg2.arn
+    target_group_arn = aws_lb_target_group.bid-lb-tg2.arn
   }
   tags = var.tags_all
 }
 
 #target group for load balancer - http
-resource "aws_lb_target_group" "bid_lb_tg1" {
-  name     = var.vpc_names["lb_tg1"]
+resource "aws_lb_target_group" "bid_lb-tg1" {
+  name     = var.vpc_names["lb-tg1"]
   port     = var.ports[1]
   protocol = var.protocols[1]
   vpc_id   = aws_vpc.bid_vpc.id
@@ -235,14 +235,14 @@ resource "aws_lb_target_group" "bid_lb_tg1" {
   tags = merge(
     var.tags_all,
     {
-      Name = var.vpc_names["lb_tg1"]
+      Name = var.vpc_names["lb-tg1"]
     }
   )
 }
 
 #target group for load balancer - https
-resource "aws_lb_target_group" "bid_lb_tg2" {
-  name     = var.vpc_names["lb_tg2"]
+resource "aws_lb_target_group" "bid-lb-tg2" {
+  name     = var.vpc_names["lb-tg2"]
   port     = var.ports[0]
   protocol = var.protocols[0]
   vpc_id   = aws_vpc.bid_vpc.id
@@ -250,7 +250,7 @@ resource "aws_lb_target_group" "bid_lb_tg2" {
   tags = merge(
     var.tags_all,
     {
-      Name = var.vpc_names["lb_tg2"]
+      Name = var.vpc_names["lb-tg2"]
     }
   )
 }
@@ -258,7 +258,7 @@ resource "aws_lb_target_group" "bid_lb_tg2" {
 #associate the instance with the target group - http
 resource "aws_lb_target_group_attachment" "bid_tg_attachment1" {
   for_each         = toset(var.instance_ids)
-  target_group_arn = aws_lb_target_group.bid_lb_tg1.arn
+  target_group_arn = aws_lb_target_group.bid_lb-tg1.arn
   target_id        = each.value
   port             = var.ports[1]
 }
@@ -266,7 +266,7 @@ resource "aws_lb_target_group_attachment" "bid_tg_attachment1" {
 #associate the instance with the target group - https
 resource "aws_lb_target_group_attachment" "bid_tg_attachment2" {
   for_each         = toset(var.instance_ids)
-  target_group_arn = aws_lb_target_group.bid_lb_tg2.arn
+  target_group_arn = aws_lb_target_group.bid-lb-tg2.arn
   target_id        = each.value
   port             = var.ports[0]
 }
