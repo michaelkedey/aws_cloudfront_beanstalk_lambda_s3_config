@@ -7,8 +7,8 @@ module "primary_bucket" {
 
 #create cloudfront distribution
 module "cf" {
-  source                      = "./modules/cloudfront"
-  primary_bucket_domain_name  = module.primary_bucket.bucket_domain_name
+  source                     = "./modules/cloudfront"
+  primary_bucket_domain_name = module.primary_bucket.bucket_domain_name
 }
 
 #create and attache cf bucket policy
