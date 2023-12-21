@@ -7,11 +7,11 @@ resource "aws_elastic_beanstalk_application" "bid_app" {
 resource "aws_elastic_beanstalk_environment" "prod" {
   name                = var.env_name
   application         = aws_elastic_beanstalk_application.bid_app.name
-  solution_stack_name = var.stack["windows"]
+  solution_stack_name = var.stack["linux"]
   tier                = var.tier
 
   setting {
-    namespace = "aws:autoscaling:launchconfiguration"
+    namespace = "aws:autoscaling:asg"
     name      = var.settings_name["iam_profile"]
     value     = aws_iam_role.beanstalk_s3_role.name
   }
@@ -29,19 +29,19 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   }
 
   setting {
-    namespace = "aws:autoscaling:launchconfiguration"
+    namespace = "aws:autoscaling:asg"
     name      = var.settings_name["i_type"]
     value     = var.instance_type
   }
 
   setting {
-    namespace = "aws:autoscaling:launchconfiguration"
+    namespace = "aws:autoscaling:asg"
     name      = var.settings_name["asg_min"]
     value     = var.min_instances
   }
 
   setting {
-    namespace = "aws:autoscaling:launchconfiguration"
+    namespace = "aws:autoscaling:asg"
     name      = var.settings_name["asg_max"]
     value     = var.max_instances
   }
@@ -73,21 +73,41 @@ resource "aws_elastic_beanstalk_environment" "prod" {
 
 
 #iam policy
-resource "aws_iam_policy" "beanstalk_policy" {
-  name   = var.beanstalk_policy_name
-  policy = file("${path.module}/beanstalkpolicy.json")
-}
+# resource "aws_iam_policy" "beanstalk_policy" {
+#   name   = var.beanstalk_policy_name
+#   policy = file("${path.module}/beanstalkpolicy.json")
+# }
 
-#iam role
+# #iam role
+# resource "aws_iam_role" "beanstalk_s3_role" {
+#   name               = var.beanstalk_role
+#   assume_role_policy = aws_iam_policy.beanstalk_policy.policy_id
+# }
+
+#from chatgpt
 resource "aws_iam_role" "beanstalk_s3_role" {
   name               = var.beanstalk_role
-  assume_role_policy = aws_iam_policy.beanstalk_policy.policy_id
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "elasticbeanstalk.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
 }
 
+
 #iam policy attachememnt
-resource "aws_iam_role_policy_attachment" "beanstalk_s3_policy_attachment" {
-  policy_arn = aws_iam_policy.beanstalk_policy.arn
-  role       = aws_iam_role.beanstalk_s3_role.name
-}
+# resource "aws_iam_role_policy_attachment" "beanstalk_s3_policy_attachment" {
+#   policy_arn = aws_iam_policy.beanstalk_policy.arn
+#   role       = aws_iam_role.beanstalk_s3_role.name
+# }
 
 

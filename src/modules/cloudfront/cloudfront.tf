@@ -61,11 +61,11 @@ resource "aws_cloudfront_distribution" "bid_distribution" {
     }
   }
 
-  logging_config {
-    bucket          = var.primary_bucket_domain_name
-    include_cookies = var.log_cookies
-    prefix          = var.cf_logs_prefix
-  }
+  # logging_config {
+  #   bucket          = var.primary_bucket_domain_name
+  #   include_cookies = var.log_cookies
+  #   prefix          = var.cf_logs_prefix
+  # }
 
   #web_acl_id = aws_wafregional_web_acl.example.id
   #implement waf later

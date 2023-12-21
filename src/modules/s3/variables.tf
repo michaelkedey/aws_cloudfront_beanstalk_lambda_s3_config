@@ -1,5 +1,5 @@
 variable "name" {
-
+  default = "bid_bucketjomacs"
 }
 
 variable "tags_all" {
