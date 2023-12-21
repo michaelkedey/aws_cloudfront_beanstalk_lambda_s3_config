@@ -129,17 +129,26 @@ variable "load_balancer_type" {
   type    = string
 }
 
-variable "ports" {
-  default   = [443, 80, 0]
-  sensitive = true
-  type      = list(number)
+variable "tg-port0"{
+  default = 443
+  type = number
 }
 
-variable "protocols" {
-  default     = ["HTTPS", "HTTP", -1, "tcp"]
-  description = "allow only tcp traffic in"
-  type        = list(any)
-  sensitive   = true
+variable "tg-port1" {
+  default = 80
+  type = number
+}
+
+variable "protocols0" {
+  default = "HTTPS"
+}
+
+variable "protocols1" {
+  default = "HTTP"
+}
+
+variable "protocols2" {
+  default = "tcp"
 }
 
 variable "lb_default_action" {
