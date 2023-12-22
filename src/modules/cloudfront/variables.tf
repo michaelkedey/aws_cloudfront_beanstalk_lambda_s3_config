@@ -26,15 +26,13 @@ variable "signing_protocol" {
 
 
 #placeholder
-variable "primary_bucket_domain_name" {}
+variable "bucket_domain_name" {}
 
 #uncomment when you have multiple origins
 #variable "failover_bucket_domain_name" {}
 
-variable "cf_origin_id" {
-  default = ["primary_bucket", "failover_bucket"]
-
-}
+#placeholder
+#variable "cf_origin_id" {}
 
 variable "cf_enabled" {
   default     = true
@@ -125,3 +123,6 @@ variable "cf_failover_status_codes" {
   type    = list(any)
 
 }
+
+#placeholder
+variable "cf_origin_id" {}
