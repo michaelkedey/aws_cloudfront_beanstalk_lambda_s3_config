@@ -10,8 +10,9 @@ resource "aws_cloudfront_origin_access_control" "bid_cf_s3_oac" {
 #cloudfront distribution
 resource "aws_cloudfront_distribution" "bid_distribution" {
   origin {
-    domain_name              = var.primary_bucket_domain_name
-    origin_id                = var.cf_origin_id[0]
+
+    domain_name              = var.bucket_domain_name
+    origin_id                = var.cf_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.bid_cf_s3_oac.id
   }
 
@@ -29,7 +30,7 @@ resource "aws_cloudfront_distribution" "bid_distribution" {
   default_cache_behavior {
     allowed_methods  = var.methods
     cached_methods   = var.methods
-    target_origin_id = var.cf_origin_id[0] #change to dist id when you have multiple origins in origin group
+    target_origin_id = var.cf_origin_id #change to dist id when you have multiple origins in origin group
 
     forwarded_values {
       query_string = var.query_string

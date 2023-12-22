@@ -1,19 +1,13 @@
 #bucket
 resource "aws_s3_bucket" "bid_bucket" {
-  bucket = var.name
+  bucket = var.bucket_name
   tags = merge(
     var.tags_all,
     {
-      Name = var.name
+      Name = var.bucket_name
     }
   )
 }
-
-#bucket acl
-# resource "aws_s3_bucket_acl" "s3_bucket_acl" {
-#   bucket = aws_s3_bucket.bid_bucket.id
-#   acl    = var.acl
-# }
 
 resource "aws_s3_bucket_public_access_block" "block_public_access" {
   bucket                  = aws_s3_bucket.bid_bucket.id
@@ -25,50 +19,32 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
 
 #web file objects
 resource "aws_s3_object" "html_files" {
-  for_each = fileset(var.file_path, "**/*")
+  for_each = fileset("${path.module}/${var.files}", "**/*.*")
 
-  bucket = aws_s3_bucket.bid_bucket.id
-  key    = each.value
-  source = "${var.file_path}/${each.value}"
-  etag   = filebase64("${var.file_path}/${each.value}")
-  # content_type = lookup({
-  #   ".html" = "text/html",
-  #   ".jpeg" = "image/jpeg",
-  #   ".jpg"  = "image/jpeg",
-  # }, fileset(each.value), "application/octet-stream") #default for unknown types
-
-  depends_on = [
-    aws_s3_bucket.bid_bucket
-  ]
+  bucket       = aws_s3_bucket.bid_bucket.id
+  key          = each.value
+  source       = "${path.module}/${var.files}/${each.value}"
+  etag         = filebase64("${path.module}/${var.files}/${each.value}")
+  content_type = each.value
+  acl          = var.acl_type
 }
 
-#configure static server
 resource "aws_s3_bucket_website_configuration" "static-website" {
   bucket = aws_s3_bucket.bid_bucket.id
 
   index_document {
-    suffix = var.suffix
+    suffix = var.file
   }
 
   # error_document {
-  #   key = var.error
+  #   key = var.file
   # }
 }
 
-#enable bucket versioning
 resource "aws_s3_bucket_versioning" "my-static-website" {
   bucket = aws_s3_bucket.bid_bucket.id
   versioning_configuration {
     status = var.version_status
   }
 }
-
-
-
-
-
-
-
-
-
 

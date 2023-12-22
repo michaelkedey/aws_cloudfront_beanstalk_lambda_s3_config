@@ -1,5 +1,5 @@
-variable "name" {
-  default = "bid_bucketjomacs"
+variable "bucket_name" {
+
 }
 
 variable "tags_all" {
@@ -28,5 +28,18 @@ variable "version_status" {
 
 variable "acl" {
   default = "private"
+  type    = string
+}
+
+variable "files" {
+  default = "./html"
+}
+
+variable "file" {
+  default = "index.html"
+}
+
+variable "acl_type" {
+  default = "public-read"
   type    = string
 }

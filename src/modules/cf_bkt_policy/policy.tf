@@ -7,17 +7,19 @@ resource "aws_s3_bucket_policy" "cf_oac_bucket_policy" {
 
 data "aws_iam_policy_document" "cf_s3_bucket_policy" {
   statement {
-    actions = [ "s3:GetObject" ]
-    resources = [ "${var.bucket_arn}/*" ]
+    actions   = ["s3:GetObject"]
+    resources = ["${var.bucket_arn}/*"]
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["cloudfront.amazonaws.com"]
     }
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values = [var.cloudfront_arn]
+      values   = [var.cloudfront_arn]
     }
   }
 }
+
+
 

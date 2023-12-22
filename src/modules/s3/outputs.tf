@@ -18,3 +18,5 @@ output "static_site_dns" {
   value = aws_s3_bucket.bid_bucket.website_endpoint
 }
 
+
+
