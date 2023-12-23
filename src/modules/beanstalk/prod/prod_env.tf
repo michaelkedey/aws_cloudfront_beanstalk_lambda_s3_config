@@ -2,13 +2,13 @@ resource "aws_elastic_beanstalk_application" "bid_app" {
   name = var.app_name
 }
 
-resource "aws_elastic_beanstalk_application_version" "bid_app_version" {
-  bucket      = var.bucket_name
-  name        = var.app_name
-  application = aws_elastic_beanstalk_application.bid_app.id
-  key         = var.app_key
+# resource "aws_elastic_beanstalk_application_version" "bid_app_version" {
+#   bucket      = var.bucket_name
+#   name        = var.app_name
+#   application = aws_elastic_beanstalk_application.bid_app.id
+#   key         = var.app_key
 
-}
+# }
 
 
 resource "aws_elastic_beanstalk_environment" "prod" {
@@ -18,7 +18,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   tier                = var.tier
 
   # Reference existing S3 version
-  version_label = var.app_key
+  #version_label = var.app_key
 
   # Network configuration
   setting {
@@ -48,7 +48,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
-    value     = sgs
+    value     = var.sgs
   }
 
   setting {
@@ -87,6 +87,18 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = var.max_instances
   }
 
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "LAMBDA_FUNCTION_NAME"
+    value     = var.lambda_function_name
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "AWS_REGION"
+    value     = var.aws_region
+  }
+
 }
 
 resource "aws_iam_role" "beanstalk_s3_role" {
@@ -113,19 +125,20 @@ resource "aws_iam_role_policy_attachment" "beanstalk_s3_access" {
   policy_arn = var.beanstalk_s3_access
 }
 
-resource "aws_elastic_beanstalk_environment_variable" "app_settings" {
-  environment_name = aws_elastic_beanstalk_environment.app.name
-  namespace        = "application"
-  name             = "LAMBDA_FUNCTION_NAME"
-  value            = var.lambda_function_name
-}
-resource "aws_elastic_beanstalk_environment_variable" "app_settings2" {
-  environment_name = aws_elastic_beanstalk_environment.app.name
-  namespace        = "application"
-  name             = "AWS_REGION"
-  value            = var.aws_region
+# resource "aws_elastic_beanstalk_environment_variable" "app_settings" {
+#   environment_name = aws_elastic_beanstalk_environment.app.name
+#   namespace        = "application"
+#   name             = "LAMBDA_FUNCTION_NAME"
+#   value            = var.lambda_function_name
+# }
 
-}
+# resource "aws_elastic_beanstalk_environment_variable" "app_settings2" {
+#   environment_name = aws_elastic_beanstalk_environment.app.name
+#   namespace        = "application"
+#   name             = "AWS_REGION"
+#   value            = var.aws_region
+
+# }
 
 
 

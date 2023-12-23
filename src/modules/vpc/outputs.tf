@@ -59,6 +59,10 @@ output "beanstalk_subnets" {
 }
 
 output "beanstalk_sgs" {
-  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+  value = aws_security_group.beanstalk_sg
 }
+
+# output "lambda_sn" {
+#   value = toset([aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+# }
 
