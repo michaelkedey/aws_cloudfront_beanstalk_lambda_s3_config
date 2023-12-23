@@ -26,7 +26,6 @@ resource "aws_s3_object" "html_files" {
   source       = "${path.module}/${var.files}/${each.value}"
   etag         = filebase64("${path.module}/${var.files}/${each.value}")
   content_type = each.value
-  #acl          = var.acl_type
 }
 
 resource "aws_s3_bucket_website_configuration" "static-website" {
