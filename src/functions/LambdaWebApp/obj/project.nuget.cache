@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "Np3cAr+//NGVKGRk4uvf9b/XMORlnJZCSr1fxTFVnvGJiN9HQ39VdqigGev8I5sNjV4fKcAjB+RXdNRvIJ5oBA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\RINGROW\\Desktop\\project_dollars\\aws_cloudfront_beanstalk_lambda_s3_config\\src\\functions\\LambdaWebApp\\LambdaWebApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\RINGROW\\.nuget\\packages\\awssdk.core\\3.7.0\\awssdk.core.3.7.0.nupkg.sha512",
+    "C:\\Users\\RINGROW\\.nuget\\packages\\awssdk.lambda\\3.7.0\\awssdk.lambda.3.7.0.nupkg.sha512",
+    "C:\\Users\\RINGROW\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\8.0.0\\microsoft.aspnetcore.jsonpatch.8.0.0.nupkg.sha512",
+    "C:\\Users\\RINGROW\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\8.0.0\\microsoft.aspnetcore.mvc.newtonsoftjson.8.0.0.nupkg.sha512",
+    "C:\\Users\\RINGROW\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\RINGROW\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\RINGROW\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

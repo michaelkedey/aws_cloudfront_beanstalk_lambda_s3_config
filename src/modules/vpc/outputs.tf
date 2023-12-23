@@ -52,3 +52,13 @@ output "nat_gateway_ids" {
 output "load_balancer" {
   value = aws_lb.bid_lb.name
 }
+
+#beanstalk instances usbnets
+output "beanstalk_subnets" {
+  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+}
+
+output "beanstalk_sgs" {
+  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+}
+

@@ -129,14 +129,14 @@ variable "load_balancer_type" {
   type    = string
 }
 
-variable "tg-port0"{
+variable "tg-port0" {
   default = 443
-  type = number
+  type    = number
 }
 
 variable "tg-port1" {
   default = 80
-  type = number
+  type    = number
 }
 
 variable "protocols0" {
