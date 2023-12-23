@@ -25,21 +25,23 @@ output "cloudfront_domain_name" {
   value = module.cf.cloudfront_domain_name
 }
 
-output "cloudfront_distribution_id" {
-  value = module.cf.cloudfront_distribution_id
-}
+# output "cloudfront_distribution_id" {
+#   value = module.cf.cloudfront_distribution_id
+# }
 
-output "cloudfront_status" {
-  value = module.cf.cloudfront_status
-}
+# output "cloudfront_status" {
+#   value = module.cf.cloudfront_status
+# }
 
-output "cloudfront_arn" {
-  value = module.cf.cloudfront_arn
+# output "cloudfront_arn" {
+#   value = module.cf.cloudfront_arn
 
-}
-output "cloudfront_caching_behavior" {
-  value = module.cf.cloudfront_caching_behavior
-}
+# }
+
+# output "cloudfront_caching_behavior" {
+#   value = module.cf.cloudfront_caching_behavior
+# }
+
 output "cloudfront_viewer_certificate" {
   value = module.cf.cloudfront_viewer_certificate
 }
@@ -57,24 +59,25 @@ output "sn_private1_id" {
 }
 
 output "sn_private2_id" {
-  value = module.vpc.sn_private2.id
+  value = module.vpc.sn_private2_id
 }
 
 output "sn_public1_id" {
-  value = module.vpc.sn_public1.id
+  value = module.vpc.sn_public1_id
 }
 
 output "sn_public2_id" {
-  value = module.vpc.sn_public2.id
+  value = module.vpc.sn_public2_id
 }
 
 #sg_ids
 output "beanstalk_sg_id" {
-  value = module.vpc.beanstalk_sg.id
+  value     = module.vpc.beanstalk_sgs
+  sensitive = true
 }
 
 output "lb_sg_id" {
-  value = module.vpc.bid_lb_sg.id
+  value = module.vpc.lb_sg_id
 }
 
 # #rt_ids
@@ -98,18 +101,21 @@ output "lb_sg_id" {
 
 #lb
 output "load_balancer" {
-  value = module.vpc.bid_lb.name
+  value = module.vpc.load_balancer
 }
 
 #beanstalk instances usbnets
 output "beanstalk_subnets" {
-  value = join(",", [module.vpc.sn_private1.id, module.vpc.sn_private2.id])
+  value = join(",", [module.vpc.sn_private1_id, module.vpc.sn_private2_id])
 }
 
 output "app_or_function_output_path" {
-  value = module.archive.app_or_function_output_path
+  value = module.archive_files.app_or_function_output_path
 }
 
+output "src_code_hash" {
+  value = module.archive_files.src_code_hash
+}
 
 
 

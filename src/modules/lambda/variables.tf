@@ -29,7 +29,10 @@ variable "actions" {
     "s3:GetObject",
     "s3:PutObject",
     "s3:DeleteObject",
-    "s3:ListBucket"
+    "s3:ListBucket",
+    "ec2:CreateNetworkInterface",
+    "lambda:InvokeFunction",
+    "lambda:GetFunction",
 
   ]
   type = list(string)
@@ -93,7 +96,7 @@ variable "lambda_policy_name" {
 }
 
 #placeholders
-variable "sceurity_group_ids" {
+variable "security_group_ids" {
   type = set(string)
 }
 
@@ -113,7 +116,7 @@ variable "lambda_func_handler" {
 
 
 variable "vpc_subnet_ids" {
-  type = list(string)
+  type = set(string)
 }
 
 
@@ -122,3 +125,11 @@ variable "tracing_mode" {
 }
 
 variable "src_file_zip" {}
+
+variable "src_code_hash" {
+
+}
+
+variable "vpc_access_role" {
+  default = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+}
