@@ -47,7 +47,7 @@ variable "archive_type" {
 }
 
 variable "output_path" {
-  default = "lambda_function_payload.zip"
+  default = "./functions/lambda_function_payload.zip"
 }
 
 variable "lambda_func_name" {
@@ -97,6 +97,8 @@ variable "sceurity_group_ids" {
   type = set(string)
 }
 
+#variable "src_file" {}
+
 variable "bucket_arn" {}
 variable "event_source_arn" {}
 variable "bucket_name" {}
@@ -118,3 +120,5 @@ variable "vpc_subnet_ids" {
 variable "tracing_mode" {
   default = "Active"
 }
+
+variable "src_file_zip" {}

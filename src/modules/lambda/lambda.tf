@@ -34,14 +34,14 @@ resource "aws_iam_role_policy" "lambda_policy" {
   policy = data.aws_iam_policy_document.lambda_policy.json
 }
 
-data "archive_file" "lambda" {
-  type        = var.archive_type
-  source_file = ("${path.module}/${var.file_path}")
-  output_path = var.output_path
-}
+# data "archive_file" "lambda" {
+#   type        = var.archive_type
+#   source_file = ("${path.module}/${var.src_file}")
+#   output_path = ("${path.module}/${var.src_file}.zip")
+# }
 
 resource "aws_lambda_function" "bid_lambda_fn" {
-  filename      = var.output_path
+  filename      = var.src_file_zip
   function_name = var.lambda_function_name
   role          = aws_iam_role.lambda_iam.arn
   handler       = var.lambda_func_handler

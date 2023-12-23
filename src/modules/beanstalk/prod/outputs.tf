@@ -7,8 +7,9 @@ output "environment_name" {
 }
 
 output "instance_ids" {
-  value = aws_elastic_beanstalk_environment.prod.instances
+  value = join(",", aws_elastic_beanstalk_environment.prod.instances)
 }
+
 # output "load_balancer_dns_name" {
 #   value = aws_elastic_beanstalk_environment_resource.prod_elb.d
 # }

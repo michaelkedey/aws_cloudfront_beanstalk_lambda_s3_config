@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Save Name</title>
+</head>
+<body>
+    <h1>Save Name</h1>
+    <form method="post" action="/Home/SaveName">
+        <label for="name">Enter your name:</label>
+        <input type="text" name="name" id="name" required>
+        <button type="submit">Save</button>
+    </form>
+    <p>@ViewBag.Message</p>
+</body>
+</html>

@@ -5,33 +5,50 @@ module "primary_bucket" {
 
 }
 
-# #create vpc
-# module "vpc" {
-#   source       = "./modules/vpc"
-#   instance_ids = module.beanstalk.instance_ids
-# }
+#archive and upload function
+module "archive_files" {
+  source = "./modules/app_build"
+  src_file = "../functions/name_form.js"
+}
 
-# # #create lambda_f
-# # module "lambda" {
-# #   source             = "./modules/lambda"
-# #   sceurity_group_ids = [module.vpc.beanstalk_sg_id]
-# #   vpc_subnet_ids     = [module.vpc.sn_private1_id, module.vpc.sn_private2_id]
-# #   bucket_arn         = module.primary_bucket.bucket_arn
-# #   event_source_arn   = module.primary_bucket.bucket_arn
-# #   bucket_name        = module.primary_bucket.bucket_name
+module "upload" {
+  source = "./modules/bucket_uploads"
+  file_path = module.archive_files.app_or_function_output_path
+  s3_bucket_id = module.primary_bucket.bucket_id
+}
 
-# # }
+# #create lambda_f
+module "lambda" {
+  source             = "./modules/lambda"
+  sceurity_group_ids = module.vpc.beanstalk_sg_id
+  vpc_subnet_ids     = module.vpc.beanstalk_subnets
+  bucket_arn         = module.primary_bucket.bucket_arn
+  event_source_arn   = module.primary_bucket.bucket_arn
+  bucket_name        = module.primary_bucket.bucket_name
+  #src_file = module.archive.app_or_function_output_path
+  src_file_zip = module.archive.app_or_function_output_path
+}
+
+#create vpc
+module "vpc" {
+  source       = "./modules/vpc"
+  instance_ids = module.beanstalk.instance_ids
+}
 
 # #create beanstalk env
-# module "beanstalk" {
-#   source        = "./modules/beanstalk/prod"
-#   instance_type = "t2-micro"
-#   max_instances = 3
-#   min_instances = 2
-#   vpc_id        = module.vpc.vpc_id
-#   subnet_ids    = [module.vpc.sn_private1_id, module.vpc.sn_private2_id]
-
-# }
+module "beanstalk" {
+  source               = "./modules/beanstalk/prod"
+  instance_type        = "t2-micro"
+  max_instances        = 3
+  min_instances        = 2
+  vpc_id               = module.vpc.vpc_id
+  subnet_ids           = module.vpc.beanstalk_subnets
+  app_key              = module.archive.app_or_function_output_path
+  lb_name              = module.vpc.load_balancer
+  bucket_name          = module.primary_bucket.bucket_name
+  lambda_function_name = module.archive.app_or_function_output_path
+  sgs                  = module.vpc.beanstalk_sgs
+}
 
 #create cloudfront distribution
 module "cf" {

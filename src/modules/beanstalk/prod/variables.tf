@@ -1,3 +1,86 @@
+#placeholder
+variable "bucket_name" {}
+variable "app_key" {}
+variable "lb_name" {}
+variable "sgs" {}
+variable "instance_type" {}
+variable "lambda_function_name" {}
+
+variable "vpc_id" {
+  
+}
+
+variable "aws_region" {
+  default = "us-east-1"
+}
+
+variable "app_name" {
+  default = "bid_.net_app"
+}
+
+variable "lb_type" {
+  default = "existing"
+}
+
+variable "beanstalk_s3" {
+  default = "beanstalk-s3-role"
+
+}
+
+variable "beanstalk_s3_access" {
+  default = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+variable "asg_trigger" {
+  default = "CPUUtilization"
+}
+
+variable "asg_trigger_min" {
+  default = 40
+}
+
+variable "asg_trigger_max" {
+  default = 60
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 variable "beanstalk_policy_name" {
   default = "beanstalk_policy"
   type    = string
@@ -8,20 +91,20 @@ variable "beanstalk_role" {
   type    = string
 }
 
-variable "settings_name" {
-  default = {
-    vpc         = "VPCId",
-    sn          = "Subnets",
-    iam_profile = "IamInstanceProfile",
-    instance    = "InstanceType",
-    asg_min     = "MinSize",
-    asg_max     = "MaxSize",
-    i_type      = "InstanceType",
-    lb_type     = "LoadBalancerType",
-    system      = "SystemType",
-    lb_name     = "AWSEBLoadBalancer"
-  }
-}
+# variable "settings_name" {
+#   default = {
+#     vpc         = "VPCId",
+#     sn          = "Subnets",
+#     iam_profile = "IamInstanceProfile",
+#     instance    = "InstanceType",
+#     asg_min     = "MinSize",
+#     asg_max     = "MaxSize",
+#     i_type      = "InstanceType",
+#     lb_type     = "LoadBalancerType",
+#     system      = "SystemType",
+#     lb_name     = "AWSEBLoadBalancer"
+#   }
+# }
 
 # variable "instance_type" {
 #   default = "t2_micro"
@@ -40,10 +123,10 @@ variable "settings_name" {
 
 
 #placeholders for customization
-variable "vpc_id" {
-  description = "The VPC where Beanstalk should be launched."
-  type        = string
-}
+# variable "vpc_id" {
+#   description = "The VPC where Beanstalk should be launched."
+#   type        = string
+# }
 
 variable "subnet_ids" {
   description = "list of subnets where Beanstalk should be launched."
@@ -51,10 +134,10 @@ variable "subnet_ids" {
 
 }
 
-variable "instance_type" {
-  description = "type of EC2 instances to launch in Beanstalk."
-  type        = string
-}
+# variable "instance_type" {
+#   description = "type of EC2 instances to launch in Beanstalk."
+#   type        = string
+# }
 
 variable "min_instances" {
   description = "minimum number of instances in the asg"
@@ -104,14 +187,14 @@ variable "env" {
 variable "stack" {
   default = {
     # linux   = "64bit Amazon Linux 2 v4.0.0 running ASP.NET Core 6.0",
-    linux = "64bit Amazon Linux 2023 v3.0.2 running .NET 6",
+    linux   = "64bit Amazon Linux 2023 v3.0.2 running .NET 6",
     windows = "64bit Windows Server 2022 v2.14.0 running ASP.NET Core 6.0"
   }
 
 }
 
 variable "tier" {
-  default     = "WebServer"
+  default = "WebServer"
 
 }
 
