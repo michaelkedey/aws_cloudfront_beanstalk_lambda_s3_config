@@ -1,24 +1,12 @@
-resource "aws_elastic_beanstalk_application" "bid_app" {
-  name = var.app_name
-}
-
-# resource "aws_elastic_beanstalk_application_version" "bid_app_version" {
-#   bucket      = var.bucket_name
-#   name        = var.app_name
-#   application = aws_elastic_beanstalk_application.bid_app.id
-#   key         = var.app_key
-
-# }
-
 
 resource "aws_elastic_beanstalk_environment" "prod" {
-  application         = aws_elastic_beanstalk_application.bid_app.name
+  application         = var.application_name
   name                = var.app_name
   solution_stack_name = var.stack["linux"] # Adjust as needed
   tier                = var.tier
 
   # Reference existing S3 version
-  #version_label = var.app_key
+  version_label = var.app_key
 
   # Network configuration
   setting {
@@ -33,11 +21,11 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = var.subnet_ids
   }
 
-  setting {
-    namespace = "aws:elasticbeanstalk:environment"
-    name      = "LoadBalancerType"
-    value     = var.lb_type
-  }
+  # setting {
+  #   namespace = "aws:elasticbeanstalk:environment"
+  #   name      = "LoadBalancerType"
+  #   value     = var.lb_type
+  # }
 
   setting {
     namespace = "aws:elasticbeanstalk:environment"

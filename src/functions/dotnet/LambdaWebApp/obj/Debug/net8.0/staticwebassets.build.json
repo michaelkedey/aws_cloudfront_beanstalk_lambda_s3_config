@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "h0nRLO9IgU/y+/ckM5DzbroKG1r3qwBHYa1h2iGBx9w=",
+  "Source": "LambdaWebApp",
+  "BasePath": "_content/LambdaWebApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
