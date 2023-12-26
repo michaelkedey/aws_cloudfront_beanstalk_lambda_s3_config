@@ -57,42 +57,45 @@ module "lambda" {
 
 #6 archive .net app after inserting lambda api url in code
 module "zip_dotnet" {
-  source      = "./modules/build_file"
-  src_file    = "../../functions/dotnet/LambdaWebbApp/*"
-  output_path = "../../s3_uploads/zipped_functions/LambdaWebbApp"
+  source      = "./modules/build_directory"
+  src_path    = "../../functions/dotnet/LambdaWebApp"
+  output_path = "../../s3_uploads/zipped_functions/LambdaWebApp"
 }
 
 
 #upload .net function to bucket
 module "upload_dot_net" {
   source       = "./modules/bucket_uploads"
-  file_path    = "../../s3_uploads/zipped_functions/LambdaWebApp.zip" #module.archive_files.app_or_function_output_path
+  file_path    = "./s3_uploads/zipped_functions/LambdaWebApp.zip" #module.archive_files.app_or_function_output_path
   s3_bucket_id = module.primary_bucket.bucket_id
   key          = "LambdaWebApp.zip"
-}
-
-
-#create dotnet app
-module "dotnet_app" {
-  source      = "./modules/app_version"
-  bucket_name = module.primary_bucket.bucket_name
-  app_key     = "LambdaWebApp.zipp"
 }
 
 
 #6 create beanstalk env with dotnet app
 module "beanstalk" {
   source               = "./modules/beanstalk/prod"
-  instance_type        = "t2-micro"
+  instance_type        = "t2.micro"
   max_instances        = 3
   min_instances        = 2
   vpc_id               = module.vpc.vpc_id
   subnet_ids           = module.vpc.beanstalk_subnets
   application_name     = module.dotnet_app.app_name
-  lb_name              = module.emptylb.empty_lb_name
+  lb_name              = module.emptylb.empty_lb_arn
   lambda_function_name = "name_form.js.zip"
   sgs                  = module.vpc.beanstalk_sg_id
-  app_key              = "LambdaWebApp.zipp"
+  app_key              = "LambdaWebApp.zip"
+  root_volume_size     = 8
+  root_volume_type     = "gp2"
+}
+
+
+#create dotnet app
+module "dotnet_app" {
+  source           = "./modules/app_version"
+  bucket_name      = module.primary_bucket.bucket_id
+  app_key          = "LambdaWebApp.zip"
+  app_version_name = "LambdaWebApp.zip"
 }
 
 

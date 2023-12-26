@@ -1,9 +1,12 @@
 #placeholder
 variable "app_key" {}
+
 variable "lb_name" {}
+
 variable "sgs" {}
 
 variable "instance_type" {}
+
 variable "lambda_function_name" {}
 
 variable "vpc_id" {
@@ -15,7 +18,7 @@ variable "aws_region" {
 }
 
 variable "app_name" {
-  default = "bid_.net_app"
+  default = "bid-dotnet-app"
 }
 
 variable "lb_type" {
@@ -44,6 +47,14 @@ variable "asg_trigger_max" {
 }
 
 variable "application_name" {
+
+}
+
+variable "root_volume_type" {
+
+}
+
+variable "root_volume_size" {
 
 }
 
@@ -190,7 +201,7 @@ variable "env" {
 variable "stack" {
   default = {
     # linux   = "64bit Amazon Linux 2 v4.0.0 running ASP.NET Core 6.0",
-    linux   = "64bit Amazon Linux 2023 v3.0.2 running .NET 6",
+    linux   = "64bit Amazon Linux 2023 v3.0.2 running .NET 6", #.NET 6 running on 64bit Amazon Linux 2023
     windows = "64bit Windows Server 2022 v2.14.0 running ASP.NET Core 6.0"
   }
 
