@@ -17,29 +17,29 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
   restrict_public_buckets = true
 }
 
-#web file objects
-resource "aws_s3_object" "html_files" {
-  for_each = fileset("${path.module}/${var.files}", "**/*.*")
+# #web file objects
+# resource "aws_s3_object" "html_files" {
+#   for_each = fileset("${path.module}/${var.files}", "**/*.*")
 
-  bucket       = aws_s3_bucket.bid_bucket.id
-  key          = each.value
-  source       = "${path.module}/${var.files}/${each.value}"
-  etag         = filebase64("${path.module}/${var.files}/${each.value}")
-  content_type = each.value
-  #acl          = var.acl_type
-}
+#   bucket       = aws_s3_bucket.bid_bucket.id
+#   key          = each.value
+#   source       = "${path.module}/${var.files}/${each.value}"
+#   etag         = filebase64("${path.module}/${var.files}/${each.value}")
+#   content_type = each.value
+#   #acl          = var.acl_type
+# }
 
-resource "aws_s3_bucket_website_configuration" "static-website" {
-  bucket = aws_s3_bucket.bid_bucket.id
+# resource "aws_s3_bucket_website_configuration" "static-website" {
+#   bucket = aws_s3_bucket.bid_bucket.id
 
-  index_document {
-    suffix = var.file
-  }
+#   index_document {
+#     suffix = var.file
+#   }
 
-  # error_document {
-  #   key = var.file
-  # }
-}
+#   # error_document {
+#   #   key = var.file
+#   # }
+# }
 
 resource "aws_s3_bucket_versioning" "my-static-website" {
   bucket = aws_s3_bucket.bid_bucket.id

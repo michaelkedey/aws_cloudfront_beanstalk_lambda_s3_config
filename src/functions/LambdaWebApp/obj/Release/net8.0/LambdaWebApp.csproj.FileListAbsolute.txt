@@ -1,9 +1,0 @@
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.csproj.AssemblyReference.cache
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.AssemblyInfoInputs.cache
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.AssemblyInfo.cs
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.csproj.CoreCompileInputs.cache
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.RazorAssemblyInfo.cache
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.RazorAssemblyInfo.cs
-C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\LambdaWebApp\obj\Release\net8.0\LambdaWebApp.sourcelink.json

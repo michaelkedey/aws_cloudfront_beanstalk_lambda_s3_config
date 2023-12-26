@@ -103,7 +103,7 @@ variable "security_group_ids" {
 #variable "src_file" {}
 
 variable "bucket_arn" {}
-variable "event_source_arn" {}
+#variable "event_source_arn" {}
 variable "bucket_name" {}
 
 variable "file_path" {
@@ -111,7 +111,7 @@ variable "file_path" {
 }
 
 variable "lambda_func_handler" {
-  default = "handler"
+
 }
 
 
@@ -124,7 +124,7 @@ variable "tracing_mode" {
   default = "Active"
 }
 
-variable "src_file_zip" {}
+variable "lambda_file" {}
 
 variable "src_code_hash" {
 

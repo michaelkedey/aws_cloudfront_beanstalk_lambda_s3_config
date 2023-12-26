@@ -1,6 +1,5 @@
 #placeholder
-variable "bucket_name" {}
-#variable "app_key" {}
+variable "app_key" {}
 variable "lb_name" {}
 variable "sgs" {}
 
@@ -44,6 +43,9 @@ variable "asg_trigger_max" {
   default = 60
 }
 
+variable "application_name" {
+
+}
 
 
 
