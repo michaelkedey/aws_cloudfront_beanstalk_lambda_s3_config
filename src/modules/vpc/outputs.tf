@@ -25,10 +25,6 @@ output "beanstalk_sg_id" {
   value = aws_security_group.beanstalk_sg.id
 }
 
-output "lb_sg_id" {
-  value = aws_security_group.bid_lb_sg.id
-}
-
 #rt_ids
 output "public_rt_id" {
   value = aws_route_table.bid_public_rt.id
@@ -48,21 +44,51 @@ output "nat_gateway_ids" {
   value = aws_nat_gateway.bid_ngw.id
 }
 
-#lb
-output "load_balancer" {
-  value = aws_lb.bid_lb.name
-}
+# #lb
+# output "load_balancer" {
+#   value = aws_lb.bid_lb.name
+# }
 
 #beanstalk instances usbnets
 output "beanstalk_subnets" {
-  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+  #value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+  value = [
+    aws_subnet.sn_private1.id,
+    aws_subnet.sn_private2.id
+  ]
 }
 
+output "branstalk_subnet_lists" {
+  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+
+}
+#value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+
+
+
 output "beanstalk_sgs" {
-  value = aws_security_group.beanstalk_sg
+  value = join(",", [aws_security_group.beanstalk_sg.id])
 }
 
 # output "lambda_sn" {
 #   value = toset([aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
 # }
 
+# output "lb_out_cidrs" {
+#   value = join(",", [aws_subnet.sn_private1.cidr_block, aws_subnet.sn_private2.cidr_block])
+# }
+
+output "lb_out_cidrs" {
+  value = [
+    aws_subnet.sn_private1.cidr_block,
+    aws_subnet.sn_private2.cidr_block,
+  ]
+}
+
+output "vpc_cidr_block" {
+  value = aws_vpc.bid_vpc.cidr_block
+}
+
+output "vpc_sns" {
+  value = [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id]
+}

@@ -30,5 +30,6 @@ override.tf.json
 # example: *tfplan*
 
 # Ignore CLI configuration files
+*.hcl
 .terraformrc
 terraform.rc
