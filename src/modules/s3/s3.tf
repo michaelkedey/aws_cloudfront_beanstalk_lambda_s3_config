@@ -17,7 +17,6 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
   restrict_public_buckets = true
 }
 
-
 resource "aws_s3_bucket_versioning" "my-static-website" {
   bucket = aws_s3_bucket.bid_bucket.id
   versioning_configuration {
