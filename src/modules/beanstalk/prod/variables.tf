@@ -3,7 +3,9 @@ variable "app_key" {}
 
 variable "lb_name" {}
 
-variable "sgs" {}
+variable "sgs" {
+
+}
 
 variable "instance_type" {}
 
@@ -57,40 +59,6 @@ variable "root_volume_type" {
 variable "root_volume_size" {
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -187,7 +155,7 @@ variable "app_desc" {
 }
 
 variable "name" {
-  default = ".net_app"
+  default = "dotnet_app"
   type    = string
 }
 
@@ -216,6 +184,13 @@ variable "env_name" {
   default = "bidproject"
 }
 
+variable "s3_app_id" {
+
+}
+
+variable "lb_arn" {
+
+}
 #place holders
 # variable "bucket" { type = string }
 # variable "key" { type = string }

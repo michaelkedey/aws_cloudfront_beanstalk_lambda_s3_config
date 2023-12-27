@@ -116,7 +116,7 @@ variable "lambda_func_handler" {
 
 
 variable "vpc_subnet_ids" {
-  type = set(string)
+
 }
 
 

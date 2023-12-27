@@ -51,19 +51,38 @@ output "nat_gateway_ids" {
 
 #beanstalk instances usbnets
 output "beanstalk_subnets" {
-  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+  #value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+  value = [
+    aws_subnet.sn_private1.id,
+    aws_subnet.sn_private2.id
+  ]
 }
 
+output "branstalk_subnet_lists" {
+  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+
+}
+#value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+
+
+
 output "beanstalk_sgs" {
-  value = aws_security_group.beanstalk_sg
+  value = join(",", [aws_security_group.beanstalk_sg.id])
 }
 
 # output "lambda_sn" {
 #   value = toset([aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
 # }
 
+# output "lb_out_cidrs" {
+#   value = join(",", [aws_subnet.sn_private1.cidr_block, aws_subnet.sn_private2.cidr_block])
+# }
+
 output "lb_out_cidrs" {
-  value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+  value = [
+    aws_subnet.sn_private1.cidr_block,
+    aws_subnet.sn_private2.cidr_block,
+  ]
 }
 
 output "vpc_cidr_block" {
