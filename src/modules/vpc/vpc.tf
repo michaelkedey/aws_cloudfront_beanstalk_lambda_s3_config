@@ -151,14 +151,14 @@ resource "aws_security_group" "beanstalk_sg" {
     from_port       = var.ingress1["from_port"]
     to_port         = var.ingress1["to_port"]
     protocol        = var.ingress1["protocol"]
-    security_groups = ["${var.lb_sg}"]
+    security_groups = var.lb_sg
   }
 
   ingress {
     from_port       = var.ingress2["from_port"]
     to_port         = var.ingress2["to_port"]
     protocol        = var.ingress2["protocol"]
-    security_groups = ["${var.lb_sg}"]
+    security_groups = var.lb_sg
   }
 
   egress {

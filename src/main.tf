@@ -14,7 +14,7 @@ module "zip_lambda" {
 }
 
 
-#4 upload lambda function to bucket
+#3 upload lambda function to bucket
 module "upload_lambda" {
   source       = "./modules/bucket_uploads"
   file_path    = "./s3_uploads/zipped_functions/name_form.js.zip" #module.archive_files.app_or_function_output_path
@@ -23,25 +23,39 @@ module "upload_lambda" {
 }
 
 
-#create empty lb, necesarry for the beanstalk
-module "emptylb" {
-  source   = "./modules/loadbalancer/empty_lb"
-  subnets  = module.vpc.vpc_sns
-  vpc_cidr = module.vpc.vpc_id
+#4 deploy lb
+module "load_balancer" {
+  source = "./modules/loadbalancer"
+  vpc_id = module.vpc.vpc_id
+  subnet_for_lbs = [
+    module.vpc.sn_private1_id,
+    module.vpc.sn_private2_id
+  ]
+  #lb_egress_cidrs = split(",",module.vpc.lb_out_cidrs)
+  lb_egress_cidrs = module.vpc.lb_out_cidrs
+  beanstalk_sg    = module.vpc.beanstalk_sg_id
+  #instance_ids    = module.beanstalk.instance_ids
 }
 
+# #create empty lb, necesarry for the beanstalk
+# module "emptylb" {
+#   source   = "./modules/loadbalancer/empty_lb"
+#   subnets  = module.vpc.vpc_sns
+#   vpc_cidr = module.vpc.vpc_id
+# }
 
-#2 create vpc with empty lb id
+
+#5 create vpc 
 module "vpc" {
   source = "./modules/vpc"
-  lb_sg  = module.emptylb.empty_lb_sg_id
+  lb_sg  = toset(module.load_balancer.lb_sg_id)
 }
 
 
-#5 create lambda_fn from s3 
+#6 create lambda_fn from s3 
 module "lambda" {
   source         = "./modules/lambda"
-  vpc_subnet_ids = split(",", module.vpc.beanstalk_subnets)
+  vpc_subnet_ids = split(",", module.vpc.branstalk_subnet_lists) #split(",", module.vpc.beanstalk_subnets)
   bucket_arn     = module.primary_bucket.bucket_arn
   #event_source_arn = module.primary_bucket.bucket_arn
   bucket_name = module.primary_bucket.bucket_name
@@ -55,56 +69,52 @@ module "lambda" {
 
 #####################################################################
 
-#6 archive .net app after inserting lambda api url in code
+#7 archive .net app after inserting lambda api url in code
 module "zip_dotnet" {
-  source      = "./modules/build_file"
-  src_file    = "../../functions/dotnet/LambdaWebbApp/*"
-  output_path = "../../s3_uploads/zipped_functions/LambdaWebbApp"
+  source      = "./modules/build_directory"
+  src_path    = "../../functions/dotnet/LambdaWebApp"
+  output_path = "../../s3_uploads/zipped_functions/LambdaWebApp"
 }
 
 
-#upload .net function to bucket
+#8 upload .net function to bucket
 module "upload_dot_net" {
   source       = "./modules/bucket_uploads"
-  file_path    = "../../s3_uploads/zipped_functions/LambdaWebApp.zip" #module.archive_files.app_or_function_output_path
+  file_path    = "./s3_uploads/zipped_functions/LambdaWebApp.zip" #module.archive_files.app_or_function_output_path
   s3_bucket_id = module.primary_bucket.bucket_id
   key          = "LambdaWebApp.zip"
 }
 
 
-#create dotnet app
+###############################################################################
+
+#9 create dotnet app
 module "dotnet_app" {
-  source      = "./modules/app_version"
-  bucket_name = module.primary_bucket.bucket_name
-  app_key     = "LambdaWebApp.zipp"
+  source           = "./modules/app_version"
+  bucket_name      = module.primary_bucket.bucket_id
+  app_key          = "LambdaWebApp.zip"
+  app_version_name = "LambdaWebApp.zip"
 }
 
-
-#6 create beanstalk env with dotnet app
+#6 create beanstalk env with dotnet app after inserting the s3 arn into the policies
 module "beanstalk" {
   source               = "./modules/beanstalk/prod"
-  instance_type        = "t2-micro"
+  instance_type        = "t2.micro"
   max_instances        = 3
   min_instances        = 2
   vpc_id               = module.vpc.vpc_id
-  subnet_ids           = module.vpc.beanstalk_subnets
+  subnet_ids           = module.vpc.branstalk_subnet_lists
   application_name     = module.dotnet_app.app_name
-  lb_name              = module.emptylb.empty_lb_name
+  lb_name              = module.load_balancer.lb_arn
   lambda_function_name = "name_form.js.zip"
-  sgs                  = module.vpc.beanstalk_sg_id
-  app_key              = "LambdaWebApp.zipp"
+  sgs                  = module.vpc.beanstalk_sgs
+  app_key              = module.upload_dot_net.dotnet_id #"LambdaWebApp.zip"
+  root_volume_size     = 8
+  root_volume_type     = "gp2"
+  s3_app_id            = module.upload_dot_net.dotnet_id
+  lb_arn               = module.load_balancer.lb_arn
+
 }
-
-
-#deploy 
-# module "load_balancer" {
-#   source          = "./modules/loadbalancer"
-#   vpc_id          = module.vpc.vpc_id
-#   subnet_for_lbs  = module.vpc.beanstalk_subnets
-#   lb_egress_cidrs = module.vpc.lb_out_cidrs
-#   beanstalk_sg    = module.vpc.beanstalk_sg_id
-#   instance_ids    = module.beanstalk.instance_ids
-# }
 
 
 #create cloudfront distribution

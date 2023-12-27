@@ -5,3 +5,7 @@ output "empty_lb_name" {
 output "empty_lb_sg_id" {
   value = aws_security_group.empty_lb_sg.id
 }
+
+output "empty_lb_arn" {
+  value = aws_lb.emptylb.arn
+}

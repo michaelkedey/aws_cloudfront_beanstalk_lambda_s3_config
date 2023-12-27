@@ -1,11 +1,11 @@
 #vpc cidrs
 variable "cidrs" {
   default = {
-    vpc           = "10.10.0.0/16",
-    sn_private1   = "10.10.1.0/24",
-    sn_private2   = "10.10.2.0/24",
-    sn_public1    = "10.10.3.0/24",
-    sn_public2    = "10.10.4.0/24",
+    vpc           = "177.70.0.0/24",
+    sn_private1   = "177.70.0.0/26",
+    sn_private2   = "177.70.0.64/26",
+    sn_public1    = "177.70.0.128/26",
+    sn_public2    = "177.70.0.192/26",
     default_route = "0.0.0.0/0"
   }
 
@@ -158,15 +158,10 @@ variable "lb_default_action" {
 }
 
 #placeholder
-variable "instance_ids" {
-  type    = list(string)
-  default = []
-}
-
-variable "lb_out_cidrs" {
-  default = ["10.10.2.0/24", "10.10.3.0/24", ]
-  type    = list(string)
-}
+# variable "lb_out_cidrs" {
+#   default = ["10.10.2.0/24", "10.10.3.0/24", ]
+#   type    = list(string)
+# }
 
 variable "lb_sg" {
 

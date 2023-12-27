@@ -3,9 +3,9 @@
 #   value = module.primary_bucket.bucket_name
 # }
 
-# output "bucket_arn" {
-#   value = module.primary_bucket.bucket_arn
-# }
+output "bucket_arn" {
+  value = module.primary_bucket.bucket_arn
+}
 
 # output "bucket_domain_name" {
 #   value = module.primary_bucket.bucket_domain_name
@@ -141,6 +141,6 @@ output "lambda_api_url" {
 #   value = module.beanstalk.instance_ids
 # }
 
-# output "cname" {
-#   value = module.beanstalk.c_name
-# }
+output "cname" {
+  value = module.beanstalk.c_name
+}

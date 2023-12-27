@@ -157,10 +157,10 @@ variable "lb_default_action" {
   sensitive = true
 }
 
-#placeholder
-variable "instance_ids" {
+# #placeholder
+# variable "instance_ids" {
 
-}
+# }
 variable "lb_out_cidrs" {
   default = ["10.10.2.0/24", "10.10.3.0/24", ]
   type    = list(string)
@@ -181,3 +181,4 @@ variable "vpc_id" {
 variable "lb_egress_cidrs" {
 
 }
+
