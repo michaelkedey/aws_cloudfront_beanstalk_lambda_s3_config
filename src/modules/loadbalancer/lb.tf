@@ -3,7 +3,7 @@ resource "aws_lb" "bid_lb" {
   name               = var.vpc_names["lb"]
   internal           = false
   load_balancer_type = var.load_balancer_type
-  security_groups    = ["${var.beanstalk_sg}"]
+  security_groups    = [aws_security_group.bid_lb_sg.id]
   subnets            = var.subnet_for_lbs
   enable_http2       = true
   #idle_timeout          = 60
@@ -53,7 +53,7 @@ resource "aws_lb_target_group" "bid_lb-tg1" {
   health_check {
     interval            = 30        # Check every 30 seconds
     path                = "/health" # Path to health check endpoint
-    port                = 8080      # Port to check
+    port                = 80        # Port to check
     protocol            = "HTTP"    # Protocol (HTTP or HTTPS)
     healthy_threshold   = 2         # Consecutive successes to mark healthy
     unhealthy_threshold = 2         # Consecutive failures to mark unhealthy
@@ -78,7 +78,7 @@ resource "aws_lb_target_group" "bid-lb-tg2" {
   health_check {
     interval            = 30        # Check every 30 seconds
     path                = "/health" # Path to health check endpoint
-    port                = 8080      # Port to check
+    port                = 80        #Port to check
     protocol            = "HTTP"    # Protocol (HTTP or HTTPS)
     healthy_threshold   = 2         # Consecutive successes to mark healthy
     unhealthy_threshold = 2         # Consecutive failures to mark unhealthy
@@ -92,6 +92,32 @@ resource "aws_lb_target_group" "bid-lb-tg2" {
     }
   )
 }
+
+#target group for load balancer - dotnet
+resource "aws_lb_target_group" "bid-lb-tg3" {
+  name     = var.vpc_names["lb-tg2"]
+  port     = var.dot_net_port
+  protocol = "TCP"
+  vpc_id   = var.vpc_id
+
+  health_check {
+    interval            = 30        # Check every 30 seconds
+    path                = "/health" # Path to health check endpoint
+    port                = 80        #Port to check
+    protocol            = "HTTP"    # Protocol (HTTP or HTTPS)
+    healthy_threshold   = 2         # Consecutive successes to mark healthy
+    unhealthy_threshold = 2         # Consecutive failures to mark unhealthy
+    timeout             = 5         # Timeout for each check
+    matcher             = "200-399" # Expected response status codes
+  }
+  tags = merge(
+    var.tags_all,
+    {
+      Name = var.vpc_names["lb-tg2"]
+    }
+  )
+}
+
 
 #associate the instances with the target group - http
 # resource "aws_lb_target_group_attachment" "bid_tg_attachment1" {
@@ -112,6 +138,7 @@ resource "aws_lb_target_group" "bid-lb-tg2" {
 #security group for load balancer
 #necessary in order to set the id for the ingress web traffic in the instance sg
 resource "aws_security_group" "bid_lb_sg" {
+
   ingress {
     from_port   = var.ingress1["from_port"]
     to_port     = var.ingress1["to_port"]
@@ -126,6 +153,13 @@ resource "aws_security_group" "bid_lb_sg" {
     cidr_blocks = var.default_route
   }
 
+  ingress {
+    from_port   = var.dot_net_port
+    to_port     = var.dot_net_port
+    protocol    = "TCP"
+    cidr_blocks = var.default_route
+  }
+
   egress {
     from_port   = var.egress1["from_port"]
     to_port     = var.egress1["to_port"]
@@ -137,6 +171,13 @@ resource "aws_security_group" "bid_lb_sg" {
     from_port   = var.egress2["from_port"]
     to_port     = var.egress2["to_port"]
     protocol    = var.protocols2
+    cidr_blocks = var.lb_egress_cidrs
+  }
+
+  ingress {
+    from_port   = var.dot_net_port
+    to_port     = var.dot_net_port
+    protocol    = "TCP"
     cidr_blocks = var.lb_egress_cidrs
   }
 

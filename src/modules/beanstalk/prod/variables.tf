@@ -1,9 +1,13 @@
 #placeholder
 variable "app_key" {}
 
-variable "lb_name" {}
+# variable "lb_name" {}
 
 variable "sgs" {
+
+}
+
+variable "s3_logs_bucket_id" {
 
 }
 
@@ -24,7 +28,7 @@ variable "app_name" {
 }
 
 variable "lb_type" {
-  default = "existing"
+  default = "application"
 }
 
 variable "beanstalk_s3" {
@@ -188,9 +192,14 @@ variable "s3_app_id" {
 
 }
 
-variable "lb_arn" {
+# variable "lb_arn" {
+
+# }
+
+variable "bucket_name" {
 
 }
+
 #place holders
 # variable "bucket" { type = string }
 # variable "key" { type = string }

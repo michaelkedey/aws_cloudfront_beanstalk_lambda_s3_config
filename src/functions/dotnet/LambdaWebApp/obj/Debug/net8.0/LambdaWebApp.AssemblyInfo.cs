@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LambdaWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+abdd06dd34a8016ac3fa6ab27196cd679ec32178")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc2b4e7ed09fe2fa1702d246b8224f105736570e")]
 [assembly: System.Reflection.AssemblyProductAttribute("LambdaWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LambdaWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

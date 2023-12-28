@@ -148,18 +148,26 @@ resource "aws_security_group" "beanstalk_sg" {
   vpc_id      = aws_vpc.bid_vpc.id
 
   ingress {
-    from_port       = var.ingress1["from_port"]
-    to_port         = var.ingress1["to_port"]
-    protocol        = var.ingress1["protocol"]
-    security_groups = var.lb_sg
+    from_port   = var.ingress1["from_port"]
+    to_port     = var.ingress1["to_port"]
+    protocol    = var.ingress1["protocol"]
+    cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
   }
 
   ingress {
-    from_port       = var.ingress2["from_port"]
-    to_port         = var.ingress2["to_port"]
-    protocol        = var.ingress2["protocol"]
-    security_groups = var.lb_sg
+    from_port   = var.ingress2["from_port"]
+    to_port     = var.ingress2["to_port"]
+    protocol    = var.ingress2["protocol"]
+    cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
   }
+
+  ingress {
+    from_port   = var.dot_net_port
+    to_port     = var.dot_net_port
+    protocol    = "tcp"
+    cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
+  }
+
 
   egress {
     from_port   = var.egress1["from_port"]
@@ -175,7 +183,19 @@ resource "aws_security_group" "beanstalk_sg" {
     cidr_blocks = var.def_egress_cidr
   }
 
-  tags = var.tags_all
+  egress {
+    from_port   = var.dot_net_port
+    to_port     = var.dot_net_port
+    protocol    = "tcp"
+    cidr_blocks = var.def_egress_cidr
+  }
+
+  tags = merge(
+    var.tags_all,
+    {
+      Name = var.vpc_names["beanstalk_sg"]
+    }
+  )
 
 }
 

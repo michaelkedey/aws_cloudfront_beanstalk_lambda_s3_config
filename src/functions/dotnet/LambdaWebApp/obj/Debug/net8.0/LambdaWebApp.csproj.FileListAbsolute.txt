@@ -27,3 +27,4 @@ C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_conf
 C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\dotnet\LambdaWebApp\obj\Debug\net8.0\LambdaWebApp.pdb
 C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\dotnet\LambdaWebApp\obj\Debug\net8.0\LambdaWebApp.genruntimeconfig.cache
 C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\dotnet\LambdaWebApp\obj\Debug\net8.0\ref\LambdaWebApp.dll
+C:\Users\RINGROW\Desktop\project_dollars\aws_cloudfront_beanstalk_lambda_s3_config\src\functions\dotnet\LambdaWebApp\bin\Debug\net8.0\.runtimeconfig.json

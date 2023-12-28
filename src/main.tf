@@ -24,18 +24,19 @@ module "upload_lambda" {
 
 
 #4 deploy lb
-module "load_balancer" {
-  source = "./modules/loadbalancer"
-  vpc_id = module.vpc.vpc_id
-  subnet_for_lbs = [
-    module.vpc.sn_private1_id,
-    module.vpc.sn_private2_id
-  ]
-  #lb_egress_cidrs = split(",",module.vpc.lb_out_cidrs)
-  lb_egress_cidrs = module.vpc.lb_out_cidrs
-  beanstalk_sg    = module.vpc.beanstalk_sg_id
-  #instance_ids    = module.beanstalk.instance_ids
-}
+# module "load_balancer" {
+#   source = "./modules/loadbalancer"
+#   vpc_id = module.vpc.vpc_id
+#   subnet_for_lbs = [
+#     module.vpc.sn_public1_id,
+#     module.vpc.sn_public2_id
+#   ]
+#   lb_egress_cidrs = module.vpc.lb_out_cidrs
+#   beanstalk_sg    = module.vpc.beanstalk_sg_id
+#   dot_net_port = 5204
+#   #instance_ids    = module.beanstalk.instance_ids
+#   #lb_egress_cidrs = split(",",module.vpc.lb_out_cidrs)
+# }
 
 # #create empty lb, necesarry for the beanstalk
 # module "emptylb" {
@@ -48,7 +49,8 @@ module "load_balancer" {
 #5 create vpc 
 module "vpc" {
   source = "./modules/vpc"
-  lb_sg  = toset(module.load_balancer.lb_sg_id)
+  #lb_sg  = toset(module.load_balancer.lb_sg_id)
+  dot_net_port = 5204
 }
 
 
@@ -58,8 +60,7 @@ module "lambda" {
   vpc_subnet_ids = split(",", module.vpc.branstalk_subnet_lists) #split(",", module.vpc.beanstalk_subnets)
   bucket_arn     = module.primary_bucket.bucket_arn
   #event_source_arn = module.primary_bucket.bucket_arn
-  bucket_name = module.primary_bucket.bucket_name
-  #src_file = module.archive.app_or_function_output_path
+  bucket_name         = module.primary_bucket.bucket_name
   lambda_file         = "../../s3_uploads/zipped_functions/name_form.js.zip"
   src_code_hash       = module.zip_lambda.src_code_hash
   security_group_ids  = [module.vpc.beanstalk_sg_id]
@@ -98,21 +99,23 @@ module "dotnet_app" {
 
 #6 create beanstalk env with dotnet app after inserting the s3 arn into the policies
 module "beanstalk" {
-  source               = "./modules/beanstalk/prod"
-  instance_type        = "t2.micro"
-  max_instances        = 3
-  min_instances        = 2
-  vpc_id               = module.vpc.vpc_id
-  subnet_ids           = module.vpc.branstalk_subnet_lists
-  application_name     = module.dotnet_app.app_name
-  lb_name              = module.load_balancer.lb_arn
+  source           = "./modules/beanstalk/prod"
+  instance_type    = "t2.micro"
+  max_instances    = 3
+  min_instances    = 1
+  vpc_id           = module.vpc.vpc_id
+  subnet_ids       = module.vpc.branstalk_subnet_lists
+  application_name = module.dotnet_app.app_name
+  #lb_name              = module.load_balancer.lb_arn
   lambda_function_name = "name_form.js.zip"
   sgs                  = module.vpc.beanstalk_sgs
-  app_key              = module.upload_dot_net.dotnet_id #"LambdaWebApp.zip"
+  app_key              = module.dotnet_app.beanstalk_app_version_label #module.upload_dot_net.dotnet_id #"LambdaWebApp.zip"
   root_volume_size     = 8
   root_volume_type     = "gp2"
   s3_app_id            = module.upload_dot_net.dotnet_id
-  lb_arn               = module.load_balancer.lb_arn
+  #lb_arn               = module.load_balancer.lb_arn
+  s3_logs_bucket_id = module.primary_bucket.bucket_id
+  bucket_name       = module.primary_bucket.bucket_name
 
 }
 
