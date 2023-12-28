@@ -30,7 +30,7 @@ variable "vpc_names" {
     lb           = "bid-lb",
     lb-tg1       = "bid-lb-tg-http",
     lb-tg2       = "bid-lb-tg-https",
-    lb_sg        = "bid-lb_sg"
+    lb_sg        = "bid-lb-sg"
 
   }
 
@@ -179,6 +179,10 @@ variable "vpc_id" {
 }
 
 variable "lb_egress_cidrs" {
+
+}
+
+variable "dot_net_port" {
 
 }
 

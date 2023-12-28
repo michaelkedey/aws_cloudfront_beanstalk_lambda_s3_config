@@ -1,40 +1,3 @@
-#lambda assume role
-# data "aws_iam_policy_document" "assume_role" {
-#   statement {
-#     effect = var.effect
-
-#     principals {
-#       type        = var.assume_role_principal_type
-#       identifiers = ["${var.assume_role_principal_id}"]
-#     }
-
-#     actions = ["${var.assume_role_actions}"]
-#   }
-# }
-
-# resource "aws_iam_role" "lambda_iam" {
-#   name               = var.lambda_iam_name
-#   assume_role_policy = data.aws_iam_policy_document.assume_role.json
-# }
-
-# data "aws_iam_policy_document" "lambda_policy" {
-#   statement {
-#     effect = var.effect
-
-#     actions = var.actions
-
-#     resources = ["${var.bucket_arn}", "${var.bucket_arn}/*"]
-
-#   }
-# }
-
-# resource "aws_iam_role_policy" "lambda_policy" {
-#   name   = var.lambda_policy_name
-#   role   = aws_iam_role.lambda_iam.id
-#   policy = data.aws_iam_policy_document.lambda_policy.json
-# }
-
-
 resource "aws_iam_role" "lambda_execution_role" {
   name = var.lambda_iam_name
 
@@ -67,8 +30,19 @@ resource "aws_iam_policy" "lambda_execution_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = ["ec2:DeleteNetworkInterface", "ec2:DescribeNetworkInterfaces", "ec2:CreateNetworkInterface", "s3:GetObject", "s3:PutObject", "s3:ListBucket"]
+        Effect = "Allow"
+        Action = [
+          "ec2:DeleteNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:CreateNetworkInterface",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket",
+          "lambda:InvokeFunction",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream"
+
+        ]
         Resource = "*"
       }
     ]
@@ -81,13 +55,6 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_access" {
   role       = aws_iam_role.lambda_execution_role.name
 }
 
-
-# data "archive_file" "lambda" {
-#   type        = var.archive_type
-#   source_file = ("${path.module}/${var.src_file}")
-#   output_path = ("${path.module}/${var.src_file}.zip")
-# }
-
 resource "aws_lambda_function" "bid_lambda_fn" {
   filename      = "${path.module}/${var.lambda_file}"
   function_name = var.lambda_function_name
@@ -95,10 +62,9 @@ resource "aws_lambda_function" "bid_lambda_fn" {
   handler       = var.lambda_func_handler
 
   source_code_hash = var.src_code_hash
-
-  runtime     = var.func_runtime
-  memory_size = var.lambda_memory_size
-  timeout     = var.lambda_timeout
+  runtime          = var.func_runtime
+  memory_size      = var.lambda_memory_size
+  timeout          = var.lambda_timeout
 
   environment {
     variables = {
@@ -174,13 +140,3 @@ resource "aws_api_gateway_deployment" "lambda_deployment" {
   rest_api_id = aws_api_gateway_rest_api.lambda_api.id
   stage_name  = "prod"
 }
-
-
-
-
-
-
-
-
-
-

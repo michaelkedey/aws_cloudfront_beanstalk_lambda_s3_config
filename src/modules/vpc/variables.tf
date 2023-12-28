@@ -26,7 +26,7 @@ variable "vpc_names" {
     ngw          = "bid_ngw",
     public_rt    = "bid_public_rt",
     private_rt   = "bid_private_rt",
-    beanstalk_sg = "bid_beanstalk_sg",
+    beanstalk_sg = "bid-beanstalk-instances-sg",
     lb           = "bid-lb",
     lb-tg1       = "bid-lb-tg-http",
     lb-tg2       = "bid-lb-tg-https",
@@ -163,6 +163,10 @@ variable "lb_default_action" {
 #   type    = list(string)
 # }
 
-variable "lb_sg" {
+# variable "lb_sg" {
+
+# }
+
+variable "dot_net_port" {
 
 }
