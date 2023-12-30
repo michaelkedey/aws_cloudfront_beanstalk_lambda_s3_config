@@ -58,8 +58,13 @@ output "beanstalk_subnets" {
   ]
 }
 
-output "branstalk_subnet_lists" {
+output "beanstalk_subnet_lists" {
   value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
+
+}
+
+output "beanstalk_lb_subnet_lists" {
+  value = join(",", [aws_subnet.sn_public1.id, aws_subnet.sn_public2.id])
 
 }
 #value = join(",", [aws_subnet.sn_private1.id, aws_subnet.sn_private2.id])
