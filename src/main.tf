@@ -1,7 +1,7 @@
 #1 create bucket
 module "primary_bucket" {
   source      = "./modules/s3"
-  bucket_name = "myoneandonlystaticbucket"
+  bucket_name = "myoneandonlyconsortium"
 
 }
 
@@ -117,7 +117,7 @@ module "beanstalk" {
   s3_logs_bucket_id   = module.primary_bucket.bucket_id
   s3_logs_bucket_name = module.primary_bucket.bucket_name
   elb_subnet_ids      = module.vpc.beanstalk_lb_subnet_lists
-  beanstalk_name      = "my-prod-beanstalk7"
+  beanstalk_name      = "my-prod-beanstalk9"
 
 }
 
