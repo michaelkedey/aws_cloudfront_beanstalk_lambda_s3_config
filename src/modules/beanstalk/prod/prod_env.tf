@@ -372,7 +372,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 # Beanstalk Environment
 resource "aws_elastic_beanstalk_environment" "prod" {
   name                = var.beanstalk_name
-  application         = var.app_name          # Replace with your application name
+  application         = var.app_name       # Replace with your application name
   solution_stack_name = var.stack["linux"] # Suitable for .NET
   tier                = var.tier
 
@@ -452,7 +452,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = aws_iam_instance_profile.ec2_profile.name
   }
 
-setting {
+  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "DisableIMDSv1"
     value     = true
@@ -741,7 +741,7 @@ setting {
   setting {
     namespace = "aws:elbv2:listener:5000"
     name      = "Protocol"
-    value     = "TCP"
+    value     = "HTTP"
   }
 
   setting {
@@ -785,7 +785,7 @@ setting {
   setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
     name      = "SystemType"
-    value     = "basic"
+    value     = "enhanced"
   }
 
   setting {
@@ -797,7 +797,7 @@ setting {
   setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
     name      = "EnhancedHealthAuthEnabled"
-    value     = false
+    value     = true
   }
 
   setting {
@@ -813,7 +813,7 @@ setting {
   }
 
 
-#for windows platfotm
+  #for windows platfotm
   # setting {
   #   namespace = "aws:elasticbeanstalk:container:dotnet:apppool"
   #   name      = "Target Runtime"
@@ -939,11 +939,11 @@ setting {
     value     = "nginx"
   }
 
-  setting {
-    namespace = "aws:ec2:instances"
-    name      = "SupportedArchitectures"
-    value     = "arm64,x86_64"
-  }
+  # setting {
+  #   namespace = "aws:ec2:instances"
+  #   name      = "SupportedArchitectures"
+  #   value     = "arm64,x86_64"
+  # }
 
 
   #Reference existing S3 version
