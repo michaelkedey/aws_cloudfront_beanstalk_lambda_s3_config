@@ -4,8 +4,8 @@ variable "cidrs" {
     vpc           = "177.70.0.0/24",
     sn_private1   = "177.70.0.0/26",
     sn_private2   = "177.70.0.64/26",
-    sn_public1    = "177.70.0.128/26",
-    sn_public2    = "177.70.0.192/26",
+    sn_public1    = "177.70.0.128/27",
+    sn_public2    = "177.70.0.192/27",
     default_route = "0.0.0.0/0"
   }
 
@@ -26,7 +26,7 @@ variable "vpc_names" {
     ngw          = "bid_ngw",
     public_rt    = "bid_public_rt",
     private_rt   = "bid_private_rt",
-    beanstalk_sg = "bid-beanstalk-instances-sg",
+    beanstalk_sg = "bid-beanstalk-instances-sgs",
     lb           = "bid-lb",
     lb-tg1       = "bid-lb-tg-http",
     lb-tg2       = "bid-lb-tg-https",

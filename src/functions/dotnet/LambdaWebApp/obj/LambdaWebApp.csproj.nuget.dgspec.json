@@ -17,14 +17,14 @@
           "C:\\Users\\RINGROW\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "netcoreapp8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
-            "targetAlias": "net8.0",
+            "targetAlias": "netcoreapp8.0",
             "projectReferences": {}
           }
         },
@@ -36,11 +36,15 @@
       },
       "frameworks": {
         "net8.0": {
-          "targetAlias": "net8.0",
+          "targetAlias": "netcoreapp8.0",
           "dependencies": {
-            "Newtonsoft.Json": {
+            "Microsoft.AspNetCore.Server.IISIntegration": {
               "target": "Package",
-              "version": "[13.0.3, )"
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Server.Kestrel": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             }
           },
           "imports": [
@@ -55,9 +59,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

@@ -1,6 +1,21 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using System;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
-app.MapGet("/", () => "Hello World!");
+namespace aspnetcoreapp
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var host = new WebHostBuilder()
+              .UseKestrel()
+              .UseContentRoot(Directory.GetCurrentDirectory())
+              .UseIISIntegration()
+              .UseStartup<Startup>()
+              .Build();
 
-app.Run();
+            host.Run();
+        }
+    }
+}

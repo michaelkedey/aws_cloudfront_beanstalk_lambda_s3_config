@@ -13,3 +13,7 @@ output "instance_ids" {
 output "c_name" {
   value = aws_elastic_beanstalk_environment.prod.cname
 }
+
+# output "target_group_arn" {
+#   value = aws_elastic_beanstalk_environment.prod.load_balancers[0].target_group_arn
+# }

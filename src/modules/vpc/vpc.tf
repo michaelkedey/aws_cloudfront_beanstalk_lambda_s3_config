@@ -42,7 +42,7 @@ resource "aws_subnet" "sn_public1" {
   vpc_id            = aws_vpc.bid_vpc.id
   cidr_block        = var.cidrs["sn_public1"]
   provider          = aws.bid_region
-  availability_zone = var.azs[2]
+  availability_zone = var.azs[0]
   tags = merge(
     var.tags_all,
     {
@@ -55,7 +55,7 @@ resource "aws_subnet" "sn_public2" {
   vpc_id            = aws_vpc.bid_vpc.id
   cidr_block        = var.cidrs["sn_public2"]
   provider          = aws.bid_region
-  availability_zone = var.azs[3]
+  availability_zone = var.azs[1]
   tags = merge(
     var.tags_all,
     {
@@ -91,8 +91,14 @@ resource "aws_route_table" "bid_public_rt" {
 }
 
 #associate public rt with public subnet1
-resource "aws_route_table_association" "public_association" {
+resource "aws_route_table_association" "public_association1" {
   subnet_id      = aws_subnet.sn_public1.id
+  route_table_id = aws_route_table.bid_public_rt.id
+}
+
+#associate public rt with public subnet2
+resource "aws_route_table_association" "public_association2" {
+  subnet_id      = aws_subnet.sn_public2.id
   route_table_id = aws_route_table.bid_public_rt.id
 }
 
@@ -141,7 +147,7 @@ resource "aws_route_table_association" "private_association2" {
   route_table_id = aws_route_table.bid_private_rt.id
 }
 
-#sg for beanstalk instances
+#sg for lambda instances
 resource "aws_security_group" "beanstalk_sg" {
   name        = var.vpc_names["beanstalk_sg"]
   description = "Sg for Beanstalk"
@@ -161,12 +167,12 @@ resource "aws_security_group" "beanstalk_sg" {
     cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
   }
 
-  ingress {
-    from_port   = var.dot_net_port
-    to_port     = var.dot_net_port
-    protocol    = "tcp"
-    cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
-  }
+  # ingress {
+  #   from_port   = var.dot_net_port
+  #   to_port     = var.dot_net_port
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
+  # }
 
 
   egress {
@@ -183,12 +189,12 @@ resource "aws_security_group" "beanstalk_sg" {
     cidr_blocks = var.def_egress_cidr
   }
 
-  egress {
-    from_port   = var.dot_net_port
-    to_port     = var.dot_net_port
-    protocol    = "tcp"
-    cidr_blocks = var.def_egress_cidr
-  }
+  # egress {
+  #   from_port   = var.dot_net_port
+  #   to_port     = var.dot_net_port
+  #   protocol    = "tcp"
+  #   cidr_blocks = var.def_egress_cidr
+  # }
 
   tags = merge(
     var.tags_all,
