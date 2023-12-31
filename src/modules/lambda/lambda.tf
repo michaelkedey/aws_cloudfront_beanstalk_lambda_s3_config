@@ -75,17 +75,10 @@ resource "aws_lambda_function" "bid_lambda_fn" {
   # Enable versioning for Lambda function
   publish = true
 
-  # CloudWatch Logs configuration
-  #   tracing_config {
-  #     mode = var.tracing_mode
-  #   }
-
   vpc_config {
     security_group_ids = var.security_group_ids
     subnet_ids         = var.vpc_subnet_ids
   }
-
-  #   layers = var.lambda_layers
 
   tags = var.lambda_tags
 
@@ -98,6 +91,13 @@ resource "aws_lambda_function" "bid_lambda_fn" {
   #   }
 
   #event_source_arn = var.event_source_arn 
+
+  #layers = var.lambda_layers
+
+  # CloudWatch Logs configuration
+  #   tracing_config {
+  #     mode = var.tracing_mode
+  #   }
 
 }
 
@@ -138,5 +138,5 @@ resource "aws_api_gateway_integration" "lambda_integration" {
 resource "aws_api_gateway_deployment" "lambda_deployment" {
   depends_on  = [aws_api_gateway_integration.lambda_integration]
   rest_api_id = aws_api_gateway_rest_api.lambda_api.id
-  stage_name  = "prod"
+  stage_name  = "dev"
 }

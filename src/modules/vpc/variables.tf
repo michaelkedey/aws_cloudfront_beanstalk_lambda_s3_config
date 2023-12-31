@@ -93,21 +93,6 @@ variable "def_rt_cidr" {
   type    = string
 }
 
-variable "bid_rt_name" {
-  default = "bid-route-table"
-  type    = string
-}
-variable "bid_gw_name" {
-  default = "bid-gateway"
-  type    = string
-}
-
-variable "default_route" {
-  default   = ["0.0.0.0/0"]
-  type      = list(string)
-  sensitive = true
-}
-
 variable "tags_all" {
   type        = map(string)
   description = "A map of tags to assign to the resources."
@@ -116,57 +101,4 @@ variable "tags_all" {
     "Environment" = "production",
     "Owners"      = "bid_project"
   }
-}
-
-variable "eip_domain" {
-  default   = "vpc"
-  type      = string
-  sensitive = true
-}
-
-variable "load_balancer_type" {
-  default = "application"
-  type    = string
-}
-
-variable "tg-port0" {
-  default = 443
-  type    = number
-}
-
-variable "tg-port1" {
-  default = 80
-  type    = number
-}
-
-variable "protocols0" {
-  default = "HTTPS"
-}
-
-variable "protocols1" {
-  default = "HTTP"
-}
-
-variable "protocols2" {
-  default = "tcp"
-}
-
-variable "lb_default_action" {
-  default   = "forward"
-  type      = string
-  sensitive = true
-}
-
-#placeholder
-# variable "lb_out_cidrs" {
-#   default = ["10.10.2.0/24", "10.10.3.0/24", ]
-#   type    = list(string)
-# }
-
-# variable "lb_sg" {
-
-# }
-
-variable "dot_net_port" {
-
 }

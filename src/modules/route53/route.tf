@@ -1,6 +1,6 @@
 resource "aws_route53_zone" "bid_zone" {
   name = "cloud.com"
-  vpc { 
+  vpc {
     vpc_id = var.vpc_id
   }
 }

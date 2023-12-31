@@ -7,19 +7,9 @@ variable "output_file_mode" {
 }
 
 variable "src_path" {
-
+  type = string
 }
 
-variable "output_path_dir" {
-
-}
-
-variable "output_path_file" {
-
-}
-
-
-
-variable "src_file" {
-
+variable "output_path" {
+  type = string
 }
