@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'index.html'
+      - 'src/s3_uploads'
       
 jobs:
   copy_to_s3:
