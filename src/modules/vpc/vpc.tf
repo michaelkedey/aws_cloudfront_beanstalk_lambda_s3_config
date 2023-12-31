@@ -167,14 +167,6 @@ resource "aws_security_group" "beanstalk_sg" {
     cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
   }
 
-  # ingress {
-  #   from_port   = var.dot_net_port
-  #   to_port     = var.dot_net_port
-  #   protocol    = "tcp"
-  #   cidr_blocks = var.def_egress_cidr #security_groups = var.lb_sg
-  # }
-
-
   egress {
     from_port   = var.egress1["from_port"]
     to_port     = var.egress1["to_port"]
@@ -188,13 +180,6 @@ resource "aws_security_group" "beanstalk_sg" {
     protocol    = var.egress2["protocol"]
     cidr_blocks = var.def_egress_cidr
   }
-
-  # egress {
-  #   from_port   = var.dot_net_port
-  #   to_port     = var.dot_net_port
-  #   protocol    = "tcp"
-  #   cidr_blocks = var.def_egress_cidr
-  # }
 
   tags = merge(
     var.tags_all,

@@ -6,5 +6,9 @@ terraform fmt
 # Run terraform validate in the current directory
 terraform validate
 
-# Run terraform fmt and validate in all subdirectories
-find . -type d -exec sh -c 'cd "{}" && terraform fmt && terraform validate' \;
+# Run terraform fmt in all subdirectories
+find . -type d -exec sh -c 'cd "{}" && terraform fmt' \;
+
+ # Run terraform validate in all subdirectories
+find . -type d -exec sh -c 'cd "{}" && terraform validate' \;
+

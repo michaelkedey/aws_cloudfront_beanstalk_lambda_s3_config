@@ -1,12 +1,12 @@
 #load balancer
 resource "aws_lb" "bid_lb" {
-  name               = var.vpc_names["lb"]
-  internal           = false
-  load_balancer_type = var.load_balancer_type
-  security_groups    = [aws_security_group.bid_lb_sg.id]
-  subnets            = var.subnet_for_lbs
-  enable_http2       = true
-  #idle_timeout          = 60
+  name                             = var.vpc_names["lb"]
+  internal                         = false
+  load_balancer_type               = var.load_balancer_type
+  security_groups                  = [aws_security_group.bid_lb_sg.id]
+  subnets                          = var.subnet_for_lbs
+  enable_http2                     = true
+  idle_timeout                     = var.idle_timeout
   enable_cross_zone_load_balancing = true
   #enable_deletion_protection = true
   tags = merge(
@@ -51,14 +51,14 @@ resource "aws_lb_target_group" "bid_lb-tg1" {
   vpc_id   = var.vpc_id
 
   health_check {
-    interval            = 30        # Check every 30 seconds
-    path                = "/health" # Path to health check endpoint
-    port                = 80        # Port to check
-    protocol            = "HTTP"    # Protocol (HTTP or HTTPS)
-    healthy_threshold   = 2         # Consecutive successes to mark healthy
-    unhealthy_threshold = 2         # Consecutive failures to mark unhealthy
-    timeout             = 5         # Timeout for each check
-    matcher             = "200-399" # Expected response status codes
+    interval            = var.health_check["interval"]
+    path                = var.health_check["path"]
+    port                = var.health_check["port"]
+    protocol            = var.health_check["protocol"]
+    healthy_threshold   = var.health_check["healthy_threshold"]
+    unhealthy_threshold = var.health_check["unhealthy_threshold"]
+    timeout             = var.health_check["timeout"]
+    matcher             = var.health_check["matcher"]
   }
   tags = merge(
     var.tags_all,
@@ -76,39 +76,14 @@ resource "aws_lb_target_group" "bid-lb-tg2" {
   vpc_id   = var.vpc_id
 
   health_check {
-    interval            = 30        # Check every 30 seconds
-    path                = "/health" # Path to health check endpoint
-    port                = 80        #Port to check
-    protocol            = "HTTP"    # Protocol (HTTP or HTTPS)
-    healthy_threshold   = 2         # Consecutive successes to mark healthy
-    unhealthy_threshold = 2         # Consecutive failures to mark unhealthy
-    timeout             = 5         # Timeout for each check
-    matcher             = "200-399" # Expected response status codes
-  }
-  tags = merge(
-    var.tags_all,
-    {
-      Name = var.vpc_names["lb-tg2"]
-    }
-  )
-}
-
-#target group for load balancer - dotnet
-resource "aws_lb_target_group" "bid-lb-tg3" {
-  name     = var.vpc_names["lb-tg2"]
-  port     = var.dot_net_port
-  protocol = "TCP"
-  vpc_id   = var.vpc_id
-
-  health_check {
-    interval            = 30        # Check every 30 seconds
-    path                = "/health" # Path to health check endpoint
-    port                = 80        #Port to check
-    protocol            = "HTTP"    # Protocol (HTTP or HTTPS)
-    healthy_threshold   = 2         # Consecutive successes to mark healthy
-    unhealthy_threshold = 2         # Consecutive failures to mark unhealthy
-    timeout             = 5         # Timeout for each check
-    matcher             = "200-399" # Expected response status codes
+    interval            = var.health_check["interval"]
+    path                = var.health_check["path"]
+    port                = var.health_check["port"]
+    protocol            = var.health_check["protocol"]
+    healthy_threshold   = var.health_check["healthy_threshold"]
+    unhealthy_threshold = var.health_check["unhealthy_threshold"]
+    timeout             = var.health_check["timeout"]
+    matcher             = var.health_check["matcher"]
   }
   tags = merge(
     var.tags_all,
@@ -153,13 +128,6 @@ resource "aws_security_group" "bid_lb_sg" {
     cidr_blocks = var.default_route
   }
 
-  ingress {
-    from_port   = var.dot_net_port
-    to_port     = var.dot_net_port
-    protocol    = "TCP"
-    cidr_blocks = var.default_route
-  }
-
   egress {
     from_port   = var.egress1["from_port"]
     to_port     = var.egress1["to_port"]
@@ -171,13 +139,6 @@ resource "aws_security_group" "bid_lb_sg" {
     from_port   = var.egress2["from_port"]
     to_port     = var.egress2["to_port"]
     protocol    = var.protocols2
-    cidr_blocks = var.lb_egress_cidrs
-  }
-
-  ingress {
-    from_port   = var.dot_net_port
-    to_port     = var.dot_net_port
-    protocol    = "TCP"
     cidr_blocks = var.lb_egress_cidrs
   }
 

@@ -7,9 +7,9 @@ variable "record_name" {
 }
 
 variable "record_type" {
-  default = "A"  
+  default = "A"
 }
 
 variable "vpc_id" {
-    description = "The VPC ID to create the record in."
+  description = "The VPC ID to create the record in."
 }

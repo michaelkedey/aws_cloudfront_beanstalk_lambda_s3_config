@@ -24,7 +24,7 @@ variable "aws_region" {
 }
 
 variable "app_name" {
-  default = "bid-dotnet-app"
+  
 }
 
 variable "lb_type" {
@@ -52,9 +52,9 @@ variable "asg_trigger_max" {
   default = 90
 }
 
-variable "application_name" {
+# variable "application_name" {
 
-}
+# }
 
 variable "root_volume_type" {
 
@@ -187,10 +187,6 @@ variable "tier" {
 
 variable "env_name" {
   default = "bidproject"
-}
-
-variable "s3_app_id" {
-
 }
 
 # variable "lb_arn" {

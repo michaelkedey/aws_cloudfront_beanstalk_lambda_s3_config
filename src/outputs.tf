@@ -1,22 +1,22 @@
 # # #s3
 # output "bucket_name" {
-#   value = module.primary_bucket.bucket_name
+#   value = module.bucket.bucket_name
 # }
 
 output "bucket_arn" {
-  value = module.primary_bucket.bucket_arn
+  value = module.bucket.bucket_arn
 }
 
 # output "bucket_domain_name" {
-#   value = module.primary_bucket.bucket_domain_name
+#   value = module.bucket.bucket_domain_name
 # }
 
 # output "bucket_id" {
-#   value = module.primary_bucket.bucket_id
+#   value = module.bucket.bucket_id
 # }
 
 # # output "static_site_dns" {
-# #   value = module.primary_bucket.static_site_dns
+# #   value = module.bucket.static_site_dns
 # # }
 
 
