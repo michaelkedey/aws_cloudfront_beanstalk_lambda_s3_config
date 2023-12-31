@@ -24,7 +24,7 @@ variable "aws_region" {
 }
 
 variable "app_name" {
-  
+
 }
 
 variable "lb_type" {

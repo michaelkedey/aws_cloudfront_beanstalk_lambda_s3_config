@@ -65,12 +65,12 @@ module "dotnet_app" {
 
 #9 create beanstalk env with dotnet app after inserting the s3 arn into the policies
 module "beanstalk" {
-  source           = "./modules/beanstalk/prod"
-  instance_type    = "t3.micro"
-  max_instances    = 3
-  min_instances    = 1
-  vpc_id           = module.vpc.vpc_id
-  subnet_ids       = module.vpc.beanstalk_subnet_lists
+  source        = "./modules/beanstalk/prod"
+  instance_type = "t3.micro"
+  max_instances = 3
+  min_instances = 1
+  vpc_id        = module.vpc.vpc_id
+  subnet_ids    = module.vpc.beanstalk_subnet_lists
   #application_name = "my_app" #module.dotnet_app.app_name
   #lb_name              = module.load_balancer.lb_arn
   lambda_function_name = "name_form.js.zip"
@@ -83,7 +83,7 @@ module "beanstalk" {
   s3_logs_bucket_name = module.bucket.bucket_name
   elb_subnet_ids      = module.vpc.beanstalk_lb_subnet_lists
   beanstalk_name      = "my-prod-beanstalk10"
-  app_name = "my_app"
+  app_name            = "my_app"
 
 }
 
