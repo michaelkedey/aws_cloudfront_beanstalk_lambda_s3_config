@@ -2,7 +2,7 @@ terraform {
 
   backend "s3" {
     #bucket exists already / change to an existing bucket
-    bucket = "sedem-terra333-bucket"
+    bucket = "tproject1"
     key    = "bid-project/terraform.tfstate"
     region = "us-east-1"
   }
