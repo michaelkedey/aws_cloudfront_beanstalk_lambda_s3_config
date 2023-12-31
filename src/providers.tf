@@ -20,3 +20,5 @@ provider "aws" {
   alias  = "bid_region"
 }
 
+
+
