@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src
+        working-directory: dev/src
 
     steps:
       - name: Checkout
@@ -26,18 +26,18 @@ jobs:
       - name: pre-init file
         run: bash ./format_validate_all.sh
 
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      #   with:
-      #     terraform_version: 1.0.1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.1
 
-      # - name: Terraform Format
-      #   id: fmt
-      #   run: terraform fmt -check
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
 
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
 
       # - name: Terraform Plan
       #   id: plan

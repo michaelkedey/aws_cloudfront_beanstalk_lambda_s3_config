@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src
+        working-directory: staging/src
 
     steps:
       - name: Checkout Repo
@@ -40,9 +40,9 @@ jobs:
         id: init
         run: terraform init
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan -no-color
 
       # - name: Refresh Terraform State
       #   run: terraform refresh
@@ -53,5 +53,5 @@ jobs:
       # - name: Sleep for 2 minutes
       #   run: sleep 120
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+      # - name: Terraform Destroy
+      #   run: terraform destroy -auto-approve
