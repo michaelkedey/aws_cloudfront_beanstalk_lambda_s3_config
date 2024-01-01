@@ -30,7 +30,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: prod/src
+        working-directory: src
 
     steps:
       - name: Checkout Repo
