@@ -1,5 +1,5 @@
 #placeholder
-variable "app_key" {}
+variable "app_version_name" {}
 
 # variable "lb_name" {}
 
@@ -23,7 +23,7 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-variable "app_name" {
+variable "application_name" {
 
 }
 

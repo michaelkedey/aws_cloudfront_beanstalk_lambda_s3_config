@@ -6,7 +6,8 @@ variable "app_key" {
 }
 
 variable "app_name" {
-  type = string
+  type    = string
+  default = "sample_app"
 }
 
 variable "app_version_name" {
