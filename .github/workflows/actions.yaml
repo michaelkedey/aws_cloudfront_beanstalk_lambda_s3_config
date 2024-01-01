@@ -23,10 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run Pre-Init Script
-        run: |
-          ./format_validate_all.sh
-          echo "Running pre-init script to format and validate all config"
+      - name: pre-init file
+        run: bash ./format_validate_all.sh
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
