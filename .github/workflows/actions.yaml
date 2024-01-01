@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: dev/src
+        working-directory: src
 
     steps:
       - name: Checkout
