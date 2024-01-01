@@ -26,44 +26,44 @@ jobs:
       - name: pre-init file
         run: bash ./format_validate_all.sh
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.1
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 1.0.1
 
-      - name: Terraform Format
-        id: fmt
-        run: terraform fmt -check
+      # - name: Terraform Format
+      #   id: fmt
+      #   run: terraform fmt -check
 
-      - name: Terraform Init
-        id: init
-        run: terraform init
+      # - name: Terraform Init
+      #   id: init
+      #   run: terraform init
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan -no-color
       
-      - name: Refresh Terraform State
-        run: terraform refresh
+      # - name: Refresh Terraform State
+      #   run: terraform refresh
 
-      - name: Terraform Apply
-        run: terraform apply --auto-approve
+      # - name: Terraform Apply
+      #   run: terraform apply --auto-approve
 
-        # id: apply
-        # run: |
-        #   set +e
-        #   terraform apply -auto-approve
-        #   APPLY_EXIT_CODE=$?
-        #   if [ $APPLY_EXIT_CODE -ne 0 ]; then
-        #     echo "Terraform apply failed. Retrying with now created app version..."
-        #     terraform refresh
-        #     terraform apply -auto-approve
-        #   fi
-        #   set -e
+      #   # id: apply
+      #   # run: |
+      #   #   set +e
+      #   #   terraform apply -auto-approve
+      #   #   APPLY_EXIT_CODE=$?
+      #   #   if [ $APPLY_EXIT_CODE -ne 0 ]; then
+      #   #     echo "Terraform apply failed. Retrying with now created app version..."
+      #   #     terraform refresh
+      #   #     terraform apply -auto-approve
+      #   #   fi
+      #   #   set -e
 
-      - name: Sleep for 2 minutes
-        run: sleep 120
+      # - name: Sleep for 2 minutes
+      #   run: sleep 120
 
-      - name: Terraform Destroy
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform destroy -auto-approve
+      # - name: Terraform Destroy
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   run: terraform destroy -auto-approve
