@@ -372,8 +372,8 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 # Beanstalk Environment
 resource "aws_elastic_beanstalk_environment" "prod" {
   name                = var.beanstalk_name
-  application         = var.app_name       # Replace with your application name
-  solution_stack_name = var.stack["linux"] # Suitable for .NET
+  application         = var.application_name # Replace with your application name
+  solution_stack_name = var.stack["linux"]   # Suitable for .NET
   tier                = var.tier
 
   # Existing VPC, subnets
@@ -947,6 +947,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
 
 
   #Reference existing S3 version
-  version_label = var.app_key
+  version_label = var.app_version_name
+
 
 }

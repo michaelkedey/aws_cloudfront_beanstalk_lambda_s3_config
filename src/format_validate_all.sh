@@ -10,6 +10,6 @@ terraform validate
 find . -type d -exec sh -c 'cd "{}" && terraform fmt' \;
 
  # Run terraform validate in all subdirectories
-find . -type d -exec sh -c 'cd "{}" && terraform validate' \;
+#find . -type d -exec sh -c 'cd "{}" && terraform validate' \;
 
 

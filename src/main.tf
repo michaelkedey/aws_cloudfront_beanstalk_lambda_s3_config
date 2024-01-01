@@ -58,32 +58,30 @@ module "lambda" {
 module "dotnet_app" {
   source           = "./modules/app_version"
   app_key          = "LambdaWebApp2.zip"
-  app_version_name = "LambdaWebApp2.zip"
-  app_name         = "my_app"
+  app_version_name = "version0.0.1"
   bucket_id        = module.bucket.bucket_id
 }
 
 #9 create beanstalk env with dotnet app after inserting the s3 arn into the policies
 module "beanstalk" {
-  source        = "./modules/beanstalk/prod"
-  instance_type = "t3.micro"
-  max_instances = 3
-  min_instances = 1
-  vpc_id        = module.vpc.vpc_id
-  subnet_ids    = module.vpc.beanstalk_subnet_lists
-  #application_name = "my_app" #module.dotnet_app.app_name
-  #lb_name              = module.load_balancer.lb_arn
+  source               = "./modules/beanstalk/prod"
+  instance_type        = "t3.micro"
+  max_instances        = 3
+  min_instances        = 1
+  root_volume_size     = 30
+  root_volume_type     = "gp2"
+  vpc_id               = module.vpc.vpc_id
+  subnet_ids           = module.vpc.beanstalk_subnet_lists
+  s3_logs_bucket_id    = module.bucket.bucket_id
+  s3_logs_bucket_name  = module.bucket.bucket_name
+  elb_subnet_ids       = module.vpc.beanstalk_lb_subnet_lists
   lambda_function_name = "name_form.js.zip"
+  app_version_name     = module.dotnet_app.beanstalk_app_version_label
+  beanstalk_name       = "my-prod-beanstalk10"
+  application_name     = module.dotnet_app.app_name
   #sgs                  = module.vpc.beanstalk_sgs
-  app_key          = module.dotnet_app.beanstalk_app_version_label
-  root_volume_size = 30
-  root_volume_type = "gp2"
+  #lb_name              = module.load_balancer.lb_arn
   #lb_arn               = module.load_balancer.lb_arn
-  s3_logs_bucket_id   = module.bucket.bucket_id
-  s3_logs_bucket_name = module.bucket.bucket_name
-  elb_subnet_ids      = module.vpc.beanstalk_lb_subnet_lists
-  beanstalk_name      = "my-prod-beanstalk10"
-  app_name            = "my_app"
 
 }
 
