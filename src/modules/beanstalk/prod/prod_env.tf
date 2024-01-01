@@ -364,7 +364,7 @@ resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement"
 
 # Instance Profile for EC2 Instances
 resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ec2_profile"
+  name = "ec2_profile_name"
   role = aws_iam_role.beanstalk_ec2_role.name
 }
 
@@ -947,7 +947,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
 
 
   #Reference existing S3 version
-  version_label = var.app_version_name
+  #version_label = var.app_version_name
 
 
 }

@@ -1,5 +1,5 @@
 #placeholder
-variable "app_version_name" {}
+#variable "app_version_name" {}
 
 # variable "lb_name" {}
 

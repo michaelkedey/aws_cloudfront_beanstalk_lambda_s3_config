@@ -56,13 +56,22 @@ module "lambda" {
 
 #8 create dotnet app
 module "dotnet_app" {
-  source           = "./modules/app_version"
-  app_key          = "LambdaWebApp2.zip"
-  app_version_name = "version0.0.1"
-  bucket_id        = module.bucket.bucket_id
+  source   = "./modules/app"
+  app_name = "sample_app"
+
 }
 
-#9 create beanstalk env with dotnet app after inserting the s3 arn into the policies
+#9 create dotnet app version
+# module "dotnet_app_version" {
+#   source           = "./modules/app_version"
+#   app_key          = "LambdaWebApp2.zip"
+#   app_version_name = "version0.0.1"
+#   bucket_id        = module.bucket.bucket_id
+#   application = module.dotnet_app.app_name
+
+# }
+
+#10 create beanstalk env with dotnet app after inserting the s3 arn into the policies
 module "beanstalk" {
   source               = "./modules/beanstalk/prod"
   instance_type        = "t3.micro"
@@ -76,12 +85,12 @@ module "beanstalk" {
   s3_logs_bucket_name  = module.bucket.bucket_name
   elb_subnet_ids       = module.vpc.beanstalk_lb_subnet_lists
   lambda_function_name = "name_form.js.zip"
-  app_version_name     = module.dotnet_app.beanstalk_app_version_label
   beanstalk_name       = "my-prod-beanstalk10"
   application_name     = module.dotnet_app.app_name
   #sgs                  = module.vpc.beanstalk_sgs
   #lb_name              = module.load_balancer.lb_arn
   #lb_arn               = module.load_balancer.lb_arn
+  #app_version_name     = module.dotnet_app_version.beanstalk_app_version_label
 
 }
 
