@@ -1,5 +1,4 @@
 terraform {
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -13,4 +12,4 @@ provider "aws" {
   alias  = "bid_region"
 }
 
-#ok
+
