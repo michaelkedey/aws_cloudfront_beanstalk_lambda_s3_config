@@ -1,11 +1,16 @@
 name: "Terraform_prod"
 
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       approve:
+#         description: 'Approve the Terraform_prod'
+#         required: true
+
 on:
-  workflow_dispatch:
-    inputs:
-      approve:
-        description: 'Approve the Terraform_prod'
-        required: true
+  push:
+    branches:
+      - main
 
 jobs:
   terraform_staging:
@@ -41,9 +46,9 @@ jobs:
         id: init
         run: terraform init
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan -no-color
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
 
       # - name: Refresh Terraform State
       #   run: terraform refresh
