@@ -42,19 +42,24 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
+      
+      - name: Refresh Terraform State
+        run: terraform refresh
 
       - name: Terraform Apply
+        run: terraform apply --auto-approve
 
-        id: apply
-        run: |
-          set +e
-          terraform apply -auto-approve
-          APPLY_EXIT_CODE=$?
-          if [ $APPLY_EXIT_CODE -ne 0 ]; then
-            echo "Terraform apply failed. Retrying with now created app version..."
-            terraform apply -auto-approve
-          fi
-          set -e
+        # id: apply
+        # run: |
+        #   set +e
+        #   terraform apply -auto-approve
+        #   APPLY_EXIT_CODE=$?
+        #   if [ $APPLY_EXIT_CODE -ne 0 ]; then
+        #     echo "Terraform apply failed. Retrying with now created app version..."
+        #     terraform refresh
+        #     terraform apply -auto-approve
+        #   fi
+        #   set -e
 
       - name: Sleep for 10 minutes
         run: sleep 600
