@@ -40,18 +40,18 @@ jobs:
         id: init
         run: terraform init
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan -no-color
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
 
-      # - name: Refresh Terraform State
-      #   run: terraform refresh
+      - name: Refresh Terraform State
+        run: terraform refresh
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
 
-      # - name: Sleep for 2 minutes
-      #   run: sleep 120
+      - name: Sleep for 1 minutes
+        run: sleep 60
 
-      # - name: Terraform Destroy
-      #   run: terraform destroy -auto-approve
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
