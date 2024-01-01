@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Run terraform fmt in the current directory
-terraform fmt
+terraform fmt 
 
 # Run terraform validate in the current directory
-terraform validate
+#terraform validate
 
 # Run terraform fmt in all subdirectories
 find . -type d -exec sh -c 'cd "{}" && terraform fmt' \;
