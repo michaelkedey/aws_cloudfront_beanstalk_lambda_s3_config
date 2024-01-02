@@ -68,5 +68,5 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: terraform destroy -auto-approve
 
-       - name: Sleep for 2 minutes
+      - name: Sleep for 2 minutes
         run: sleep 120

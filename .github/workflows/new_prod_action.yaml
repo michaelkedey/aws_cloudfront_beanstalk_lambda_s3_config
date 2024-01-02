@@ -69,5 +69,5 @@ jobs:
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
 
-       - name: Sleep for 2 minutes
+      - name: Sleep for 2 minutes
         run: sleep 120
