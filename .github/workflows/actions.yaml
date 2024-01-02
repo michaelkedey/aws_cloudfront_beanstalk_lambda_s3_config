@@ -61,12 +61,12 @@ jobs:
       #   #   fi
       #   #   set -e
 
-      - name: Sleep for 1 minute
-        run: sleep 60
+      # - name: Sleep for 1 minute
+      #   run: sleep 60
 
-      - name: Terraform Destroy
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform destroy -auto-approve
+      # - name: Terraform Destroy
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   run: terraform destroy -auto-approve
 
-      - name: Sleep for 2 minutes
-        run: sleep 120
+      # - name: Sleep for 2 minutes
+      #   run: sleep 120
