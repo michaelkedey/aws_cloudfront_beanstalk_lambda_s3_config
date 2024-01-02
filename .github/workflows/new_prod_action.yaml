@@ -51,7 +51,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -backend-config=providers_prod.tfvars
 
       - name: Terraform Plan
         id: plan
@@ -68,3 +68,6 @@ jobs:
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
+
+       - name: Sleep for 2 minutes
+        run: sleep 120
