@@ -26,28 +26,28 @@ jobs:
       - name: pre-init file
         run: bash ./format_validate_all.sh
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.1
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 1.0.1
 
-      - name: Terraform Format
-        id: fmt
-        run: terraform fmt -check
+      # - name: Terraform Format
+      #   id: fmt
+      #   run: terraform fmt -check
 
-      - name: Terraform Init
-        id: init
-        run: terraform init -backend-config=providers.tfvars
+      # - name: Terraform Init
+      #   id: init
+      #   run: terraform init -backend-config=providers.tfvars
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan -no-color
       
-      - name: Refresh Terraform State
-        run: terraform refresh
+      # - name: Refresh Terraform State
+      #   run: terraform refresh
 
-      - name: Terraform Apply
-        run: terraform apply --auto-approve
+      # - name: Terraform Apply
+      #   run: terraform apply --auto-approve
 
       #   # id: apply
       #   # run: |
