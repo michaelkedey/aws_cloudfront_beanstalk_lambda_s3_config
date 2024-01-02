@@ -37,7 +37,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config=providers.tf
+        run: terraform init -backend-config=providers.tfvars
 
       - name: Terraform Plan
         id: plan
