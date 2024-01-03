@@ -1,4 +1,5 @@
 variable "bucket_name" {
+  type = string
 
 }
 
@@ -14,6 +15,6 @@ variable "tags_all" {
 
 
 variable "version_status" {
-  default = "Enabled"
+  default = "Disabled"
   type    = string
 }
