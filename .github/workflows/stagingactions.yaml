@@ -38,23 +38,23 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config=providers_staging.tfvars
+        run: terraform init -var-file="./env/staging/.terraform.tfvars" -backend-config="./env/staging/backend.tfvars"
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: terraform plan -var-file="./env/staging/.terraform.tfvars" no-color
 
-      # - name: Refresh Terraform State
-      #   run: terraform refresh
+      - name: Refresh Terraform State
+        run: terraform refresh
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: terraform apply -var-file="./env/staging/.terraform.tfvars" --auto-approve
 
-      # - name: Sleep for 1 minutes
-      #   run: sleep 60
+      - name: Sleep for 1 minutes
+        run: sleep 60
 
-      # - name: Terraform Destroy
-      #   run: terraform destroy -auto-approve
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve -var-file="./env/staging/.terraform.tfvars"
 
-      # - name: Sleep for 2 minutes
-      #   run: sleep 120
+      - name: Sleep for 2 minutes
+        run: sleep 120

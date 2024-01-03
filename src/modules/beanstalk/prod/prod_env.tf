@@ -40,13 +40,13 @@ resource "aws_iam_role" "beanstalk_service_role" {
 
 # IAM Policy for EC2 Instances
 resource "aws_iam_policy" "beanstalk_ec2_policy" {
-  name = "beanstalk_ec2_policy"
+  name   = "beanstalk_ec2_policy"
   policy = file("${path.module}/beanstalk-ec2-policy.json")
 }
 
 #iam policy for beanstalk service role
 resource "aws_iam_policy" "beanstalk-service-policy" {
-  name = "beanstalk_service_policy"
+  name   = "beanstalk_service_policy"
   policy = file("${path.module}/beanstalk-service-policy.json")
 }
 
