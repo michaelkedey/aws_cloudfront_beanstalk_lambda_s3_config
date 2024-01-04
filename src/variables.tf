@@ -4,7 +4,7 @@ variable "bucket_name" {
 }
 
 variable "lambda_key" {
-  default = "name_form.js.zip"
+  default = "auto_deploy_function.py.zip"
   type    = string
 }
 
@@ -20,7 +20,7 @@ variable "func_handler" {
 }
 
 variable "app_name" {
-  type    = string
+  type = string
 
 }
 
@@ -30,43 +30,43 @@ variable "version_name" {
 }
 
 variable "max_instance" {
-  type    = number
+  type = number
 
 }
 
 variable "min_instance" {
-  type    = number
+  type = number
 
 }
 
 variable "root_vol_type" {
-  type    = string
+  type = string
 
 }
 
 variable "root_vol_size" {
-  type    = number
+  type = number
 
 }
 
 variable "beanstalk_env_name" {
-  type    = string
+  type = string
 
 }
 
 variable "instance_type" {
-  type    = string
+  type = string
 
 }
 
 variable "lambda_archive_source" {
-  default = "../../functions/lambda/name_form.js"
+  default = "../../functions/lambda/auto_deploy_function.py"
   type    = string
 
 }
 
 variable "lambda_archive_output" {
-  default = "../../s3_uploads/name_form.js"
+  default = "../../s3_uploads/auto_deploy_function.py"
   type    = string
 
 }
@@ -84,7 +84,7 @@ variable "app_archive_output" {
 }
 
 variable "lambda_file_upload" {
-  default = "./s3_uploads/name_form.js.zip"
+  default = "./s3_uploads/auto_deploy_function.py.zip"
   type    = string
 
 }
@@ -96,27 +96,30 @@ variable "app_file_upload" {
 }
 
 variable "lambda_file" {
-  default = "../../s3_uploads/name_form.js.zip"
-  type = string
+  default = "../../s3_uploads/auto_deploy_function.py.zip"
+  type    = string
 }
 
-# variable "s3_backend" {
-#   type = string
+variable "func_runtime" {
+  default = "nodejs18.x" #"python3.8"
+  type    = string
+}
 
-# }
+variable "prefix" {
+  default = "code_"
+}
 
-# variable "backend_key" {
-#   type = string
+variable "suffix" {
+  default = ".zip"
+}
 
-# }
+variable "app_file_trigger_upload" {
+  default = "./s3_uploads/code_LambdaWebApp2.zip"
+  type    = string
+}
 
-# variable "backend_region" {
-#   type = string
-
-# }
-
-# variable "deploy_region" {
-#  type = string
-# }
-
+variable "app_file_trigger_key" {
+  default = "code_LambdaWebApp2.zip"
+  type    = string
+}
   

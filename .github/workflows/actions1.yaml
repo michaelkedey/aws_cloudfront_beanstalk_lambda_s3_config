@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/s3_uploads'
+      - 'src/s3_uploads/**'
       
 jobs:
   copy_to_s3:
@@ -23,4 +23,5 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Copy to S3
-        run: aws s3 cp index.html s3://your-bucket-name/index.html
+        run : aws s3 cp src/s3_uploads/** s3://your-bucket-name/**
+        #run: aws s3 cp index.html s3://your-bucket-name/code_1LambdaWebApp2.zip
