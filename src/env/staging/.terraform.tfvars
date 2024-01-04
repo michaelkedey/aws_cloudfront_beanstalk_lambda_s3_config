@@ -1,5 +1,6 @@
 #staging.tfvars
 bucket_name = "myoneandonlystagingbucket"
+bucket2_name = "appstaging-versions"
 app_name = "staging-sample_app"
 max_instance = 4
 min_instance = 2

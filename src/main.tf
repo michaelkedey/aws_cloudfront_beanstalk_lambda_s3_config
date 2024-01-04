@@ -10,6 +10,12 @@ module "bucket" {
   bucket_name = var.bucket_name
 }
 
+#3 create bucket
+module "bucket2" {
+  source      = "./modules/s3"
+  bucket_name = var.bucket2_name
+}
+
 #3 archive lambda functions
 module "zip_lambda" {
   source      = "./modules/archive_file"
