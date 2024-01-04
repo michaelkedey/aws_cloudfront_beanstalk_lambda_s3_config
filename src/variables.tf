@@ -3,6 +3,11 @@ variable "bucket_name" {
 
 }
 
+variable "bucket2_name" {
+  type = string
+
+}
+
 variable "lambda_key" {
   default = "auto_deploy_function.py.zip"
   type    = string
