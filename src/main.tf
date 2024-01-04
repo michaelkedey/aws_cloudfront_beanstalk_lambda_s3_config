@@ -45,7 +45,7 @@ module "lambda" {
   vpc_subnet_ids = split(",", module.vpc.beanstalk_subnet_lists)
   #event_source_arn = module.primary_bucket.bucket_arn
   s3_bucket_name     = module.bucket.bucket_name
-  lambda_file        = "../../s3_uploads/name_form.js.zip" #var.lambda_file_upload
+  lambda_file        = "../../s3_uploads/auto_deploy_function.py.zip" #var.lambda_file_upload
   src_code_hash      = module.zip_lambda.src_code_hash
   security_group_ids = [module.vpc.beanstalk_sg_id]
   eb_app_name        = module.dotnet_app.app_name
@@ -84,13 +84,13 @@ module "beanstalk" {
 
 }
 
-#9 trigger lambda
-module "trigger_lambda_via_upload" {
-  source       = "./modules/bucket_uploads_file"
-  file_path    = var.app_file_trigger_upload
-  s3_bucket_id = module.bucket.bucket_id
-  key          = var.app_file_trigger_key
-}
+# #9 trigger lambda
+# module "trigger_lambda_via_upload" {
+#   source       = "./modules/bucket_uploads_file"
+#   file_path    = var.app_file_trigger_upload
+#   s3_bucket_id = module.bucket.bucket_id
+#   key          = var.app_file_trigger_key
+# }
 
 
 # ########################################################################
