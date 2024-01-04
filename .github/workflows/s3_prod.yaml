@@ -1,10 +1,10 @@
-name: Copy to S3 production
+name: Sync to S3 production
 
 on:
   workflow_dispatch:
     inputs:
       approve:
-        description: 'Approve the Copy to S3 production'
+        description: 'Approve the Sync to S3 production'
         required: true
       
 jobs:
@@ -22,5 +22,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
           aws-region: us-east-1  # Replace with your AWS region
 
-      - name: Copy to S3
-        run: aws s3 cp html s3://html
+      - name: sync to S3
+        run: aws s3 sync app_versions s3://appprod-versions
