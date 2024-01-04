@@ -23,4 +23,4 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: sync to S3
-        run: aws s3 sync app_versions s3://appprod-versions
+        run: aws s3 sync app_versions s3://myoneandonlyprettyprodbucket
