@@ -60,11 +60,11 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -var-file="./env/prod/.terraform.tfvars" --auto-approve
 
-      - name: Sleep for 2 minutes
-        run: sleep 120
+      # - name: Sleep for 2 minutes
+      #   run: sleep 120
 
-      - name: Terraform Destroy
-        run: terraform destroy --auto-approve -var-file="./env/prod/.terraform.tfvars"
+      # - name: Terraform Destroy
+      #   run: terraform destroy --auto-approve -var-file="./env/prod/.terraform.tfvars"
 
-      - name: Sleep for 2 minutes
-        run: sleep 120
+      # - name: Sleep for 2 minutes
+      #   run: sleep 120
