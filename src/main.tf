@@ -17,15 +17,7 @@ module "zip_lambda" {
   output_path = var.lambda_archive_output
 }
 
-#4 archive .net app directory
-# module "zip_dotnet" {
-#   source      = "./modules/archive_dir"
-#   src_path    = var.app_archive_source
-#   output_path = var.app_archive_output
-# }
-
-
-#5 upload lambda function to bucket
+#4 upload lambda function to bucket
 module "upload_lambda" {
   source       = "./modules/bucket_uploads_file"
   file_path    = var.lambda_file_upload
@@ -33,7 +25,7 @@ module "upload_lambda" {
   key          = var.lambda_key
 }
 
-#6 upload .net function to bucket
+#5 upload .net function to bucket
 module "upload_dot_net" {
   source       = "./modules/bucket_uploads_file"
   file_path    = var.app_file_upload
@@ -41,36 +33,29 @@ module "upload_dot_net" {
   key          = var.app_key
 }
 
-#7 create lambda_fn from s3 
+#6 create lambda_fn from s3 
 module "lambda" {
   source         = "./modules/lambda"
   vpc_subnet_ids = split(",", module.vpc.beanstalk_subnet_lists)
   #event_source_arn = module.primary_bucket.bucket_arn
-  bucket_name         = module.bucket.bucket_name
-  lambda_file         = "../../s3_uploads/name_form.js.zip" #var.lambda_file_upload
-  src_code_hash       = module.zip_lambda.src_code_hash
-  security_group_ids  = [module.vpc.beanstalk_sg_id]
-  lambda_func_handler = var.func_handler
+  s3_bucket_name     = module.bucket.bucket_name
+  lambda_file        = "../../s3_uploads/name_form.js.zip" #var.lambda_file_upload
+  src_code_hash      = module.zip_lambda.src_code_hash
+  security_group_ids = [module.vpc.beanstalk_sg_id]
+  eb_app_name        = module.dotnet_app.app_name
+  eb_env_name        = module.beanstalk.environment_name
+  prefix             = var.prefix
+  suffix             = var.suffix
 }
 
-#8 create dotnet app
+#7 create dotnet app
 module "dotnet_app" {
   source   = "./modules/app"
   app_name = var.app_name
 
 }
 
-#9 create dotnet app version
-# module "dotnet_app_version" {
-#   source           = "./modules/app_version"
-#   app_key          = var.app_key
-#   app_version_name = var.version_name
-#   bucket_id        = module.bucket.bucket_id
-#   application = module.dotnet_app.app_name
-
-# }
-
-#10 create beanstalk env with dotnet app after inserting the s3 arn into the policies
+#8 create beanstalk env with dotnet app after inserting the s3 arn into the policies
 module "beanstalk" {
   source               = "./modules/beanstalk/prod"
   instance_type        = var.instance_type
@@ -93,8 +78,34 @@ module "beanstalk" {
 
 }
 
+#9 trigger lambda
+module "trigger_lambda_via_upload" {
+  source       = "./modules/bucket_uploads_file"
+  file_path    = var.app_file_trigger_upload
+  s3_bucket_id = module.bucket.bucket_id
+  key          = var.app_file_trigger_key
+}
+
 
 # ########################################################################
+
+#9 create dotnet app version
+# module "dotnet_app_version" {
+#   source           = "./modules/app_version"
+#   app_key          = var.app_key
+#   app_version_name = var.version_name
+#   bucket_id        = module.bucket.bucket_id
+#   application = module.dotnet_app.app_name
+
+# }
+
+#4 archive .net app directory
+# module "zip_dotnet" {
+#   source      = "./modules/archive_dir"
+#   src_path    = var.app_archive_source
+#   output_path = var.app_archive_output
+# }
+
 
 # #11 deploy lb
 # # module "load_balancer" {

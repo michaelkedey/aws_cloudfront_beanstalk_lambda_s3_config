@@ -133,9 +133,9 @@ output "bucket_arn" {
 # # # }
 
 #lambda api
-output "lambda_api_url" {
-  value = module.lambda.lambda_api_url
-}
+# output "lambda_api_url" {
+#   value = module.lambda.lambda_api_url
+# }
 
 # output "instance_ids" {
 #   value = module.beanstalk.instance_ids

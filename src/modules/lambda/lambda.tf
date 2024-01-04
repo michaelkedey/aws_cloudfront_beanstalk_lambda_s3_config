@@ -1,79 +1,74 @@
 resource "aws_iam_role" "lambda_execution_role" {
-  name = var.lambda_iam_name
+  name = var.lambda_iam_role_name
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy_attachment" "lambda_execution_role_policy" {
-  policy_arn = aws_iam_policy.lambda_execution_policy.arn
-  role       = aws_iam_role.lambda_execution_role.name
-}
-
-resource "aws_iam_policy" "lambda_execution_policy" {
-  name        = "LambdaExecutionPolicy"
-  description = "Policy for Lambda execution"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        Effect = "Allow"
-        Action = [
-          "ec2:DeleteNetworkInterface",
-          "ec2:DescribeNetworkInterfaces",
-          "ec2:CreateNetworkInterface",
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:ListBucket",
-          "lambda:InvokeFunction",
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream"
-
-        ]
-        Resource = "*"
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "lambda.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
       }
     ]
   })
 }
 
-
-resource "aws_iam_role_policy_attachment" "lambda_access" {
-  policy_arn = var.vpc_access_role
+resource "aws_iam_role_policy_attachment" "lambda_execution_role_policy_attachment" {
+  policy_arn = var.lambda_policy_arn
   role       = aws_iam_role.lambda_execution_role.name
 }
 
+
+resource "aws_iam_policy" "lambda_execution_policy" {
+  name        = "LambdaExecutionPolicy"
+  description = "Policy for Lambda execution"
+  policy      = file("${path.module}/lambda_execution_policy.json")
+}
+
+
+resource "aws_iam_role_policy_attachment" "lambda_execution_role_policy_attachment-2" {
+  policy_arn = aws_iam_policy.lambda_execution_policy.arn
+  role       = aws_iam_role.lambda_execution_role.name
+}
+
+
+# resource "aws_iam_policy" "lambda_execution_policy" {
+#   name        = "LambdaExecutionPolicy"
+#   description = "Policy for Lambda execution"
+#   policy = file("${path.module}/lambda_iam_policy")
+
+# }
+
+# resource "aws_iam_role_policy_attachment" "lambda_access" {
+#   policy_arn = aws_iam_policy.lambda_execution_policy.arn
+#   role       = aws_iam_role.lambda_execution_role.name
+# }
+
+#lambda
 resource "aws_lambda_function" "bid_lambda_fn" {
-  filename      = "${path.module}/${var.lambda_file}"
   function_name = var.lambda_function_name
   role          = aws_iam_role.lambda_execution_role.arn
   handler       = var.lambda_func_handler
+  runtime       = var.func_runtime
+  memory_size   = var.lambda_memory_size
+  timeout       = var.lambda_timeout
 
+  # Specify the deployment code
+  filename         = "${path.module}/${var.lambda_file}"
   source_code_hash = var.src_code_hash
-  runtime          = var.func_runtime
-  memory_size      = var.lambda_memory_size
-  timeout          = var.lambda_timeout
 
+  # Specify environment variables
   environment {
     variables = {
-      BUCKET_NAME = var.bucket_name
+      EB_ENVIRONMENT_NAME = var.eb_env_name
+      S3_BUCKET_NAME      = var.s3_bucket_name
+      CODE_SUFFIX         = var.suffix
+      CODE_PREFIX         = var.prefix
+      EB_APPLICATION_NAME = var.eb_app_name
     }
   }
-
-  # Enable versioning for Lambda function
-  publish = true
 
   vpc_config {
     security_group_ids = var.security_group_ids
@@ -86,20 +81,19 @@ resource "aws_lambda_function" "bid_lambda_fn" {
     mode = var.tracing_mode
   }
 
-  #   dead_letter_config {
-  #     target_arn = var.dead_letter_queue_arn
-  #   }
-
-  #event_source_arn = var.event_source_arn 
-
-  #layers = var.lambda_layers
-
-  # CloudWatch Logs configuration
-  #   tracing_config {
-  #     mode = var.tracing_mode
-  #   }
-
 }
+
+# # S3 event trigger for Lambda function
+# resource "aws_s3_bucket_notification" "lambda_trigger" {
+#   bucket = var.trigger_bucket
+
+#   lambda_function {
+#     lambda_function_arn = aws_lambda_function.deploy_function.arn
+#     events              = ["s3:ObjectCreated:*"]
+#     filter_prefix       = "code_"
+#     filter_suffix       = ".zip"
+#   }
+# }
 
 # resource "aws_lambda_event_source_mapping" "bid_source" {
 #   event_source_arn = var.event_source_arn
@@ -107,36 +101,36 @@ resource "aws_lambda_function" "bid_lambda_fn" {
 #   enabled          = true
 # }
 
-resource "aws_api_gateway_rest_api" "lambda_api" {
-  name        = "LambdaAPI"
-  description = "API for Lambda function"
-}
+# resource "aws_api_gateway_rest_api" "lambda_api" {
+#   name        = "LambdaAPI"
+#   description = "API for Lambda function"
+# }
 
-resource "aws_api_gateway_resource" "lambda_resource" {
-  rest_api_id = aws_api_gateway_rest_api.lambda_api.id
-  parent_id   = aws_api_gateway_rest_api.lambda_api.root_resource_id
-  path_part   = "lambda"
-}
+# resource "aws_api_gateway_resource" "lambda_resource" {
+#   rest_api_id = aws_api_gateway_rest_api.lambda_api.id
+#   parent_id   = aws_api_gateway_rest_api.lambda_api.root_resource_id
+#   path_part   = "lambda"
+# }
 
-resource "aws_api_gateway_method" "lambda_method" {
-  rest_api_id   = aws_api_gateway_rest_api.lambda_api.id
-  resource_id   = aws_api_gateway_resource.lambda_resource.id
-  http_method   = "POST"
-  authorization = "NONE"
-}
+# resource "aws_api_gateway_method" "lambda_method" {
+#   rest_api_id   = aws_api_gateway_rest_api.lambda_api.id
+#   resource_id   = aws_api_gateway_resource.lambda_resource.id
+#   http_method   = "POST"
+#   authorization = "NONE"
+# }
 
-resource "aws_api_gateway_integration" "lambda_integration" {
-  rest_api_id = aws_api_gateway_rest_api.lambda_api.id
-  resource_id = aws_api_gateway_resource.lambda_resource.id
-  http_method = aws_api_gateway_method.lambda_method.http_method
+# resource "aws_api_gateway_integration" "lambda_integration" {
+#   rest_api_id = aws_api_gateway_rest_api.lambda_api.id
+#   resource_id = aws_api_gateway_resource.lambda_resource.id
+#   http_method = aws_api_gateway_method.lambda_method.http_method
 
-  integration_http_method = "POST"
-  type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.bid_lambda_fn.invoke_arn
-}
+#   integration_http_method = "POST"
+#   type                    = "AWS_PROXY"
+#   uri                     = aws_lambda_function.bid_lambda_fn.invoke_arn
+# }
 
-resource "aws_api_gateway_deployment" "lambda_deployment" {
-  depends_on  = [aws_api_gateway_integration.lambda_integration]
-  rest_api_id = aws_api_gateway_rest_api.lambda_api.id
-  stage_name  = "dev"
-}
+# resource "aws_api_gateway_deployment" "lambda_deployment" {
+#   depends_on  = [aws_api_gateway_integration.lambda_integration]
+#   rest_api_id = aws_api_gateway_rest_api.lambda_api.id
+#   stage_name  = "dev"
+# }
