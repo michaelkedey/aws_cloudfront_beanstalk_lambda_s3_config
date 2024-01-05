@@ -23,5 +23,5 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Sync to S3
-        run : aws s3 sync app_versions s3://myoneandonly-dev-bucket
+        run : aws s3 sync --delete app_versions s3://myoneandonly-dev-bucket
         #run: aws s3 cp index.html s3://your-bucket-name/code_1LambdaWebApp2.zip
