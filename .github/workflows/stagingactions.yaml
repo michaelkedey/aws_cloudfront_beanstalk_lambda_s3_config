@@ -45,14 +45,14 @@ jobs:
         id: plan
         run: terraform plan -var-file="./env/staging/.terraform.tfvars"
 
-      - name: Terraform Apply
-        run: terraform apply -var-file="./env/staging/.terraform.tfvars" --auto-approve
+      # - name: Terraform Apply
+      #   run: terraform apply -var-file="./env/staging/.terraform.tfvars" --auto-approve
 
       # - name: Sleep for 2 minutes
       #   run: sleep 120
 
-      # - name: Terraform Destroy
-      #   run: terraform destroy --auto-approve -var-file="./env/staging/.terraform.tfvars"
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve -var-file="./env/staging/.terraform.tfvars"
 
       # - name: Sleep for 2 minutes
       #   run: sleep 120
