@@ -83,6 +83,6 @@ variable "prefix" {
 
 variable "eb_app_name" {}
 
-variable "s3_bucket_bucket" {
+variable "s3_bucket_id" {
   
 }
