@@ -53,7 +53,9 @@ module "lambda" {
   prefix             = var.prefix
   suffix             = var.suffix
   #trigger_bucket_arn = module.bucket.bucket_arn
+  s3_arn = module.bucket.bucket_arn
   s3_bucket_id = module.bucket.bucket_id
+
 }
 
 #7 create dotnet app
