@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - s3_auto
-    paths:
-      - 'src/s3_auto/s3_updates/**'
+    # paths:
+    #   - 'src/s3_auto/s3_updates/**'
 
 jobs:
   update_s3:
