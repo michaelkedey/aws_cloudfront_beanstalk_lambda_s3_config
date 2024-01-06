@@ -102,6 +102,16 @@ resource "aws_s3_bucket_notification" "lambda_trigger" {
   }
 }
 
+resource "aws_lambda_permission" "allow_bucket" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.bid_lambda_fn.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = "${var.s3_arn}/*"
+}
+
+
+
 # resource "aws_lambda_event_source_mapping" "bid_source" {
 #   event_source_arn = var.event_source_arn
 #   function_name    = aws_lambda_function.bid_lambda_fn.function_name
