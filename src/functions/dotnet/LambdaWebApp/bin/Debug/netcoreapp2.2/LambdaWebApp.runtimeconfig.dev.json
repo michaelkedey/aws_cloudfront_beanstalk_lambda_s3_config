@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\RINGROW\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\RINGROW\\.nuget\\packages"
-    ]
-  }
-}
