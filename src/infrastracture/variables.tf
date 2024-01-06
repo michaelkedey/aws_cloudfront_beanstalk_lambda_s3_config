@@ -123,3 +123,6 @@ variable "app_file_trigger_key" {
   type    = string
 }
   
+# variable "trigger_bucket_arn" {
+  
+# }

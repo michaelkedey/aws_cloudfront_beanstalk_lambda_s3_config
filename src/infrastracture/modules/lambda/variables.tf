@@ -60,9 +60,9 @@ variable "func_runtime" {
   type    = string
 }
 
-# variable "trigger_bucket_arn" {
+variable "trigger_bucket_arn" {
 
-# }
+}
 
 variable "lambda_func_handler" {
   default = "auto_deploy_function.lambda_handler"

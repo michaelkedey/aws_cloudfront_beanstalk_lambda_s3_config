@@ -52,6 +52,7 @@ module "lambda" {
   eb_env_name        = module.beanstalk.environment_name
   prefix             = var.prefix
   suffix             = var.suffix
+  trigger_bucket_arn = module.bucket.bucket_arn
 }
 
 #7 create dotnet app
