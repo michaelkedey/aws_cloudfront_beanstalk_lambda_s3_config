@@ -122,7 +122,7 @@ variable "app_file_trigger_key" {
   default = "code_LambdaWebApp2.zip"
   type    = string
 }
-  
+
 # variable "trigger_bucket_arn" {
-  
+
 # }

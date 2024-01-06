@@ -84,10 +84,10 @@ variable "prefix" {
 variable "eb_app_name" {}
 
 variable "s3_bucket_id" {
-  
+
 }
 
 
 variable "s3_arn" {
-  
+
 }
