@@ -84,16 +84,16 @@ resource "aws_lambda_function" "bid_lambda_fn" {
 }
 
 # # S3 event trigger for Lambda function
-# resource "aws_s3_bucket_notification" "lambda_trigger" {
-#   bucket = var.trigger_bucket
+resource "aws_s3_bucket_notification" "lambda_trigger" {
+  bucket = var.s3_bucket_name
 
-#   lambda_function {
-#     lambda_function_arn = aws_lambda_function.deploy_function.arn
-#     events              = ["s3:ObjectCreated:*"]
-#     filter_prefix       = "code_"
-#     filter_suffix       = ".zip"
-#   }
-# }
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.deploy_function.arn
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = var.prefix
+    filter_suffix       = var.suffix
+  }
+}
 
 # resource "aws_lambda_event_source_mapping" "bid_source" {
 #   event_source_arn = var.event_source_arn
