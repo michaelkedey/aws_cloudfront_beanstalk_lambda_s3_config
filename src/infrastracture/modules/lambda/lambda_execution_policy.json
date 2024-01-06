@@ -14,7 +14,10 @@
         "s3:PutBucketNotification",
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
-        "logs:PutLogEvents"
+        "logs:PutLogEvents",
+        "elasticbeanstalk:CreateApplicationVersion", 
+        "elasticbeanstalk:CreateEnvironment"
+        
 
       ],
       "Resource" : "*"
