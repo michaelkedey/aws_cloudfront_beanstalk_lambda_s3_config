@@ -16,8 +16,12 @@
         "logs:CreateLogStream",
         "logs:PutLogEvents",
         "elasticbeanstalk:CreateApplicationVersion", 
-        "elasticbeanstalk:CreateEnvironment"
-        
+        "elasticbeanstalk:CreateEnvironment",
+        "sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "benatsu-sqs:*"
 
       ],
       "Resource" : "*"

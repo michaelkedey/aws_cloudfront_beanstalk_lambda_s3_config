@@ -16,11 +16,81 @@ resource "aws_iam_role" "lambda_execution_role" {
 }
 
 
+# resource "aws_iam_policy" "lambda_execution_policy" {
+#   name        = "LambdaExecutionPolicy"
+#   description = "Policy for Lambda execution"
+#   policy      = file("${path.module}/lambda_execution_policy.json")
+# }
+
+data "aws_caller_identity" "current" {}
+
 resource "aws_iam_policy" "lambda_execution_policy" {
-  name        = "LambdaExecutionPolicy"
-  description = "Policy for Lambda execution"
-  policy      = file("${path.module}/lambda_execution_policy.json")
+  name        = "lambda_execution_policy"
+  description = "Policy for Lambda execution role"
+
+  policy = jsonencode(
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::${var.s3_bucket_name}",
+        "arn:aws:s3:::${var.s3_bucket_name}/*"
+      ]
+    },
+    {
+      "Action": [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:ListBucket",
+      "s3:DeleteObject",
+      "s3:GetBucketPolicy",
+      "s3:CreateBucket"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+       "arn:aws:s3:::elasticbeanstalk-us-east-1-${data.aws_caller_identity.current.account_id}/*",
+       "arn:aws:s3:::elasticbeanstalk-us-east-1-${data.aws_caller_identity.current.account_id}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticbeanstalk:CreateApplicationVersion",
+        "elasticbeanstalk:UpdateEnvironment",
+        "elasticbeanstalk:DescribeEnvironments",
+        "elasticbeanstalk:ListPlatformBranches",
+        "elasticbeanstalk:DescribeAccountAttributes",
+        "elasticbeanstalk:CreateStorageLocation",
+        "elasticbeanstalk:CheckDNSAvailability",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:CreateNetworkInterface"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
+  )
+}
+
 
 resource "aws_iam_role_policy_attachment" "lambda_execution_role_policy_attachment-2" {
   policy_arn = aws_iam_policy.lambda_execution_policy.arn
