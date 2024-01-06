@@ -1,5 +1,6 @@
 #dev.tfvars
-bucket_name = "myoneandonlpretydevbucket"
+bucket_name = "myoneandonlyprettyprodbucket"
+# bucket2_name = "appprod-versions"
 app_name = "dev-sample_app"
 max_instance = 5
 min_instance = 3

@@ -1,5 +1,6 @@
 # dev.tfvars
 bucket_name = "myoneandonly-dev-bucket"
+# bucket2_name = "appdev-versions"
 app_name = "dev-sample_app"
 max_instance = 2
 min_instance = 1

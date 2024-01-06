@@ -10,6 +10,12 @@ module "bucket" {
   bucket_name = var.bucket_name
 }
 
+# #3 create bucket
+# module "bucket2" {
+#   source      = "./modules/s3"
+#   bucket_name = var.bucket2_name
+# }
+
 #3 archive lambda functions
 module "zip_lambda" {
   source      = "./modules/archive_file"
@@ -39,7 +45,7 @@ module "lambda" {
   vpc_subnet_ids = split(",", module.vpc.beanstalk_subnet_lists)
   #event_source_arn = module.primary_bucket.bucket_arn
   s3_bucket_name     = module.bucket.bucket_name
-  lambda_file        = "../../s3_uploads/name_form.js.zip" #var.lambda_file_upload
+  lambda_file        = "../../s3_uploads/auto_deploy_function.py.zip" #var.lambda_file_upload
   src_code_hash      = module.zip_lambda.src_code_hash
   security_group_ids = [module.vpc.beanstalk_sg_id]
   eb_app_name        = module.dotnet_app.app_name
