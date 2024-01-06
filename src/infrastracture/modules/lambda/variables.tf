@@ -65,7 +65,7 @@ variable "func_runtime" {
 # }
 
 variable "lambda_func_handler" {
-  default = "auto_deploy_function.lambda_handle"
+  default = "auto_deploy_function.lambda_handler"
   type    = string
 }
 
