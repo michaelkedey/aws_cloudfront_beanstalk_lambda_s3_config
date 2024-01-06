@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: src
+        working-directory: src/infrastracture
 
     steps:
       - name: Checkout
@@ -26,32 +26,29 @@ jobs:
       - name: pre-init file
         run: bash ./format_validate_all.sh
 
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      #   with:
-      #     terraform_version: 1.0.1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.1
 
-      # - name: Terraform Format
-      #   id: fmt
-      #   run: terraform fmt -check
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
 
-      # - name: Terraform Init
-      #   id: init
-      # #   run: terraform init -backend-config=providers.tfvars
-      #   run: terraform init -var-file="./env/dev/.terraform.tfvars" -backend-config="./env/dev/backend.tfvars"
+      - name: Terraform Init
+        id: init
+      #   run: terraform init -backend-config=providers.tfvars
+        run: terraform init -var-file="./env/dev/.terraform.tfvars" -backend-config="./env/dev/backend.tfvars"
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan -var-file="./env/dev/.terraform.tfvars"
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var-file="./env/dev/.terraform.tfvars"
       
-      # # - name: Refresh Terraform State
-      # #   run: terraform refresh
+      - name: Terraform Apply
+        run: terraform apply -var-file="./env/dev/.terraform.tfvars" --auto-approve
 
-      # # - name: Terraform Apply
-      # #   run: terraform apply -var-file="./env/dev/.terraform.tfvars" --auto-approve
-
-      # # - name: Sleep for 1 minute
-      # #   run: sleep 60
+      # - name: Sleep for 1 minute
+      #   run: sleep 60
 
       # - name: Terraform Destroy
       #   #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
