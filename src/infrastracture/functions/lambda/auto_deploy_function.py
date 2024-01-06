@@ -29,10 +29,14 @@ def lambda_handler(event, context):
         local_file_path = f'/tmp/{key}'
         s3.download_file(s3_bucket_name, key, local_file_path)
 
+        # Generate a unique version label based on the file's MD5 hash
+        version_label = hashlib.md5(key.encode('utf-8')).hexdigest()[:16]
+
         # Deploy the file to Elastic Beanstalk
         response = eb.create_deploy(
             ApplicationName=eb_application_name,
             EnvironmentName=eb_environment_name,
+            VersionLabel=version_label,
             SourceBundle={
                 'S3Bucket': s3_bucket_name,
                 'S3Key': key
