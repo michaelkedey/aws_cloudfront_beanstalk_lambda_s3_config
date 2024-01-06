@@ -12,7 +12,8 @@
         "s3:ListBucket",
         "lambda:InvokeFunction",
         "logs:CreateLogGroup",
-        "logs:CreateLogStream"
+        "logs:CreateLogStream",
+        "s3:PutBucketNotification"
 
       ],
       "Resource" : "*"
