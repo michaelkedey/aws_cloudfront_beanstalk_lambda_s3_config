@@ -100,28 +100,28 @@ variable "lambda_file" {
   type    = string
 }
 
-variable "func_runtime" {
-  default = "nodejs18.x" #"python3.8"
-  type    = string
-}
+# variable "func_runtime" {
+#   default = "nodejs18.x" #"python3.8"
+#   type    = string
+# }
 
-variable "prefix" {
-  default = "code_"
-}
+# variable "prefix" {
+#   default = "code_"
+# }
 
-variable "suffix" {
-  default = ".zip"
-}
+# variable "suffix" {
+#   default = ".zip"
+# }
 
-variable "app_file_trigger_upload" {
-  default = "./s3_uploads/code_LambdaWebApp2.zip"
-  type    = string
-}
+# variable "app_file_trigger_upload" {
+#   default = "./s3_uploads/code_LambdaWebApp2.zip"
+#   type    = string
+# }
 
-variable "app_file_trigger_key" {
-  default = "code_LambdaWebApp2.zip"
-  type    = string
-}
+# variable "app_file_trigger_key" {
+#   default = "code_LambdaWebApp2.zip"
+#   type    = string
+# }
 
 # variable "trigger_bucket_arn" {
 

@@ -1,30 +1,34 @@
 {
-  "Version" : "2012-10-17",
-  "Statement" : [
+  "Version": "2012-10-17", 
+  "Statement": [
     {
-      "Effect" : "Allow",
-      "Action" : [
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:CreateNetworkInterface",
+      "Effect": "Allow",
+      "Action": [
+        "logs:*"  
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:ListBucket",
-        "lambda:InvokeFunction",
-        "s3:PutBucketNotification",
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-        "elasticbeanstalk:CreateApplicationVersion", 
-        "elasticbeanstalk:CreateEnvironment",
-        "sqs:SendMessage",
-        "sqs:ReceiveMessage",
-        "sqs:DeleteMessage",
-        "sqs:GetQueueAttributes",
-        "benatsu-sqs:*"
-
+        "s3:ListBucket" 
       ],
-      "Resource" : "*"
+      "Resource": [
+        "arn:aws:s3:::${var.s3_bucket_name}",
+        "arn:aws:s3:::${var.s3_bucket_name }/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticbeanstalk:*"
+      ],
+      "Resource": [
+        "arn:aws:elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}:environment/${var.eb_env_name}",
+        "arn:aws:elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}:application/${var.eb_app_name}"
+      ]
     }
   ]
 }

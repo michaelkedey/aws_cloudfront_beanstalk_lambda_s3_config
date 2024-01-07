@@ -47,8 +47,11 @@ variable "tracing_mode" {
 
 variable "lambda_function_name" {
   type    = string
-  default = "auto_deploy_lambda"
 
+}
+
+variable "region" {
+  default = "us-east-1"
 }
 
 # variable "s3_bucket_arn" {
@@ -60,9 +63,6 @@ variable "func_runtime" {
   type    = string
 }
 
-# variable "trigger_bucket_arn" {
-
-# }
 
 variable "lambda_func_handler" {
   default = "auto_deploy_function.lambda_handler"
@@ -72,15 +72,17 @@ variable "lambda_func_handler" {
 variable "eb_env_name" {}
 
 variable "s3_bucket_name" {
-  
+
 }
 
 variable "suffix" {
-  type = string
+  type    = string
+  default = ".zip"
 }
 
 variable "prefix" {
-  type = string
+  type    = string
+  default = "code_"
 }
 
 variable "eb_app_name" {}
