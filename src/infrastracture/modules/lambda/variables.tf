@@ -46,7 +46,7 @@ variable "tracing_mode" {
 #variable "lambda_layers" {}
 
 variable "lambda_function_name" {
-  type    = string
+  type = string
 
 }
 

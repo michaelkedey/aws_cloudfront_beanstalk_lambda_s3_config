@@ -41,9 +41,9 @@ module "upload_dot_net" {
 
 #6 create lambda_fn from s3 
 module "lambda" {
-  source         = "./modules/lambda"
+  source               = "./modules/lambda"
   lambda_function_name = "my_lambda"
-  vpc_subnet_ids = split(",", module.vpc.beanstalk_subnet_lists)
+  vpc_subnet_ids       = split(",", module.vpc.beanstalk_subnet_lists)
   #event_source_arn = module.primary_bucket.bucket_arn
   s3_bucket_name     = module.bucket.bucket_name
   lambda_file        = "../../s3_uploads/auto_deploy_function.py.zip" #var.lambda_file_upload

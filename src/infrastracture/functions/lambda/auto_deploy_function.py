@@ -67,7 +67,7 @@ def lambda_handler(event, context):
   eb_application = os.environ['EB_APPLICATION_NAME']
   eb_environment = os.environ['EB_ENVIRONMENT_NAME']
   s3_bucket = os.environ['S3_BUCKET_NAME']
-  aws_region = os.environ['AWS_REGION']
+  aws_region = os.environ['REGION']
 
   # Create clients
   s3 = boto3.client('s3', region_name=aws_region)

@@ -1,10 +1,12 @@
 {
-  "Version": "2012-10-17", 
+  "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
       "Action": [
-        "logs:*"  
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
       ],
       "Resource": "arn:aws:logs:*:*:*"
     },
@@ -13,7 +15,7 @@
       "Action": [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:ListBucket" 
+        "s3:ListBucket"
       ],
       "Resource": [
         "arn:aws:s3:::${var.s3_bucket_name}",
@@ -23,12 +25,36 @@
     {
       "Effect": "Allow",
       "Action": [
-        "elasticbeanstalk:*"
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListBucket",
+        "s3:DeleteObject",
+        "s3:GetBucketPolicy",
+        "s3:CreateBucket"
       ],
       "Resource": [
-        "arn:aws:elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}:environment/${var.eb_env_name}",
-        "arn:aws:elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}:application/${var.eb_app_name}"
+        "arn:aws:s3:::elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}",
+        "arn:aws:s3:::elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}/*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticbeanstalk:CreateApplicationVersion",
+        "elasticbeanstalk:UpdateEnvironment",
+        "elasticbeanstalk:DescribeEnvironments",
+        "elasticbeanstalk:ListPlatformBranches",
+        "elasticbeanstalk:DescribeAccountAttributes",
+        "elasticbeanstalk:CreateStorageLocation",
+        "elasticbeanstalk:CheckDNSAvailability",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:CreateNetworkInterface"
+      ],
+      "Resource": "*"
     }
   ]
 }
+
