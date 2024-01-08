@@ -2,6 +2,8 @@
 resource "aws_vpc" "bid_vpc" {
   cidr_block = var.cidrs["vpc"]
   provider   = aws.bid_region
+  enable_dns_hostnames = true
+  enable_dns_support   = true
   tags = merge(
     var.tags_all,
     {

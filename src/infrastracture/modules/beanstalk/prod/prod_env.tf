@@ -50,16 +50,27 @@ resource "aws_iam_policy" "beanstalk-service-policy" {
   policy = file("${path.module}/beanstalk-service-policy.json")
 }
 
-
 #attache policies to roles
 resource "aws_iam_role_policy_attachment" "beanstalk_ec2_policy_attachment" {
   role       = aws_iam_role.beanstalk_ec2_role.name
   policy_arn = aws_iam_policy.beanstalk_ec2_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_policy_attachment-2" {
+  role       = aws_iam_role.beanstalk_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkCustomPlatformforEC2Role"
+}
+
 resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement" {
   role       = aws_iam_role.beanstalk_service_role.name
   policy_arn = aws_iam_policy.beanstalk-service-policy.arn
+}
+
+
+
+resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_2" {
+  role       = aws_iam_role.beanstalk_service_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-AWSElasticBeanstalk"
 }
 
 
@@ -106,25 +117,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     namespace = "aws:ec2:vpc"
     name      = "ELBScheme"
     value     = "public"
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:command"
-    name      = "DeploymentPolicy"
-    value     = "TrafficSplitting"
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:command"
-    name      = "Timeout"
-    value     = 2000
-  }
-
-
-  setting {
-    namespace = "aws:elasticbeanstalk:command"
-    name      = "IgnoreHealthCheck"
-    value     = true
   }
 
   setting {
@@ -234,11 +226,89 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = var.max_instances
   }
 
-  # setting {
-  #   namespace = "aws:autoscaling:asg"
-  #   name      = "LaunchTemplateTagPropagationEnabled"
-  #   value     = true
-  # }
+  #updates
+    setting {
+    namespace = "aws:elasticbeanstalk:managedactions"
+    name      = "ManagedActionsEnabled"
+    value     = true
+  }
+
+    setting {
+    namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
+    name      = "UpdateLevel"
+    value     = "minor"
+  }
+
+    setting {
+    namespace = "aws:elasticbeanstalk:managedactions"
+    name      = "PreferredStartTime"
+    value     = "Tue:09:00" 
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:managedactions"
+    name      = "ServiceRoleForManagedUpdates"
+    value     = "AWSServiceRoleForElasticBeanstalkManagedUpdates" 
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
+    name      = "InstanceRefreshEnabled"
+    value     = true
+  }
+
+    setting {
+    namespace = "aws:elasticbeanstalk:trafficsplitting"
+    name      = "NewVersionPercent"
+    value     = 50
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:trafficsplitting"
+    name      = "EvaluationTime"
+    value     = 4
+  }
+
+    setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "DeploymentPolicy"
+    value     = "TrafficSplitting"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "Timeout"
+    value     = 2000
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "IgnoreHealthCheck"
+    value     = true
+  }
+    setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MaxBatchSize"
+    value     = var.max_batch_size
+  }
+
+     setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MinInstancesInService"
+    value     = var.min_instance_in_service
+  }
+
+     setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "RollingUpdateEnabled"
+    value     = true
+  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "LaunchTemplateTagPropagationEnabled"
+    value     = true
+  }
 
   ####################################################################################
   # #schedule autoscaling 
@@ -450,13 +520,9 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "Protocol"
     value     = "HTTP"
   }
+#====================
 
 
-  setting {
-    namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
-    name      = "InstanceRefreshEnabled"
-    value     = true
-  }
 
   setting {
     namespace = "aws:elbv2:loadbalancer"
@@ -500,19 +566,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "EnhancedHealthAuthEnabled"
     value     = true
   }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:trafficsplitting"
-    name      = "NewVersionPercent"
-    value     = 50
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:trafficsplitting"
-    name      = "EvaluationTime"
-    value     = 7
-  }
-
 
   #for windows platfotm
   # setting {

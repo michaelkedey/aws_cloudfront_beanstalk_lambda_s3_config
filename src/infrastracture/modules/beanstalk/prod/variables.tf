@@ -213,3 +213,13 @@ variable "elb_subnet_ids" {
 variable "beanstalk_name" {
 
 }
+
+variable "max_batch_size"{
+  default = 50
+  type = number
+}
+
+variable "min_instance_in_service"{
+  default = 2
+  type = number
+}

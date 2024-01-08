@@ -41,8 +41,9 @@ module "upload_dot_net" {
 
 #6 create lambda_fn from s3 
 module "lambda" {
-  source         = "./modules/lambda"
-  vpc_subnet_ids = split(",", module.vpc.beanstalk_subnet_lists)
+  source               = "./modules/lambda"
+  lambda_function_name = "my_lambda"
+  vpc_subnet_ids       = split(",", module.vpc.beanstalk_subnet_lists)
   #event_source_arn = module.primary_bucket.bucket_arn
   s3_bucket_name     = module.bucket.bucket_name
   lambda_file        = "../../s3_uploads/auto_deploy_function.py.zip" #var.lambda_file_upload
@@ -50,8 +51,6 @@ module "lambda" {
   security_group_ids = [module.vpc.beanstalk_sg_id]
   eb_app_name        = module.dotnet_app.app_name
   eb_env_name        = module.beanstalk.environment_name
-  prefix             = var.prefix
-  suffix             = var.suffix
   #trigger_bucket_arn = module.bucket.bucket_arn
   s3_arn       = module.bucket.bucket_arn
   s3_bucket_id = module.bucket.bucket_id
@@ -88,6 +87,9 @@ module "beanstalk" {
 
 }
 
+
+# ########################################################################
+
 # #9 trigger lambda
 # module "trigger_lambda_via_upload" {
 #   source       = "./modules/bucket_uploads_file"
@@ -95,9 +97,6 @@ module "beanstalk" {
 #   s3_bucket_id = module.bucket.bucket_id
 #   key          = var.app_file_trigger_key
 # }
-
-
-# ########################################################################
 
 #9 create dotnet app version
 # module "dotnet_app_version" {

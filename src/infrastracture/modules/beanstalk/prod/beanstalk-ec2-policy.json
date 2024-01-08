@@ -40,6 +40,15 @@
       ]
     },
     {
+    "Action": [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ],
+    "Effect" : "Allow",
+    "Resource": ["arn:aws:logs:*:*:*"]
+    },
+    {
       "Sid" : "ElasticBeanstalkHealthAccess",
       "Action" : [
         "elasticbeanstalk:PutInstanceStatistics"
@@ -49,6 +58,26 @@
         "arn:aws:elasticbeanstalk:*:*:application/*",
         "arn:aws:elasticbeanstalk:*:*:environment/*"
       ]
-    }
+    },
+    {
+      "Action": [
+        "autoscaling:CompleteLifecycleAction",
+        "autoscaling:RecordLifecycleActionHeartbeat"
+      ],
+      "Effect" : "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "WaitConditionAccess",
+      "Effect": "Allow",
+      "Action": [
+          "cloudformation:CreateStack",
+          "cloudformation:DescribeStacks",
+          "cloudformation:SignalResource"
+      ],
+      "Resource": [
+          "arn:aws:cloudformation:*:*:stack/AWSEBInstanceLaunchWaitCondition/*"
+      ]
+  }
   ]
 }
