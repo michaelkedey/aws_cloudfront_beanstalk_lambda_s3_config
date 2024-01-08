@@ -237,6 +237,38 @@
             "arn:aws:cloudwatch:*:*:alarm:awseb-*",
             "arn:aws:cloudwatch:*:*:alarm:eb-*"
           ]
+        },
+        {
+          "Sid": "CloudFormationAccess",
+          "Action": [
+            "cloudformation:CreateStack",
+            "cloudformation:UpdateStack",
+            "cloudformation:DescribeStacks",
+            "cloudformation:DeleteStack",
+            "cloudformation:CreateChangeSet",
+            "cloudformation:ExecuteChangeSet",
+            "cloudformation:DescribeChangeSet",
+            "cloudformation:DeleteChangeSet"
+          ],
+          "Effect": "Allow",
+          "Resource": "*"
         }
       ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

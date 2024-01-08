@@ -51,7 +51,7 @@ variable "root_vol_size" {
 
 variable "beanstalk_env_name" {
   type = string
-
+  default = "deployment_env"
 }
 
 variable "instance_type" {

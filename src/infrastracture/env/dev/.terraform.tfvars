@@ -2,8 +2,8 @@
 bucket_name = "myoneandonly-dev-bucket"
 # bucket2_name = "appdev-versions"
 app_name = "dev-sample_app"
-max_instance = 2
-min_instance = 1
+max_instance = 4
+min_instance = 2
 root_vol_type = "gp2"
 root_vol_size = 30
 beanstalk_env_name = "my-dev-beanstalk10"

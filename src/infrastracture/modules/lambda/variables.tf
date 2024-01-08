@@ -69,7 +69,9 @@ variable "lambda_func_handler" {
   type    = string
 }
 
-variable "eb_env_name" {}
+variable "eb_env_name" {
+  
+}
 
 variable "s3_bucket_name" {
 

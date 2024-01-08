@@ -15,45 +15,32 @@
       "Action": [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:ListBucket"
-      ],
-      "Resource": [
-        "arn:aws:s3:::${var.s3_bucket_name}",
-        "arn:aws:s3:::${var.s3_bucket_name }/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject",
-        "s3:PutObjectAcl",
-        "s3:GetObject",
-        "s3:GetObjectAcl",
         "s3:ListBucket",
-        "s3:DeleteObject",
-        "s3:GetBucketPolicy",
-        "s3:CreateBucket"
+        "s3:HeadObject" 
       ],
-      "Resource": [
-        "arn:aws:s3:::elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}",
-        "arn:aws:s3:::elasticbeanstalk:us-east-1:${data.aws_caller_identity.current.account_id}/*"
-      ]
+      "Resource": "*" 
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+          "elasticbeanstalk:*",
+          "ec2:DeleteNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:CreateNetworkInterface"
+      ],
+        "Resource": "*"
     },
     {
       "Effect": "Allow",
       "Action": [
-        "elasticbeanstalk:CreateApplicationVersion",
-        "elasticbeanstalk:UpdateEnvironment",
-        "elasticbeanstalk:DescribeEnvironments",
-        "elasticbeanstalk:ListPlatformBranches",
-        "elasticbeanstalk:DescribeAccountAttributes",
-        "elasticbeanstalk:CreateStorageLocation",
-        "elasticbeanstalk:CheckDNSAvailability",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:CreateNetworkInterface"
+        "lambda:GetEnvironmentVariable"
       ],
-      "Resource": "*"
+      "Resource": "*"  
+    },
+    {
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"  
     }
   ]
 }

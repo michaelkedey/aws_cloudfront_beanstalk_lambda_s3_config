@@ -29,6 +29,12 @@ resource "aws_iam_role_policy_attachment" "lambda_execution_role_policy_attachme
   role       = aws_iam_role.lambda_execution_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "lerpa2" {
+  policy_arn = var.lambda_policy_arn
+  role       = aws_iam_role.lambda_execution_role.name
+}
+
+
 #lambda
 resource "aws_lambda_function" "bid_lambda_fn" {
   function_name = var.lambda_function_name
