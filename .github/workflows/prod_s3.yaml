@@ -1,14 +1,14 @@
-name: Update S3 Resources
+name: Copy to S3 production
 
 on:
-  push:
-    branches:
-      - s3_auto
-    # paths:
-    #   - 'src/s3_auto/s3_updates/**'
-
+  workflow_dispatch:
+    inputs:
+      approve:
+        description: 'Approve the Copy to S3 production'
+        required: true
+      
 jobs:
-  update_s3:
+  copy_to_s3:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,10 +18,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Update S3 Resources
-        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-dev-bucket/ --delete
-
+        run: aws s3 sync src/s3_auto_uploads s3://oneandonlyprettyprodbucket/ --delete

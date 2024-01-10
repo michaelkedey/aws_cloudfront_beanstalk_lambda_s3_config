@@ -1,0 +1,25 @@
+name: Copy to S3 staging
+
+on:
+  workflow_run:
+    workflows: ["Update S3 Resources"]
+    types:
+      - completed
+      
+jobs:
+  copy_to_s3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+          aws-region: us-east-1  # Replace with your AWS region
+
+      - name: Update S3 Resources
+        run: aws s3 sync src/s3_auto_uploads s3://myoneandonlystagingbucket/ --delete
