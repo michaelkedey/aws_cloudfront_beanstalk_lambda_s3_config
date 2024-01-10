@@ -1,12 +1,3 @@
-#placeholder
-#variable "app_version_name" {}
-
-# variable "lb_name" {}
-
-# variable "sgs" {
-
-# }
-
 variable "s3_logs_bucket_id" {
 
 }
@@ -52,10 +43,6 @@ variable "asg_trigger_max" {
   default = 90
 }
 
-# variable "application_name" {
-
-# }
-
 variable "root_volume_type" {
 
 }
@@ -63,9 +50,6 @@ variable "root_volume_type" {
 variable "root_volume_size" {
 
 }
-
-
-
 
 variable "beanstalk_policy_name" {
   default = "beanstalk_policy"
@@ -77,20 +61,6 @@ variable "beanstalk_role" {
   type    = string
 }
 
-# variable "settings_name" {
-#   default = {
-#     vpc         = "VPCId",
-#     sn          = "Subnets",
-#     iam_profile = "IamInstanceProfile",
-#     instance    = "InstanceType",
-#     asg_min     = "MinSize",
-#     asg_max     = "MaxSize",
-#     i_type      = "InstanceType",
-#     lb_type     = "LoadBalancerType",
-#     system      = "SystemType",
-#     lb_name     = "AWSEBLoadBalancer"
-#   }
-# }
 
 # variable "instance_type" {
 #   default = "t2_micro"
@@ -173,7 +143,7 @@ variable "env" {
 variable "stack" {
   default = {
     # linux   = "64bit Amazon Linux 2 v4.0.0 running ASP.NET Core 6.0",
-    linux    = "64bit Amazon Linux 2023 v3.0.2 running .NET 6", #.NET 6 running on 64bit Amazon Linux 2023
+    linux    = "64bit Amazon Linux 2023 v3.0.2 running .NET 6",
     windows  = "64bit Windows Server 2022 v2.14.0 running ASP.NET Core 6.0"
     windows2 = "64bit Windows Server 2019 v2.13.1 running IIS 10.0"
   }
@@ -214,12 +184,12 @@ variable "beanstalk_name" {
 
 }
 
-variable "max_batch_size"{
+variable "max_batch_size" {
   default = 50
-  type = number
+  type    = number
 }
 
-variable "min_instance_in_service"{
+variable "min_instance_in_service" {
   default = 2
-  type = number
+  type    = number
 }

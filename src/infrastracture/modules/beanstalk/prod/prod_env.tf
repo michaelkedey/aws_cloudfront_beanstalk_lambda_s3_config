@@ -54,6 +54,7 @@ resource "aws_iam_policy" "beanstalk-service-policy" {
 resource "aws_iam_role_policy_attachment" "beanstalk_ec2_policy_attachment" {
   role       = aws_iam_role.beanstalk_ec2_role.name
   policy_arn = aws_iam_policy.beanstalk_ec2_policy.arn
+  #policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "beanstalk_ec2_policy_attachment-2" {
@@ -61,17 +62,82 @@ resource "aws_iam_role_policy_attachment" "beanstalk_ec2_policy_attachment-2" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkCustomPlatformforEC2Role"
 }
 
+resource "aws_iam_role_policy_attachment" "beanstalk_ec2_policy_attachment-3" {
+  role = aws_iam_role.beanstalk_ec2_role.name
+  #policy_arn = aws_iam_policy.beanstalk_ec2_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
 resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement" {
   role       = aws_iam_role.beanstalk_service_role.name
   policy_arn = aws_iam_policy.beanstalk-service-policy.arn
 }
 
-
-
 resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_2" {
   role       = aws_iam_role.beanstalk_service_role.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess-AWSElasticBeanstalk"
 }
+
+resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_3" {
+  role       = aws_iam_role.beanstalk_service_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_3" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+# }
+
+# # resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_4" {
+# #   role       = aws_iam_role.beanstalk_service_role.name
+# #   policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AWSElasticBeanstalkServiceRolePolicy"
+# # }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_5" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkRoleSNS"
+# }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_6" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkRoleCWL"
+# }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_7" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkRoleCore"
+# }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_8" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkReadOnly"
+# }
+
+# # resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_9" {
+# #   role       = aws_iam_role.beanstalk_service_role.name
+# #   policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AWSElasticBeanstalkManagedUpdatesServiceRolePolicy"
+# # }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_10" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
+# }
+
+# # resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_11" {
+# #   role       = aws_iam_role.beanstalk_service_role.name
+# #   policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AWSElasticBeanstalkMaintenance"
+# # }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_12" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
+# }
+
+# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_13" {
+#   role       = aws_iam_role.beanstalk_service_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkCustomPlatformforEC2Role"
+# }
 
 
 # Instance Profile for EC2 Instances
@@ -227,28 +293,28 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   }
 
   #updates
-    setting {
+  setting {
     namespace = "aws:elasticbeanstalk:managedactions"
     name      = "ManagedActionsEnabled"
     value     = true
   }
 
-    setting {
+  setting {
     namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
     name      = "UpdateLevel"
     value     = "minor"
   }
 
-    setting {
+  setting {
     namespace = "aws:elasticbeanstalk:managedactions"
     name      = "PreferredStartTime"
-    value     = "Tue:09:00" 
+    value     = "Tue:09:00"
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:managedactions"
     name      = "ServiceRoleForManagedUpdates"
-    value     = "AWSServiceRoleForElasticBeanstalkManagedUpdates" 
+    value     = "AWSServiceRoleForElasticBeanstalkManagedUpdates"
   }
 
   setting {
@@ -257,7 +323,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = true
   }
 
-    setting {
+  setting {
     namespace = "aws:elasticbeanstalk:trafficsplitting"
     name      = "NewVersionPercent"
     value     = 50
@@ -269,7 +335,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = 4
   }
 
-    setting {
+  setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "DeploymentPolicy"
     value     = "TrafficSplitting"
@@ -286,19 +352,19 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "IgnoreHealthCheck"
     value     = true
   }
-    setting {
+  setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "MaxBatchSize"
     value     = var.max_batch_size
   }
 
-     setting {
+  setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "MinInstancesInService"
     value     = var.min_instance_in_service
   }
 
-     setting {
+  setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateEnabled"
     value     = true
@@ -520,9 +586,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "Protocol"
     value     = "HTTP"
   }
-#====================
-
-
 
   setting {
     namespace = "aws:elbv2:loadbalancer"

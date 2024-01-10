@@ -63,6 +63,15 @@ variable "ingress2" {
   }
 }
 
+variable "ingress3" {
+  default = {
+    from_port = 0
+    to_port   = 0
+    protocol  = -1
+
+  }
+}
+
 #http out
 variable "egress2" {
   default = {
@@ -81,6 +90,17 @@ variable "egress1" {
   }
 
 }
+
+variable "egress3" {
+  default = {
+    from_port = 0
+    to_port   = 0
+    protocol  = -1
+  }
+
+}
+
+
 
 variable "def_egress_cidr" {
   default     = ["0.0.0.0/0"]

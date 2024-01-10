@@ -68,16 +68,14 @@
       "Resource": "*"
     },
     {
-      "Sid": "WaitConditionAccess",
       "Effect": "Allow",
-      "Action": [
-          "cloudformation:CreateStack",
-          "cloudformation:DescribeStacks",
-          "cloudformation:SignalResource"
-      ],
-      "Resource": [
-          "arn:aws:cloudformation:*:*:stack/AWSEBInstanceLaunchWaitCondition/*"
-      ]
-  }
+      "Action": "cloudformation:*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"  
+    }
   ]
 }
