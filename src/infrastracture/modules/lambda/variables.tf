@@ -70,7 +70,7 @@ variable "lambda_func_handler" {
 }
 
 variable "eb_env_name" {
-  
+
 }
 
 variable "s3_bucket_name" {
