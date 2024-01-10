@@ -46,8 +46,8 @@ jobs:
         id: plan
         run: terraform plan -var-file="./env/dev/.terraform.tfvars"
 
-      - name: Terraform Apply
-        run: terraform apply -var-file="./env/dev/.terraform.tfvars" --auto-approve
+      # - name: Terraform Apply
+      #   run: terraform apply -var-file="./env/dev/.terraform.tfvars" --auto-approve
 
       # - name: Sleep for 2 minute
       #   run: sleep 120
