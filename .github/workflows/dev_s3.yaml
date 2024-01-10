@@ -1,4 +1,4 @@
-name: Update S3 Resources
+name: Dev s3 update
 
 on:
   push:

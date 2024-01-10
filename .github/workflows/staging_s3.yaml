@@ -2,7 +2,7 @@ name: Copy to S3 staging
 
 on:
   workflow_run:
-    workflows: ["Update S3 Resources"]
+    workflows: ["Dev s3 update"]
     types:
       - completed
       
