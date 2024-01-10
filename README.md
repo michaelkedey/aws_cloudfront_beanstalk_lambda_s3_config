@@ -13,25 +13,50 @@ This repository contains Terraform configurations to provision an AWS infrastruc
 
 ### Getting Started
 
-1. Clone this repository:
+1. Create a new working Directory and change into it:
 
    ```bash
-   git clone <repository_url>
+   mkdir <working_dir> && cd <working_dir>
+   ```
+
+2. Clone this repository:
+
+   ```bash
+   git clone <https://github.com/michaelkedey/aws_cloudfront_beanstalk_lambda_s3_config.git>
    cd <src/infrastracture>
    ```
 
-2. Initialize Terraform:
+3. Change into the project repo:
 
    ```bash
-   terraform init
+   cd <aws_cloudfront_beanstalk_lambda_s3_config/src/infrastracture>
    ```
 
-3. Review and customize the `terraform.tfvars` files inside the **src/infrastracture/env** with your specific configuration details.
+4. Run the format script to format all teraform files:
+
+   ```bash
+   ./format_validate_all.sh
+   ```
+
+5. Initialize Terraform:
+
+   ```bash
+   terraform init -var-file=<"./env/**/.terraform.tfvars"> -backend-config=<"./env/**/.backend.tfvars"
+   ```
+
+2. Plan Terraform:
+
+   ```bash
+   terraform plan -var-file=<"./env/**/.terraform.tfvars">
+
+   ```
+
+3. Review and customize the `terraform.tfvars` files inside the `**src/infrastracture/env**/` with your specific configuration details.
 
 4. Apply the Terraform configuration:
 
    ```bash
-   terraform apply
+   terraform apply -var-file=<"./env/**/.terraform.tfvars"> --auto-approve
    ```
 
    Follow the prompts to confirm the changes.
@@ -40,12 +65,13 @@ This repository contains Terraform configurations to provision an AWS infrastruc
 
 ### Elastic Beanstalk Environment
 
-- The Elastic Beanstalk environment is deployed in an existing VPC and subnets.
-- Configuration details can be found in the `elastic_beanstalk.tf` file.
+- The Elastic Beanstalk environment is deployed in an existing VPC and private subnets.
+- Configuration details can be found in the `prod_env.tf` file under `src/infrastracture/beanstalk/prod/`
 
 ### Lambda Function
 
-- The Lambda function automatically deploys applications to Elastic Beanstalk from an S3 bucket.
+- The Lambda function has an s3 even trigger which runs on s3 object creation,  automatically deploying application updates to Elastic Beanstalk from the S3 bucket.
+Lambda is configured 
 - Configuration details can be found in the `lambda_function.tf` file.
 
 ### Route 53
