@@ -87,6 +87,13 @@ module "beanstalk" {
 
 }
 
+#route 53
+# module "route53" {
+#   source = "../modules/route53"
+#   vpc_id = module.vpc.vpc_id
+#   beanstalk_elb_dns = module.beanstalk.c_name
+# }
+
 
 # ########################################################################
 
@@ -116,36 +123,36 @@ module "beanstalk" {
 # }
 
 
-# #11 deploy lb
-# # module "load_balancer" {
-# #   source = "./modules/loadbalancer"
-# #   vpc_id = module.vpc.vpc_id
-# #   subnet_for_lbs = [
-# #     module.vpc.sn_public1_id,
-# #     module.vpc.sn_public2_id
-# #   ]
-# #   lb_egress_cidrs = module.vpc.lb_out_cidrs
-# #   beanstalk_sg    = module.vpc.beanstalk_sg_id
-# #   #instance_ids    = module.beanstalk.instance_ids
-# #   #lb_egress_cidrs = split(",",module.vpc.lb_out_cidrs)
-# # }
+#11 deploy lb
+# module "load_balancer" {
+#   source = "./modules/loadbalancer"
+#   vpc_id = module.vpc.vpc_id
+#   subnet_for_lbs = [
+#     module.vpc.sn_public1_id,
+#     module.vpc.sn_public2_id
+#   ]
+#   lb_egress_cidrs = module.vpc.lb_out_cidrs
+#   beanstalk_sg    = module.vpc.beanstalk_sg_id
+#   #instance_ids    = module.beanstalk.instance_ids
+#   #lb_egress_cidrs = split(",",module.vpc.lb_out_cidrs)
+# }
 
 
-# #12create cloudfront distribution
-# # module "cf" {
-# #   source             = "./modules/cloudfront"
-# #   bucket_domain_name = module.primary_bucket.bucket_domain_name
-# #   cf_origin_id       = module.primary_bucket.bucket_name
-# # }
+#12create cloudfront distribution
+# module "cf" {
+#   source             = "./modules/cloudfront"
+#   bucket_domain_name = module.primary_bucket.bucket_domain_name
+#   cf_origin_id       = module.primary_bucket.bucket_name
+# }
 
 
-# #13 #create and attach cf bucket policy
-# # module "cf_s3_policy" {
-# #   source                      = "./modules/cf_bkt_policy"
-# #   bucket_id_to_attache_policy = module.primary_bucket.bucket_id
-# #   cloudfront_arn              = module.cf.cloudfront_arn
-# #   bucket_arn                  = module.primary_bucket.bucket_arn
-# # }
+#13 #create and attach cf bucket policy
+# module "cf_s3_policy" {
+#   source                      = "./modules/cf_bkt_policy"
+#   bucket_id_to_attache_policy = module.primary_bucket.bucket_id
+#   cloudfront_arn              = module.cf.cloudfront_arn
+#   bucket_arn                  = module.primary_bucket.bucket_arn
+# }
 
-###
+##
 

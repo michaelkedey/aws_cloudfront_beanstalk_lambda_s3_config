@@ -10,6 +10,8 @@ jobs:
   copy_to_s3:
     runs-on: ubuntu-latest
 
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -22,4 +24,4 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Update S3 Resources
-        run: aws s3 sync src/s3_auto_uploads s3://myoneandonlystagingbucket/ --delete
+        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-staging-bucket/ --delete
