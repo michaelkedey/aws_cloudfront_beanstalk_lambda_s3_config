@@ -18,7 +18,7 @@ resource "aws_iam_role" "lambda_execution_role" {
 }
 
 resource "aws_iam_policy" "lambda_execution_policy" {
-  name        = "lambda_execution_policy"
+  name        = "lambda_execution_policy-2"
   description = "Policy for Lambda execution role"
   policy      = file("${path.module}/lambda_execution_policy.json")
 

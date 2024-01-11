@@ -117,8 +117,9 @@ variable "lb_egress_cidrs" {
 
 }
 
+variable "idle_timeout" {
 
-variable "idle_timeout" {}
+}
 
 variable "health_check" {
   default = {

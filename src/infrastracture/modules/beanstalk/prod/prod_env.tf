@@ -1,6 +1,6 @@
 # IAM Role for EC2 Instances
 resource "aws_iam_role" "beanstalk_ec2_role" {
-  name = "beanstalk_ec2_role"
+  name = "beanstalk_ec2_role-2"
 
   assume_role_policy = jsonencode(
     {
@@ -21,7 +21,7 @@ resource "aws_iam_role" "beanstalk_ec2_role" {
 
 #iam role for beanstalk service role
 resource "aws_iam_role" "beanstalk_service_role" {
-  name = "beanstalk-service-role"
+  name = "beanstalk-service-role-2"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -40,13 +40,13 @@ resource "aws_iam_role" "beanstalk_service_role" {
 
 # IAM Policy for EC2 Instances
 resource "aws_iam_policy" "beanstalk_ec2_policy" {
-  name   = "beanstalk_ec2_policy"
+  name   = "beanstalk_ec2_policy-2"
   policy = file("${path.module}/beanstalk-ec2-policy.json")
 }
 
 #iam policy for beanstalk service role
 resource "aws_iam_policy" "beanstalk-service-policy" {
-  name   = "beanstalk_service_policy"
+  name   = "beanstalk_service_policy-2"
   policy = file("${path.module}/beanstalk-service-policy.json")
 }
 
@@ -84,62 +84,6 @@ resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_
 }
 
 
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_3" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
-# }
-
-# # resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_4" {
-# #   role       = aws_iam_role.beanstalk_service_role.name
-# #   policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AWSElasticBeanstalkServiceRolePolicy"
-# # }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_5" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkRoleSNS"
-# }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_6" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkRoleCWL"
-# }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_7" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkRoleCore"
-# }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_8" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkReadOnly"
-# }
-
-# # resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_9" {
-# #   role       = aws_iam_role.beanstalk_service_role.name
-# #   policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AWSElasticBeanstalkManagedUpdatesServiceRolePolicy"
-# # }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_10" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"
-# }
-
-# # resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_11" {
-# #   role       = aws_iam_role.beanstalk_service_role.name
-# #   policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AWSElasticBeanstalkMaintenance"
-# # }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_12" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
-# }
-
-# resource "aws_iam_role_policy_attachment" "beanstalk_service_policy_attachement_13" {
-#   role       = aws_iam_role.beanstalk_service_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkCustomPlatformforEC2Role"
-# }
-
-
 # Instance Profile for EC2 Instances
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "ec2_profile_namesss"
@@ -150,8 +94,8 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 # Beanstalk Environment
 resource "aws_elastic_beanstalk_environment" "prod" {
   name                = var.beanstalk_name
-  application         = var.application_name # Replace with your application name
-  solution_stack_name = var.stack["linux"]   # Suitable for .NET
+  application         = var.application_name
+  solution_stack_name = var.stack["linux"]   
   tier                = var.tier
 
   # Existing VPC, subnets
@@ -505,24 +449,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = "HTTP"
   }
 
-  # setting {
-  #   namespace = "aws:elbv2:listener:default"
-  #   name      = "Rules"
-  #   value     = <<EOF
-  #     [
-  #       {
-  #         "RuleArn": "${var.app_desc}",
-  #         "Priority": 1
-  #       },
-  #       {
-  #         "RuleArn": "arn:aws:elasticloadbalancing:us-east-1:123456789012:listener-rule/app/my-load-balancer/443/my-rule2/fedcba0987654321",
-  #         "Priority": 2
-  #       }
-  #     ]
-  #     EOF 
-
-  # }
-
 
   # setting {
   #   namespace = "aws:elbv2:listener:default"
@@ -551,12 +477,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = "default"
   }
 
-  # setting {
-  #   namespace = "aws:elbv2:listener:5204"
-  #   name      = "DefaultProcess"
-  #   value     = "default"
-  # }
-
   setting {
     namespace = "aws:elbv2:listener:80"
     name      = "ListenerEnabled"
@@ -568,12 +488,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "ListenerEnabled"
     value     = true
   }
-
-  # setting {
-  #   namespace = "aws:elbv2:listener:5204"
-  #   name      = "ListenerEnabled"
-  #   value     = true
-  # }
 
   setting {
     namespace = "aws:elbv2:listener:5000"
@@ -610,7 +524,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "AccessLogsS3Prefix"
     value     = "bid_env-"
   }
-
 
   setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
@@ -750,11 +663,11 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = 7
   }
 
-  setting {
-    namespace = "aws:elasticbeanstalk:environment:proxy"
-    name      = "ProxyServer"
-    value     = "nginx"
-  }
+  # setting {
+  #   namespace = "aws:elasticbeanstalk:environment:proxy"
+  #   name      = "ProxyServer"
+  #   value     = "nginx"
+  # }
 
   # setting {
   #   namespace = "aws:ec2:instances"
@@ -762,9 +675,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   #   value     = "arm64,x86_64"
   # }
 
-
   #Reference existing S3 version
   #version_label = var.app_version_name
-
 
 }

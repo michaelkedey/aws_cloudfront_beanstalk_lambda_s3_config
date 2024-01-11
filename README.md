@@ -130,3 +130,10 @@ Follow the prompts to confirm the destruction.
 
 Feel free to contribute to this project by opening issues or creating pull requests.
 
+## Contributors
+- [Doreen Dela Agbedoe](https://github.com/DelaDoreen)
+- [Konadu Owusu-Ansah](https://github.com/konaydu)
+- [Maurice Makafui](https://github.com/Maurice-Makafui)
+- [Kwasi Attafua](https://github.com/Kattafuah)
+- [Seyram Gabriel](https://github.com/seyramgabriel)
+- [Michael Kedey](https://github.com/michaelkedey)

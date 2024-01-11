@@ -2,9 +2,13 @@ variable "s3_logs_bucket_id" {
 
 }
 
-variable "instance_type" {}
+variable "instance_type" {
 
-variable "lambda_function_name" {}
+}
+
+variable "lambda_function_name" {
+
+}
 
 variable "vpc_id" {
 
@@ -77,13 +81,6 @@ variable "beanstalk_role" {
 #   type = number
 # }
 
-
-#placeholders for customization
-# variable "vpc_id" {
-#   description = "The VPC where Beanstalk should be launched."
-#   type        = string
-# }
-
 variable "subnet_ids" {
   description = "list of subnets where Beanstalk should be launched."
   #type = list(string)
@@ -153,10 +150,6 @@ variable "stack" {
 variable "tier" {
   default = "WebServer"
 
-}
-
-variable "env_name" {
-  default = "bidproject"
 }
 
 # variable "lb_arn" {

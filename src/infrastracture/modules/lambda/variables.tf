@@ -1,10 +1,10 @@
 variable "lambda_iam_role_name" {
-  default = "iam_role_for_lambda"
+  default = "iam_role_for_lambda-2"
 
 }
 
 variable "lambda_iam_role_policy_name" {
-  default = "iam_role_policy_for_lambda"
+  default = "iam_role_policy_for_lambda-2"
 }
 
 variable "lambda_policy_arn" {
