@@ -2,7 +2,7 @@ name: "Terraform_staging"
 
 on:
   workflow_run:
-    workflows: ["Terraform-dev"]
+    workflows: ["Terraform_dev"]
     types:
       - completed
 
