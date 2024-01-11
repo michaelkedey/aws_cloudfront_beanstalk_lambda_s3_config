@@ -1,4 +1,4 @@
-# AWS Infrastructure with Elastic Beanstalk, Lambda, Route 53 and, S3. 
+# Manulife AWS Infrastructure with Elastic Beanstalk, Lambda, Route 53 and S3. 
 
 ## Overview
 
