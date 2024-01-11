@@ -131,6 +131,7 @@ Follow the prompts to confirm the destruction.
 Feel free to contribute to this project by opening issues or creating pull requests.
 
 ## Contributors
+### Hadari Africa
 - [Doreen Dela Agbedoe](https://github.com/DelaDoreen)
 - [Konadu Owusu-Ansah](https://github.com/konaydu)
 - [Maurice Makafui](https://github.com/Maurice-Makafui)
