@@ -23,7 +23,6 @@ This repository contains Terraform configurations to provision AWS infrastructur
 
    ```bash
    git clone <https://github.com/michaelkedey/aws_cloudfront_beanstalk_lambda_s3_config.git>
-   cd <src/infrastracture>
    ```
 
 3. Change into the project repo:
@@ -38,16 +37,16 @@ This repository contains Terraform configurations to provision AWS infrastructur
    ./format_validate_all.sh
    ```
 
-5. Review and customize the variables in `terraform.tfvars` file inside the `**src/infrastracture/env**/` with your specific configuration details.
+5. Review and customize the variables in `.terraform.tfvars` file inside the **`src/infrastracture/env**/`** drectories, with your specific configuration details.
 
 
-6. Review and customize the backend in `backend.tfvars` file inside the `**src/infrastracture/env**/` with your specific configuration details.
+6. Review and customize the backend in `backend.tfvars` file inside the **`src/infrastracture/env**/`** directories, with your specific configuration details.
 
 
 7. Initialize Terraform:
 
    ```bash
-   terraform init -var-file=<./env/**/.terraform.tfvars> -backend-config=<./env/**/.backend.tfvars>
+   terraform init -var-file=<"./env/**/.terraform.tfvars"> -backend-config=<"./env/**/.backend.tfvars">
    ```
 
 8. Plan Terraform:
