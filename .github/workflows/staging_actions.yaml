@@ -47,5 +47,5 @@ jobs:
         id: plan
         run: terraform plan -var-file="./env/staging/.terraform.tfvars"
 
-      # - name: Terraform Apply
-      #   run: terraform apply -var-file="./env/staging/.terraform.tfvars" --auto-approve
+      - name: Terraform Apply
+        run: terraform apply -var-file="./env/staging/.terraform.tfvars" --auto-approve
