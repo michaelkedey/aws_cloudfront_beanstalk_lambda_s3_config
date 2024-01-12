@@ -107,6 +107,27 @@ However, depending on your use case, you can associate this load balancer with t
 - Route 53 is used for DNS management. With this configuration Route 53 creates an A record based on a registered domain name linked to the CNAME of the beanstalk.
 - Configuration details can be found in the `route.tf` file under `src/infrastracture/modules/route52/route.tf`.
 
+### This Infrastracture Includes
+- 1 vpc
+- 4 subnets
+- 11 ssm parameters
+- 1 security group
+- 2 route tables with 4 associations
+- 1 ngw
+- 1 igw
+- 1 eip
+- 2 s3 objects
+- 1 s3 bucket notification
+- 1 perm
+- 1 lambda function
+- 8 policy attachements
+- 4 role
+- 3 policy
+- 1 beanstalk app
+- 1 s3 bucket
+- 1 instance profile
+- 1 beanstalk environment 
+
 ## Usage
 
 ### CI/CD - Infrastructure Pipeline
