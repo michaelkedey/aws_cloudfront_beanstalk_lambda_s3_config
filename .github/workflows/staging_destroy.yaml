@@ -1,21 +1,19 @@
-name: "Terraform_staging"
+name: "staging_destroy"
 
 on:
-  workflow_run:
-    workflows: ["Terraform_dev"]
-    types:
-      - completed
+  workflow_dispatch:
+    inputs:
+      approve:
+        description: 'Approve the staging_destroy'
+        required: true
 
 jobs:
-  terraform_staging:
-    name: "Terraform_staging"
+  terraform_staging_destroy:
+    name: "staging_destroy"
     runs-on: ubuntu-latest
-
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
       AWS_REGION: us-east-1
 
     defaults:
@@ -41,11 +39,11 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -var-file="./env/staging/.terraform.tfvars" -backend-config="./env/staging/backend.tfvars"
+         run: terraform init -var-file="./env/staging/.terraform.tfvars" -backend-config="./env/staging/backend.tfvars"
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -var-file="./env/staging/.terraform.tfvars"
 
-      # - name: Terraform Apply
-      #   run: terraform apply -var-file="./env/staging/.terraform.tfvars" --auto-approve
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve -var-file="./env/staging/.terraform.tfvars"

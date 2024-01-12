@@ -1,11 +1,11 @@
-name: Dev s3 update
+name: Copy to S3 Dev
 
 on:
   push:
     branches:
       - s3_auto
-    # paths:
-    #   - 'src/s3_auto/s3_updates/**'
+    paths:
+      - 'src/s3_auto_uploads/**'
 
 jobs:
   update_s3:
@@ -23,5 +23,5 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Update S3 Resources
-        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-dev-bucket/ --delete
+        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-dev-bucket/ --delete # Change bucket name
 

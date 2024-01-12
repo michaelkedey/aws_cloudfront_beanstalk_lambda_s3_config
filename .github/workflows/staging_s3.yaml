@@ -2,7 +2,7 @@ name: Copy to S3 staging
 
 on:
   workflow_run:
-    workflows: ["Dev s3 update"]
+    workflows: ["Copy to S3 Dev"]
     types:
       - completed
       
@@ -24,4 +24,4 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Update S3 Resources
-        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-staging-bucket/ --delete
+        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-staging-bucket/ --delete # Change bucket name
