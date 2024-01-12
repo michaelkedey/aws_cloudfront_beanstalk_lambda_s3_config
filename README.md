@@ -4,6 +4,8 @@
 
 This repository contains Terraform configurations to provision an AWS infrastructure consisting of an Elastic Beanstalk environment, a Lambda function for automatic deployments, Route 53 for DNS management and an S3 bucket for object storage.
 
+It also contains 2 cicd pielines, one for code deployemnts in various stages such as dev, staging and prod, and the other for automatic s3 update and deletion.
+
 ## To run this infrustracture locally configure the prerequisit:
 
 ### Prerequisites
@@ -23,7 +25,6 @@ This repository contains Terraform configurations to provision an AWS infrastruc
 
    ```bash
    git clone <https://github.com/michaelkedey/aws_cloudfront_beanstalk_lambda_s3_config.git>
-   cd <src/infrastracture>
    ```
 
 3. Change into the project repo:
@@ -38,6 +39,8 @@ This repository contains Terraform configurations to provision an AWS infrastruc
    ./format_validate_all.sh
    ```
 
+3. Review and customize the `terraform.tfvars` files inside the `**src/infrastracture/env**/` with your specific configuration details. Also review and custumize the `backend.tf` file inside `**src/infrastracture/env**/`
+
 5. Initialize Terraform:
 
    ```bash
@@ -51,7 +54,7 @@ This repository contains Terraform configurations to provision an AWS infrastruc
 
    ```
 
-3. Review and customize the `terraform.tfvars` files inside the `**src/infrastracture/env**/` with your specific configuration details.
+
 
 4. Apply the Terraform configuration:
 
@@ -97,6 +100,14 @@ Follow the prompts to confirm the destruction.
 ## Notes
 
 - Make sure to review and update AWS credentials, region, and other sensitive information before committing to version control.
+
+## Contributors
+- [Doreen Dela Agbedoe](https://github.com/DelaDoreen)
+- [Konadu Owusu-Ansah](https://github.com/konaydu)
+- [Kwasi Attafua](https://github.com/Kattafuah)
+- [Seyram Gabriel](https://github.com/seyramgabriel)
+- [Michael Kedey](https://github.com/michaelkedey)
+
 
 ## Contributing
 
