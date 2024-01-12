@@ -49,5 +49,6 @@ jobs:
       - name: Delete s3 objects recursively
         run: aws s3 rm s3://myoneandonly-staging-bucket --recursive
       
+      
       - name: Terraform Destroy
         run: terraform destroy --auto-approve -var-file="./env/staging/.terraform.tfvars"

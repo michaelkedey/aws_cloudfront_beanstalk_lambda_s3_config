@@ -45,5 +45,10 @@ jobs:
         id: plan
         run: terraform plan -var-file="./env/prod/.terraform.tfvars"
 
+
+      - name: Delete s3 objects recursively
+        run: aws s3 rm s3://myoneandonly-prod-bucket --recursive
+
+
       - name: Terraform Destroy
         run: terraform destroy --auto-approve -var-file="./env/prod/.terraform.tfvars"
