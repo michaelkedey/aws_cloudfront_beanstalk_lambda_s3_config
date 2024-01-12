@@ -8,8 +8,8 @@ This repository contains Terraform configurations to provision AWS infrastructur
 
 ### Prerequisites
 
-- [Terraform](https://www.terraform.io/) installed locally
-- [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)configured with the necessary permissions
+- [Terraform](https://www.terraform.io/) installed locally.
+- [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) configured with the necessary permissions.
 
 ### Getting Started
 
