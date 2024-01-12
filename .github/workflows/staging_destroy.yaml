@@ -41,6 +41,7 @@ jobs:
         id: init
         run: terraform init -var-file="./env/staging/.terraform.tfvars" -backend-config="./env/staging/backend.tfvars"
 
+
       - name: Terraform Plan
         id: plan
         run: terraform plan -var-file="./env/staging/.terraform.tfvars"
