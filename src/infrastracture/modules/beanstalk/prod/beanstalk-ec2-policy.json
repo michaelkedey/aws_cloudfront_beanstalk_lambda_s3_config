@@ -71,11 +71,6 @@
       "Effect": "Allow",
       "Action": "cloudformation:*",
       "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "*",
-      "Resource": "*"  
     }
   ]
 }

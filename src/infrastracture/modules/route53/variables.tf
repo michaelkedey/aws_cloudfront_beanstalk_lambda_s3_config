@@ -3,7 +3,7 @@ variable "beanstalk_elb_dns" {
 }
 
 variable "record_name_domain" {
-  
+
 }
 
 variable "record_type" {

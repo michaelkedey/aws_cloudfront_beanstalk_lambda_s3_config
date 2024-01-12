@@ -26,7 +26,6 @@
           ]
         },
         {
-          "Sid" : "ElasticBeanstalkPermissions",
           "Effect" : "Allow",
           "Action" : [
             "elasticbeanstalk:*"
@@ -241,11 +240,6 @@
           ],
           "Effect": "Allow",
           "Resource": "*"
-        },
-        {
-          "Effect": "Allow",
-          "Action": "*",
-          "Resource": "*"  
         }
       ]
 }
