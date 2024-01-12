@@ -66,7 +66,7 @@ This repository contains Terraform configurations to provision AWS infrastructur
 
 ## Infrastructure Components
 
-![Infra-design architecture](Manulife_Auto_IaC_Design_Architecture.png)
+![Infra-Design Architecture](Manulife_Auto_IaC_Design_Architecture.png)
 
 ### VPC
 
@@ -160,7 +160,6 @@ Three `destroy` yaml files are contained in the .github/workflows directory. The
 Feel free to contribute to this project by opening issues or creating pull requests.
 
 ## Contributors
-### Hadari Africa
 - [Doreen Dela Agbedoe](https://github.com/DelaDoreen)
 - [Konadu Owusu-Ansah](https://github.com/konaydu)
 - [Maurice Makafui](https://github.com/Maurice-Makafui)
