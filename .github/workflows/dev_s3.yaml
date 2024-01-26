@@ -23,5 +23,5 @@ jobs:
           aws-region: us-east-1  # Replace with your AWS region
 
       - name: Update S3 Resources
-        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-dev-bucket/ --delete # Change bucket names
+        run: aws s3 sync src/s3_auto_uploads s3://myoneandonly-dev-bucket/ --delete # Change bucket namess
 
