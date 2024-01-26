@@ -95,7 +95,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 resource "aws_elastic_beanstalk_environment" "prod" {
   name                = var.beanstalk_name
   application         = var.application_name
-  solution_stack_name = var.stack["linux"]   
+  solution_stack_name = var.stack["linux"]
   tier                = var.tier
 
   # Existing VPC, subnets
