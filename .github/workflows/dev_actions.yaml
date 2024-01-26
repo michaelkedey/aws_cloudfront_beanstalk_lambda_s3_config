@@ -6,6 +6,12 @@ on:
       - main
     paths:
       - 'src/infrastructure/**'
+  workflow_dispatch:
+    inputs:
+      approve:
+        description: 'Approve the Terraform_dev'
+        required: true
+
 
 jobs:
   terraform:
