@@ -3,7 +3,7 @@ name: Copy to S3 Dev
 on:
   push:
     branches:
-      - s3_auto
+      - main 
     paths:
       - 'src/s3_auto_uploads/**'
 
