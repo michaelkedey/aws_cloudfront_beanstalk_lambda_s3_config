@@ -221,9 +221,4 @@ resource "aws_security_group" "beanstalk_sg" {
 
 }
 
-# Create VPC endpoint for Elastic Beanstalk 
-# resource "aws_vpc_endpoint" "beanstalk" {
-#   vpc_id       = aws_vpc.bid_vpc.id
-#   service_name = "com.amazonaws.us-east-1.elasticbeanstalk"
-# }
 

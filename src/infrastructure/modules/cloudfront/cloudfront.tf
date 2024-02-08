@@ -71,23 +71,6 @@ resource "aws_cloudfront_distribution" "bid_distribution" {
   #web_acl_id = aws_wafregional_web_acl.example.id
   #implement waf later
 
-  #uncomment when you have 2 or more origins and modify appropriately
-  # origin_group {
-  #   origin_id = var.cf_target_origin_id
-
-  #   member {
-  #     origin_id = var.cf_origin_id[0]
-  #   }
-
-  #   member {
-  #     origin_id = var.cf_origin_id[1]
-  #   }
-
-  #   failover_criteria {
-  #     status_codes = var.cf_failover_status_codes
-  #   }
-  # }
-
 
 }
 

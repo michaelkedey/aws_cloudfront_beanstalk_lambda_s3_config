@@ -65,32 +65,11 @@ variable "beanstalk_role" {
   type    = string
 }
 
-
-# variable "instance_type" {
-#   default = "t2_micro"
-#   type = string
-# }
-
-# variable "min_instances" {
-#   default = 2
-#   type = number
-# }
-
-# variable "max_instances" {
-#   default = 4
-#   type = number
-# }
-
 variable "subnet_ids" {
   description = "list of subnets where Beanstalk should be launched."
   #type = list(string)
 
 }
-
-# variable "instance_type" {
-#   description = "type of EC2 instances to launch in Beanstalk."
-#   type        = string
-# }
 
 variable "min_instances" {
   description = "minimum number of instances in the asg"
@@ -107,18 +86,6 @@ variable "stickiness_enabled" {
   type        = bool
   default     = false
 }
-
-# variable "custom_domain" {
-#   description = "Custom domain for the Elastic Beanstalk environment."
-# }
-
-# variable "ssl_certificate_arn" {
-#   description = "ARN of the SSL certificate for HTTPS."
-# }
-
-# variable "notification_email" {
-#   description = "Email address for environment event notifications."
-# }
 
 variable "app_desc" {
   type    = string
@@ -152,25 +119,13 @@ variable "tier" {
 
 }
 
-# variable "lb_arn" {
-
-# }
-
 variable "s3_logs_bucket_name" {
 
 }
 
-#place holders
-# variable "bucket" { type = string }
-# variable "key" { type = string }
-
 variable "elb_subnet_ids" {
 
 }
-
-# variable "http_target_group" {
-#   default = output.target_group_arn 
-# }
 
 
 variable "beanstalk_name" {

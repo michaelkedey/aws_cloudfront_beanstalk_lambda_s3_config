@@ -320,91 +320,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = true
   }
 
-  ####################################################################################
-  # #schedule autoscaling 
-  # setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "StartTime"
-  #     value     = var.value
-  #   }
-
-  #   setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "EndTime"
-  #     value     = var.value
-  #   }
-
-  #   setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "MaxSize"
-  #     value     = var.value
-  #   }
-
-  #   setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "MinSize"
-  #     value     = var.value
-  #   }
-
-  #   setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "DesiredCapacity"
-  #     value     = var.value
-  #   }
-
-  #   setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "Recurrence"
-  #     value     = var.value
-  #   }
-
-  #   setting {
-  #     namespace = "aws:autoscaling:scheduledaction"
-  #     name      = "Suspend"
-  #     value     = var.value
-  #   }
-
-
-  #use existing load balancer
-
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment"
-  #   name      = "ServiceRole"
-  #   value     = aws_iam_role.beanstalk_ec2_role.name
-  # }
-
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment"
-  #   name      = "EnvironmentType"
-  #   value     = "LoadBalanced"
-  # }
-
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment"
-  #   name      = "LoadBalancerType"
-  #   value     = var.lb_type
-  # }
-
-  # #lets the env know to expect an existing load balancer
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment"
-  #   name      = "LoadBalancerIsShared"
-  #   value     = true
-  # }
-
-  # #specifies to use existing lb
-  # setting {
-  #   namespace = "aws:elbv2:loadbalancer"
-  #   name      = "SharedLoadBalancer"
-  #   value     = var.lb_arn
-  # }
-
-  # setting {
-  #   namespace = "aws:elbv2:loadbalancer"
-  #   name      = "SecurityGroups"
-  #   value     = var.sgs
-  # }
-
+  
   setting {
     namespace = "aws:elasticbeanstalk:application"
     name      = "Application Healthcheck URL"
@@ -414,20 +330,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
   lifecycle {
     create_before_destroy = true
   }
-
-
-  #beanstalk managed lb conf
-  # setting {
-  #   namespace = "aws:elbv2:loadbalancer"
-  #   name = "ManagedSecurityGroup"
-  #   value = var.sgs
-  # }
-
-  # setting {
-  #   namespace = "aws:elb:listener"
-  #   name = "ListenerEnabled"
-  #   value = true
-  # }
 
   #load_balancer
 
@@ -448,20 +350,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "Protocol"
     value     = "HTTP"
   }
-
-
-  # setting {
-  #   namespace = "aws:elbv2:listener:default"
-  #   name      = "SSLCertificateArns"
-  #   value     = "ssl-arn"
-  # }
-
-  # setting {
-  #   namespace = "aws:elbv2:listener:default"
-  #   name      = "SSLPolicy"
-  #   value     = "ssl-policy"
-  # }
-
 
 
   setting {
@@ -662,18 +550,6 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     name      = "UnhealthyThresholdCount"
     value     = 7
   }
-
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:environment:proxy"
-  #   name      = "ProxyServer"
-  #   value     = "nginx"
-  # }
-
-  # setting {
-  #   namespace = "aws:ec2:instances"
-  #   name      = "SupportedArchitectures"
-  #   value     = "arm64,x86_64"
-  # }
 
   #Reference existing S3 version
   #version_label = var.app_version_name

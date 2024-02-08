@@ -19,7 +19,7 @@ module "zip_lambda" {
 
 #4 upload lambda function to bucket
 module "upload_lambda" {
-  source       = "./modules/bucket_uploads_file"
+  source       = "./modules/file_upload"
   file_path    = var.lambda_file_upload
   s3_bucket_id = module.bucket.bucket_id
   key          = var.lambda_key
@@ -27,7 +27,7 @@ module "upload_lambda" {
 
 #5 upload .net function to bucket
 module "upload_dot_net" {
-  source       = "./modules/bucket_uploads_file"
+  source       = "./modules/file_upload"
   file_path    = var.app_file_upload
   s3_bucket_id = module.bucket.bucket_id
   key          = var.app_key
