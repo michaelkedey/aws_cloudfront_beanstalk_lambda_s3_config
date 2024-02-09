@@ -320,7 +320,7 @@ resource "aws_elastic_beanstalk_environment" "prod" {
     value     = true
   }
 
-  
+
   setting {
     namespace = "aws:elasticbeanstalk:application"
     name      = "Application Healthcheck URL"

@@ -68,7 +68,7 @@ variable "lambda_file_upload" {
 }
 
 variable "app_file_upload" {
-  default = "./s3_uploads/LambdaWebApp2.zip"
+  default = "./s3_uploads/LambdaWebbApp2.zip"
   type    = string
 
 }
